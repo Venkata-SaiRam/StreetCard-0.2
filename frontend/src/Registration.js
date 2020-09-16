@@ -272,6 +272,9 @@ class RegistrationForm extends React.Component {
         NameType: 0,
         FirstNameRequired: false,
         LastNameRequired: false,
+        SSNRequired: false,
+        SSNType: 0,
+        DOBType: 0
     };
 
     constructor(props) {
@@ -521,6 +524,25 @@ class RegistrationForm extends React.Component {
         }
     }
 
+    validateSSNInformation(values) {
+        if (values[0] === 1) {
+            this.setState({SSNRequired: true, SSNType: 1})
+        } else if (values[0] === 2) {
+            this.setState({SSNRequired: true, SSNType: 2});
+        } else {
+            this.setState({SSNRequired: false, SSNType: 0});
+            this.props.form.resetFields();
+        }
+    }
+    validateDOB(values) {
+        if (values[0] === 1 || values[0] === 2) {
+            this.setState({DOBType: values[0]});
+        } else {
+            this.setState({DOBType: 0});
+        }
+    }
+
+
     render() {
         const {getFieldDecorator} = this.props.form;
         const formItemLayout = {
@@ -656,19 +678,6 @@ class RegistrationForm extends React.Component {
                                                 <Row gutter={8}>
                                                     <Col span={8} push={1}>
                                                         <Form.Item>
-                                                            {getFieldDecorator("SSN", {
-                                                                rules: [
-                                                                    {
-                                                                        required: false,
-                                                                        message: "Please input your SSN!",
-                                                                        whitespace: true
-                                                                    }
-                                                                ]
-                                                            })(<Input placeholder="SSN"/>)}
-                                                        </Form.Item>
-                                                    </Col>
-                                                    <Col span={8} push={1}>
-                                                        <Form.Item>
                                                             {getFieldDecorator("SSNDataQuality", {
                                                                 rules: [
                                                                     {
@@ -677,27 +686,42 @@ class RegistrationForm extends React.Component {
                                                                         message: "Please select Quality level of SSN Data!"
                                                                     }
                                                                 ]
-                                                            })(<Cascader options={SSNDataQuality}
-                                                                         placeholder="SSN Quality"/>)}
+                                                            })(<Cascader
+                                                                options={SSNDataQuality}
+                                                                placeholder="SSN Quality"
+                                                                onChange={this
+                                                                .validateSSNInformation
+                                                                .bind(this)}/>)}
                                                         </Form.Item>
                                                     </Col>
+
+                                                    <Col span={8} push={1}>
+                                                        <Form.Item>
+                                                            {getFieldDecorator("SSN", {
+                                                                rules: [
+                                                                    {
+                                                                        required: this.state.SSNRequired,
+                                                                        pattern: this.state.SSNType === 1
+                                                                            ? new RegExp(/^\d{9}$/)
+                                                                            : this.state.SSNType === 2
+                                                                                ? new RegExp(/^\d{4}$/)
+                                                                                : '',
+                                                                        message: this.state.SSNType === 1
+                                                                            ? "Full SSN must be 9 Digits"
+                                                                            : this.state.SSNType === 2
+                                                                                ? "Partial SSN must be 4 Digits"
+                                                                                : "",
+                                                                        whitespace: true
+                                                                    }
+                                                                ]
+                                                            })(<Input placeholder="SSN" disabled= { this.state.SSNType === 0 }/>)}
+                                                        </Form.Item>
+                                                    </Col>
+
                                                 </Row>
                                             </Panel>
                                             <Panel header="Date of Birth" key="3">
                                                 <Row gutter={8}>
-                                                    <Col span={8} push={1}>
-                                                        <Form.Item>
-                                                            {getFieldDecorator('DOB', {
-                                                                rules: [
-                                                                    {
-                                                                        type: "object",
-                                                                        required: false,
-                                                                        message: "Please input your DOB!"
-                                                                    }
-                                                                ]
-                                                            })(<DatePicker/>)}
-                                                        </Form.Item>
-                                                    </Col>
                                                     <Col span={8} push={1}>
                                                         <Form.Item>
                                                             {getFieldDecorator("DOBDataQuality", {
@@ -708,10 +732,28 @@ class RegistrationForm extends React.Component {
                                                                         message: "Please select Quality level of DOB Data!"
                                                                     }
                                                                 ]
-                                                            })(<Cascader options={DOBDataQuality}
-                                                                         placeholder="DOB Quality"/>)}
+                                                            })(<Cascader
+                                                                options={DOBDataQuality}
+                                                                placeholder="DOB Quality"
+                                                                onChange={this
+                                                                .validateDOB
+                                                                .bind(this)}/>)}
                                                         </Form.Item>
                                                     </Col>
+                                                    <Col span={8} push={1}>
+                                                        <Form.Item>
+                                                            {getFieldDecorator('DOB', {
+                                                                rules: [
+                                                                    {
+                                                                        type: "object",
+                                                                        required: this.state.DOBType === 1 || this.state.DOBType === 2,
+                                                                        message: "Please input your DOB!"
+                                                                    }
+                                                                ]
+                                                            })(<DatePicker disabled= { this.state.DOBType === 0 }/>)}
+                                                        </Form.Item>
+                                                    </Col>
+
                                                 </Row>
                                             </Panel>
                                             <Panel header="Contact Details" key="4">
