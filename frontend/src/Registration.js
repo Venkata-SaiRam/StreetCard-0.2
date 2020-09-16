@@ -274,6 +274,7 @@ class RegistrationForm extends React.Component {
         LastNameRequired: false,
         SSNRequired: false,
         SSNType: 0,
+        DOBType: 0
     };
 
     constructor(props) {
@@ -533,6 +534,13 @@ class RegistrationForm extends React.Component {
             this.props.form.resetFields();
         }
     }
+    validateDOB(values) {
+        if (values[0] === 1 || values[0] === 2) {
+            this.setState({DOBType: values[0]});
+        } else {
+            this.setState({DOBType: 0});
+        }
+    }
 
 
     render() {
@@ -716,19 +724,6 @@ class RegistrationForm extends React.Component {
                                                 <Row gutter={8}>
                                                     <Col span={8} push={1}>
                                                         <Form.Item>
-                                                            {getFieldDecorator('DOB', {
-                                                                rules: [
-                                                                    {
-                                                                        type: "object",
-                                                                        required: false,
-                                                                        message: "Please input your DOB!"
-                                                                    }
-                                                                ]
-                                                            })(<DatePicker/>)}
-                                                        </Form.Item>
-                                                    </Col>
-                                                    <Col span={8} push={1}>
-                                                        <Form.Item>
                                                             {getFieldDecorator("DOBDataQuality", {
                                                                 rules: [
                                                                     {
@@ -737,10 +732,28 @@ class RegistrationForm extends React.Component {
                                                                         message: "Please select Quality level of DOB Data!"
                                                                     }
                                                                 ]
-                                                            })(<Cascader options={DOBDataQuality}
-                                                                         placeholder="DOB Quality"/>)}
+                                                            })(<Cascader
+                                                                options={DOBDataQuality}
+                                                                placeholder="DOB Quality"
+                                                                onChange={this
+                                                                .validateDOB
+                                                                .bind(this)}/>)}
                                                         </Form.Item>
                                                     </Col>
+                                                    <Col span={8} push={1}>
+                                                        <Form.Item>
+                                                            {getFieldDecorator('DOB', {
+                                                                rules: [
+                                                                    {
+                                                                        type: "object",
+                                                                        required: this.state.DOBType === 1 || this.state.DOBType === 2,
+                                                                        message: "Please input your DOB!"
+                                                                    }
+                                                                ]
+                                                            })(<DatePicker disabled= { this.state.DOBType === 0 }/>)}
+                                                        </Form.Item>
+                                                    </Col>
+
                                                 </Row>
                                             </Panel>
                                             <Panel header="Contact Details" key="4">
