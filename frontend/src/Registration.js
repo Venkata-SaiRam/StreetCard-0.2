@@ -269,6 +269,9 @@ class RegistrationForm extends React.Component {
         autoCompleteResult: [],
         pageComponent: this.props.pageComponent,
         loginPageStatus: "LOGIN_HEADER",
+        NameType: 0,
+        FirstNameRequired: false,
+        LastNameRequired: false,
     };
 
     constructor(props) {
@@ -509,7 +512,13 @@ class RegistrationForm extends React.Component {
     }
 
     validateNameInformation(values) {
-        console.log(values);
+        if (values[0] === 1) {
+            this.setState({FirstNameRequired: true, LastNameRequired: true, NameType: 1});
+        } else if (values[0] === 2) {
+            this.setState({FirstNameRequired: true, LastNameRequired: false, NameType: 2});
+        } else {
+            this.setState({FirstNameRequired: false, LastNameRequired: false, NameType: 0});
+        }
     }
 
     render() {
@@ -567,7 +576,7 @@ class RegistrationForm extends React.Component {
                                                             {getFieldDecorator("NameSuffix", {
                                                                 rules: [
                                                                     {
-                                                                        required: this.state.NameSuffixRequired,
+                                                                        required: false,
                                                                         message: "Please input your Name Suffix!",
                                                                         whitespace: true
                                                                     }
