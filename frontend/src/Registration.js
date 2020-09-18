@@ -1430,6 +1430,40 @@ class RegistrationForm extends React.Component {
                                                 </Form.Item>
                                             </Col>
                                         </Row>
+                                        <Row gutter={36}>
+                                            <Col span={8}>
+                                                <Form.Item>
+                                                    {getFieldDecorator("PhoneNumberPrefix", {
+                                                        rules: [
+                                                            {
+                                                                required: true,
+                                                                message: "Please input your Phone Number Prefix!",
+                                                                whitespace: true
+                                                            }
+                                                        ]
+                                                    })(
+                                                        <Select placeholder="Area Code">
+                                                            <Option value="1">+1</Option>
+                                                            <Option value="91">+91</Option>
+                                                        </Select>
+                                                    )}
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={16}>
+                                                <Form.Item>
+                                                    {getFieldDecorator("PhoneNumber", {
+                                                        rules: [
+                                                            {
+                                                                required: true,
+                                                                message: "Phone Number must be 10 Digits!",
+                                                                whitespace: true,
+                                                                pattern: new RegExp(/^\d{10}$/)
+                                                            }
+                                                        ]
+                                                    })(<Input placeholder="Phone Number"/>)}
+                                                </Form.Item>
+                                            </Col>
+                                        </Row>
                                         <Row>
                                             <Col span={24}>
                                                 <Form.Item>
