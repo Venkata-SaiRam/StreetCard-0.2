@@ -418,6 +418,7 @@ class RegistrationForm extends React.Component {
                     socialWorker.clearanceLevel = values.clearanceLevel[0];
                     socialWorker.address = values.address;
                     socialWorker.serviceProvider = values.serviceProvider[0];
+                    socialWorker.phonenumber = values.PhoneNumberPrefix+" "+values.PhoneNumber;
 
                     registerRequestObject.socialWorker = socialWorker;
 
