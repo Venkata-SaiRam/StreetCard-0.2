@@ -763,7 +763,7 @@ class RegistrationForm extends React.Component {
                                                             {getFieldDecorator("PhoneNumberPrefix", {
                                                                 rules: [
                                                                     {
-                                                                        required: false,
+                                                                        required: true,
                                                                         message: "Please input your Phone Number Prefix!",
                                                                         whitespace: true
                                                                     }
@@ -772,7 +772,8 @@ class RegistrationForm extends React.Component {
                                                                 <Select placeholder="Area Code">
                                                                     <Option value="1">+1</Option>
                                                                     <Option value="91">+91</Option>
-                                                                </Select>)}
+                                                                </Select>
+                                                            )}
                                                         </Form.Item>
                                                     </Col>
                                                     <Col span={8} push={1}>
@@ -780,9 +781,10 @@ class RegistrationForm extends React.Component {
                                                             {getFieldDecorator("PhoneNumber", {
                                                                 rules: [
                                                                     {
-                                                                        required: false,
-                                                                        message: "Please input your Phone Number!",
-                                                                        whitespace: true
+                                                                        required: true,
+                                                                        message: "Phone Number must be 10 Digits!",
+                                                                        whitespace: true,
+                                                                        pattern: new RegExp(/^\d{10}$/)
                                                                     }
                                                                 ]
                                                             })(<Input placeholder="Phone Number"/>)}
@@ -795,16 +797,16 @@ class RegistrationForm extends React.Component {
                                                                     {
                                                                         type: "email",
                                                                         message: "The input is not valid E-mail!"
-                                                                    },
-                                                                    {
-                                                                        required: false,
+                                                                    }, {
+                                                                        required: true,
                                                                         message: "Please input your E-mail!"
                                                                     }
                                                                 ]
-                                                            })(<Input
-                                                                prefix={<Icon type="mail"
-                                                                              style={{color: 'rgba(0,0,0,.25)'}}/>}
-                                                                placeholder="E-mail"/>)}
+                                                            })(
+                                                                <Input
+                                                                    prefix={< Icon type = "mail" style = {{color: 'rgba(0,0,0,.25)'}}/>}
+                                                                    placeholder="E-mail"/>
+                                                            )}
                                                         </Form.Item>
                                                     </Col>
                                                 </Row>
