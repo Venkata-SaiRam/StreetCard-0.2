@@ -418,6 +418,7 @@ class RegistrationForm extends React.Component {
                     socialWorker.clearanceLevel = values.clearanceLevel[0];
                     socialWorker.address = values.address;
                     socialWorker.serviceProvider = values.serviceProvider[0];
+                    socialWorker.phonenumber = values.PhoneNumberPrefix+" "+values.PhoneNumber;
 
                     registerRequestObject.socialWorker = socialWorker;
 
@@ -1427,6 +1428,40 @@ class RegistrationForm extends React.Component {
                                                             }
                                                         ]
                                                     })(<Cascader options={clearanceLevel} placeholder="Clearence Level"/>)}
+                                                </Form.Item>
+                                            </Col>
+                                        </Row>
+                                        <Row gutter={36}>
+                                            <Col span={8}>
+                                                <Form.Item>
+                                                    {getFieldDecorator("PhoneNumberPrefix", {
+                                                        rules: [
+                                                            {
+                                                                required: true,
+                                                                message: "Please input your Phone Number Prefix!",
+                                                                whitespace: true
+                                                            }
+                                                        ]
+                                                    })(
+                                                        <Select placeholder="Area Code">
+                                                            <Option value="1">+1</Option>
+                                                            <Option value="91">+91</Option>
+                                                        </Select>
+                                                    )}
+                                                </Form.Item>
+                                            </Col>
+                                            <Col span={16}>
+                                                <Form.Item>
+                                                    {getFieldDecorator("PhoneNumber", {
+                                                        rules: [
+                                                            {
+                                                                required: true,
+                                                                message: "Phone Number must be 10 Digits!",
+                                                                whitespace: true,
+                                                                pattern: new RegExp(/^\d{10}$/)
+                                                            }
+                                                        ]
+                                                    })(<Input placeholder="Phone Number"/>)}
                                                 </Form.Item>
                                             </Col>
                                         </Row>
