@@ -1270,6 +1270,50 @@ class RegistrationForm extends React.Component {
                                                 Continue
                                             </Button>
                                         </Form.Item>
+                                        <Panel header="Demographic Details" key="5" style={{visibility:'none'}}>
+                                                <Row gutter={8}>
+                                                    <Col span={8} push={1}>
+                                                        <Form.Item>
+                                                            {getFieldDecorator("Race", {
+                                                                rules: [
+                                                                    {
+                                                                        type: "array",
+                                                                        required: true,
+                                                                        message: "Please select your Race!"
+                                                                    }
+                                                                ]
+                                                            })(<Cascader options={Race} placeholder="Race"/>)}
+                                                        </Form.Item>
+                                                    </Col>
+                                                    <Col span={8} push={1}>
+                                                        <Form.Item>
+                                                            {getFieldDecorator("Ethnicity", {
+                                                                rules: [
+                                                                    {
+                                                                        type: "array",
+                                                                        required: true,
+                                                                        message: "Please select your Ethnicity!"
+                                                                    }
+                                                                ]
+                                                            })(<Cascader options={Ethnicity} placeholder="Ethnicity"/>)}
+                                                        </Form.Item>
+                                                    </Col>
+
+                                                    <Col span={8} push={1}>
+                                                        <Form.Item>
+                                                            {getFieldDecorator("Gender", {
+                                                                rules: [
+                                                                    {
+                                                                        type: "array",
+                                                                        required: true,
+                                                                        message: "Please select your Gender!"
+                                                                    }
+                                                                ]
+                                                            })(<Cascader options={Gender} placeholder="Gender"/>)}
+                                                        </Form.Item>
+                                                    </Col>
+                                                </Row>
+                                            </Panel>
                                     </Form>
                                 </div>
                             </Content>
