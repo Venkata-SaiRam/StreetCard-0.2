@@ -253,6 +253,7 @@ class SocialWorker(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     clearanceLevel = models.TextField(choices=ClearanceLevel.choices)
     address = models.CharField(max_length=500)
+	phonenumber = models.CharField(max_length=20)
     serviceProvider = models.TextField(choices=ServiceProvider.choices)
 
 
