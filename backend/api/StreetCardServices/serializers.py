@@ -3,12 +3,10 @@ from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment, DisablingCondition, \
-    DomesticViolence, HealthInsurance, W1ServicesProvidedHOPWA, FinancialAssistanceHOPWA, MedicalAssistanceHOPWA, \
-    TCellCD4AndViralLoadHOPWA, HousingAssessmentAtExitHOPWA, Homeless, CurrentLivingSituation, DateOfEngagement, \
-    BedNightDate, CoordinatedEntryAssessment, CoordinatedEntryEvent, SexualOrientation, UserNameAndIdMapping, Log, \
+    DomesticViolence, HealthInsurance, UserNameAndIdMapping, Log, \
     VeteranInformation, ServicesProvidedSSVF, FinancialAssistanceSSVF, PercentOfAMI, LastPermanentAddress, \
     SSVFHPTargetingCriteria, HUDVASHVoucherTracking, HUDVASHExitInformation, ConnectionWithSOAR, LastGradeCompleted, \
-    EmploymentStatus, Appointments, TransactionDetails, Product, Transactions
+    EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -97,7 +95,10 @@ class UserSerializer(ModelSerializer):
             user.is_staff = True
             user.is_superuser = True
         user.save()
+
         SocialWorker.objects.create(user=user, **profile_data)
+        print("Before social save");
+
         UserNameAndIdMapping.objects.create(user_id=user.id, user_name=user.username)
         user.groups.add(group)
         return user
@@ -182,70 +183,6 @@ class AppointmentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class W1ServicesProvidedHOPWASerializer(serializers.ModelSerializer):
-    class Meta:
-        model = W1ServicesProvidedHOPWA
-        fields = '__all__'
-
-
-class FinancialAssistanceHOPWASerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FinancialAssistanceHOPWA
-        fields = '__all__'
-
-
-class MedicalAssistanceHOPWASerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MedicalAssistanceHOPWA
-        fields = '__all__'
-
-
-class TCellCD4AndViralLoadHOPWASerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TCellCD4AndViralLoadHOPWA
-        fields = '__all__'
-
-
-class HousingAssessmentAtExitHOPWASerializer(serializers.ModelSerializer):
-    class Meta:
-        model = HousingAssessmentAtExitHOPWA
-        fields = '__all__'
-
-
-class CurrentLivingSituationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CurrentLivingSituation
-        fields = '__all__'
-
-
-class DateOfEngagementSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DateOfEngagement
-        fields = '__all__'
-
-
-class BedNightDateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BedNightDate
-        fields = '__all__'
-
-
-class CoordinatedEntryAssessmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CoordinatedEntryAssessment
-        fields = '__all__'
-
-
-class CoordinatedEntryEventSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CoordinatedEntryEvent
-        fields = '__all__'
-
-
-class SexualOrientationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SexualOrientation
-        fields = '__all__'
 
 
 class VeteranInformationSerializer(serializers.ModelSerializer):
@@ -320,17 +257,6 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     disabling_condition = DisablingConditionSerializer(required=False)
     domestic_violence = DomesticViolenceSerializer(required=False)
     health_insurance = HealthInsuranceSerializer(required=False)
-    w1ServicesProvidedHOPWA = W1ServicesProvidedHOPWASerializer(required=False)
-    financialAssistanceHOPWA = FinancialAssistanceHOPWASerializer(required=False)
-    medicalAssistanceHOPWA = MedicalAssistanceHOPWASerializer(required=False)
-    tCellCD4AndViralLoadHOPWA = TCellCD4AndViralLoadHOPWASerializer(required=False)
-    housingAssessmentAtExitHOPWA = HousingAssessmentAtExitHOPWASerializer(required=False)
-    current_living_situation = CurrentLivingSituationSerializer(required=False)
-    date_of_engagement = DateOfEngagementSerializer(required=False)
-    bed_night_date = BedNightDateSerializer(required=False)
-    coordinated_entry_assessment = CoordinatedEntryAssessmentSerializer(required=False)
-    coordinated_entry_event = CoordinatedEntryEventSerializer(required=False)
-    sexual_orientation = SexualOrientationSerializer(required=False)
     veteran_Information = VeteranInformationSerializer(required=False)
     services_Provided_SSVF = ServicesProvidedSSVFSerializer(required=False)
     financial_Assistance_SSVF = FinancialAssistanceSSVFSerializer(required=False)
