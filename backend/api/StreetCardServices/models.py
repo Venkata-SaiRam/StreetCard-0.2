@@ -251,7 +251,7 @@ class SocialWorker(models.Model):
         ADMIN = "admin", _("Admin")
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-	#phonenumber = models.CharField(max_length=20)
+    phonenumber = models.CharField(max_length=15)
     clearanceLevel = models.TextField(choices=ClearanceLevel.choices)
     address = models.CharField(max_length=500)
     serviceProvider = models.TextField(choices=ServiceProvider.choices)
