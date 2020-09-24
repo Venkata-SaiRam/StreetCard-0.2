@@ -386,9 +386,9 @@ class NonCashBenefits(models.Model):
     OtherTANF = models.IntegerField(choices=YesNoResponse.choices)
     OtherSource = models.IntegerField(choices=YesNoResponse.choices)
     SpecifySource = models.CharField(max_length=50)
-    RentalAssistanceOngoing = models.IntegerField(null=True)
-    RentalAssistanceTemp = models.IntegerField(null=True)
-    DataCollectionStage = models.IntegerField(null=True)
+    # RentalAssistanceOngoing = models.IntegerField(null=True)
+    # RentalAssistanceTemp = models.IntegerField(null=True)
+    # DataCollectionStage = models.IntegerField(null=True)
 
 
 class DomesticViolence(models.Model):
@@ -467,7 +467,7 @@ class IncomeAndSources(models.Model):
     OtherIncomeSources = models.IntegerField(choices=YesNoResponse.choices)
     OtherIncomeSourcesAmount = models.IntegerField(null=True)
     OtherIncomeSourcesIdentify = models.TextField(max_length=50, blank=True, null=True)
-    TotalMonthlyIncome = models.IntegerField(default=0)
+    # TotalMonthlyIncome = models.IntegerField(default=0)
 
 # VETERAN PROJECT MODELS
 
@@ -817,7 +817,7 @@ class EmploymentStatus(models.Model):
         PART_TIME = 2, _('Part-time')
 
     class WhyNotEmployedCategory(models.IntegerChoices):
-        LOOKING_FOR_WORK = 1, _(' WhyNotEmployedCategory')
+        LOOKING_FOR_WORK = 1, _('Looking for Work')
         UNABLE_TO_WORK = 2, _('Unable to work')
         NOT_LOOKING_FOR_WORK = 3, _('Not looking for work')
 
