@@ -1192,7 +1192,7 @@ class HomelessPreventionHUD extends Component {
                             <Col span={8}>
                                 <Form.Item
                                     label="Medicare"
-                                >{getFieldDecorator("Medicare", {
+                                >{getFieldDecorator("medicare", {
                                     rules: [
                                         {
                                             message: {message},
@@ -1200,7 +1200,7 @@ class HomelessPreventionHUD extends Component {
                                         }
                                     ]
                                 })(<Cascader
-                                        placeholder="Medicaid"
+                                        placeholder="Medicare"
                                         options={YesNoResponse}
                                     ></Cascader>
                                 )}
@@ -1209,7 +1209,7 @@ class HomelessPreventionHUD extends Component {
                             <Col span={8}>
                                 <Form.Item
                                     label="SCHIP"
-                                >{getFieldDecorator("SCHIP", {
+                                >{getFieldDecorator("schip", {
                                     rules: [
                                         {
                                             message: {message},

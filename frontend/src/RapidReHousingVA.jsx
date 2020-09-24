@@ -749,7 +749,6 @@ class RapidReHousingVA extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            type: "integer",
                                             required: false
                                         }
                                     ]
@@ -1444,7 +1443,7 @@ class RapidReHousingVA extends Component {
                             <Col span={8}>
                                 <Form.Item
                                     label="Medicare"
-                                >{getFieldDecorator("Medicare", {
+                                >{getFieldDecorator("medicare", {
                                     rules: [
                                         {
                                             message: {message},
@@ -1452,7 +1451,7 @@ class RapidReHousingVA extends Component {
                                         }
                                     ]
                                 })(<Cascader
-                                        placeholder="Medicaid"
+                                        placeholder="Medicare"
                                         options={YesNoResponse}
                                     ></Cascader>
                                 )}
@@ -1461,7 +1460,7 @@ class RapidReHousingVA extends Component {
                             <Col span={8}>
                                 <Form.Item
                                     label="SCHIP"
-                                >{getFieldDecorator("SCHIP", {
+                                >{getFieldDecorator("schip", {
                                     rules: [
                                         {
                                             message: {message},
