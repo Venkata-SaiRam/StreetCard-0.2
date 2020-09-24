@@ -97,12 +97,8 @@ const SubstanceAbuseCategory = [
     }];
 const InsuranceReasonCategory = [
     {
-        value: 0,
-        label: "Applied;decision pending"
-    },
-    {
         value: 1,
-        label: "Applied;client not eligible"
+        label: "Applied;decision pending"
     },
     {
         value: 2,
@@ -656,7 +652,6 @@ class HomelessPreventionHUD extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            type: "integer",
                                             required: false
                                         }
                                     ]
