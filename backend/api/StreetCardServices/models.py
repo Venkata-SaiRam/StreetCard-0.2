@@ -354,8 +354,7 @@ class HealthInsurance(models.Model):
         CLIENT_REFUSED = 9, _('Client Refused')
         DATA_NOT_COLLECTED = 99, _('Data Not Collected')
 
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE, related_name='HealthInsurance_EnrollmentID',
-                                     default=None)
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE, related_name='HealthInsurance_EnrollmentID', default=None)
     InformationDate = models.DateField()
     CoveredByHealthInsurance = models.IntegerField(choices=ResponseCategory.choices)
     Medicaid = models.IntegerField(choices=YesNoResponse.choices)
@@ -397,7 +396,7 @@ class DomesticViolence(models.Model):
     This class is for domestic violence victim information
     """
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='DomesticViolence_EnrollmentID')
+                                     related_name='DomesticViolence_EnrollmentID',default=None)
     InformationDate = models.DateField()
     DomesticViolenceVictim = models.IntegerField(choices=YesNoResponse.choices)
     WhenOccurred = models.IntegerField(choices=DomesticViolenceOccurrence.choices)
@@ -409,7 +408,7 @@ class DisablingCondition(models.Model):
     This class is for client disability condition
     """
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='DisablingCondition_EnrollmentID')
+                                     related_name='DisablingCondition_EnrollmentID',default=None)
     InformationDate = models.DateField()
     physical_disability = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
     physical_disability_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
