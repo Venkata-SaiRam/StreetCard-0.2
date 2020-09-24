@@ -97,12 +97,8 @@ const SubstanceAbuseCategory = [
     }];
 const InsuranceReasonCategory = [
     {
-        value: 0,
-        label: "Applied;decision pending"
-    },
-    {
         value: 1,
-        label: "Applied;client not eligible"
+        label: "Applied;decision pending"
     },
     {
         value: 2,
@@ -213,7 +209,7 @@ const InsuranceReasonCategory = [
     const WhyNotEmployedCategory = [
         {
             value: 1,
-            label: "WhyNotEmployedCategory"
+            label: "Looking for work"
         },
         {
             value: 2,
@@ -254,7 +250,7 @@ const InsuranceReasonCategory = [
         },
         {
             value: 8,
-            label: "Returning Homey"
+            label: "Returning Home"
         },
         {
             value: 9,
