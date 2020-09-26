@@ -857,3 +857,8 @@ class W1ServicesProvidedHOPWA(models.Model):
                                      related_name='W1ServicesProvidedHOPWA_EnrollmentID',
                                      default=None)
 
+class TCellCD4AndViralLoadHOPWA(models.Model):
+    """
+    This class is for financial assistance HOPWA
+    """
+    IfYesTCellCount = models.IntegerField(validators=[MaxValueValidator(1500), MinValueValidator(0)])
