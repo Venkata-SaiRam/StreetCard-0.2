@@ -410,9 +410,6 @@ class DisablingCondition(models.Model):
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='DisablingCondition_EnrollmentID',default=None)
     InformationDate = models.DateField()
-    physical_disability = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
-    physical_disability_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
-                                                        default=None)
     developmental_disability = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
     developmental_disability_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
                                                              default=None)
@@ -426,6 +423,9 @@ class DisablingCondition(models.Model):
     substance_abuse = models.IntegerField(choices=SubstanceAbuseCategory.choices, null=True, default=None)
     substance_abuse_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
                                                     default=None)
+    physical_disability = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
+    physical_disability_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
+                                                        default=None)
 
 
 class IncomeAndSources(models.Model):
