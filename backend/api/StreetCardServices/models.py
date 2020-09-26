@@ -828,11 +828,32 @@ class EmploymentStatus(models.Model):
     TypeOfEmployment = models.IntegerField(choices=TypeOfEmploymentCategory.choices)
     WhyNotEmployed = models.IntegerField(choices=WhyNotEmployedCategory.choices)
 
-# HOPWA Specific Project Elements
+
 
 class W1ServicesProvidedHOPWA(models.Model):
+
     """
-    This class is for HOPWA information
+    This class is for HOPWA  Services information
     """
+    class HOPWAServiceType(models.IntegerChoices):
+        ADULT_DAYCARE_AND_PERSONAL_ASSISTANCE = 1, _('Adult day care and personal assistance')
+        CASE_MANAGEMENT = 2, _('Case management')
+        CHILDCARE = 3, _('Child care')
+        CRIMINAL_JUSTICE_LEGAL_SERVICES = 4, _('Criminal justice/legal services')
+        EDUCATION = 5, _('Education')
+        EMPLOYMENT_AND_TRAINING_SERVICES = 6, _('Employment and training services')
+        FOOD_MEALS_NUTRITIONAL_SERVICES = 7, _('Food/meals/nutritional services')
+        HEALTH_MEDICAL_CARE = 8, _('Health/medical care')
+        LIFE_SKILLS_TRAINING = 9, _('Life skills training')
+        MENTAL_HEALTH_CARE_COUNSELING = 10, _('Mental health care/counseling')
+        OUTREACH_AND_OR_ENGAGEMENT = 11, _('Outreach and/or engagement')
+        SUBSTANCE_ABUSE_SERVICES_TREATMENT = 12, _('Substance abuse services/treatment')
+        TRANSPORTATION = 13, _('Transportation')
+        OTHER_HOPWA_FUNDED_SERVICE = 14, _('Other HOPWA funded service')
+
     DateOfService = models.DateField()
+    TypeOfService = models.IntegerField(choices=HOPWAServiceType.choices)
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='W1ServicesProvidedHOPWA_EnrollmentID',
+                                     default=None)
 
