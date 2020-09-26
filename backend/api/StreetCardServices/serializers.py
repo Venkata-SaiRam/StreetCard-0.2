@@ -6,7 +6,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     DomesticViolence, HealthInsurance, UserNameAndIdMapping, Log, \
     VeteranInformation, ServicesProvidedSSVF, FinancialAssistanceSSVF, PercentOfAMI, LastPermanentAddress, \
     SSVFHPTargetingCriteria, HUDVASHVoucherTracking, HUDVASHExitInformation, ConnectionWithSOAR, LastGradeCompleted, \
-    EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless
+    EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -34,6 +34,10 @@ class HomelessSerializer(ModelSerializer):
         model = Homeless
         fields = '__all__'
 
+class W1ServicesProvidedHOPWASerializer(serializers.ModelSerializer):
+    class Meta:
+        model = W1ServicesProvidedHOPWA
+        fields = '__all__'
 
 class TransactionDetailSerializer(ModelSerializer):
     class Meta:
@@ -268,6 +272,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     connection_With_SOAR = ConnectionWithSOARSerializer(required=False)
     last_Grade_Completed = LastGradeCompletedSerializer(required=False)
     employment_Status = EmploymentStatusSerializer(required=False)
+    w1ServicesProvidedHOPWA = W1ServicesProvidedHOPWASerializer(required=False)
 
     class Meta:
         model = Enrollment
@@ -275,7 +280,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'non_cash_benefits', 'disabling_condition', 'domestic_violence', 'health_insurance',
                   'veteran_Information', 'services_Provided_SSVF', 'financial_Assistance_SSVF',
                   'percent_Of_AMI', 'last_Permanent_Address', 'sSVFHP_Targeting_Criteria', 'hUD_VASH_Voucher_Tracking',
-                  'hUD_VASH_Exit_Information', 'connection_With_SOAR', 'last_Grade_Completed', 'employment_Status']
+                  'hUD_VASH_Exit_Information', 'connection_With_SOAR', 'last_Grade_Completed', 'employment_Status','w1ServicesProvidedHOPWA']
 
     def create(self, validated_data):
 
@@ -295,6 +300,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         connection_with_soar_data = check_and_assign('connection_With_SOAR', validated_data)
         last_grade_completed_data = check_and_assign('last_Grade_Completed', validated_data)
         employment_status_data = check_and_assign('employment_Status', validated_data)
+        w1_services_provided_hopwa_data = check_and_assign('w1ServicesProvidedHOPWA', validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -339,6 +345,9 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if employment_status_data is not None:
             EmploymentStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,
                                             **employment_status_data)
+        if w1_services_provided_hopwa_data is not None:
+            W1ServicesProvidedHOPWA.objects.create(EnrollmentID_id=enroll.EnrollmentID,
+                                                   **w1_services_provided_hopwa_data)
         return enroll
 
     # TODO:
@@ -413,5 +422,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if EmploymentStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['employment_Status'] = EmploymentStatusSerializer(
                 EmploymentStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if W1ServicesProvidedHOPWA.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['w1_services_provided_hopwa'] = W1ServicesProvidedHOPWASerializer(
+                W1ServicesProvidedHOPWA.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
 
         return response
