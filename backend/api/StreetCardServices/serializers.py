@@ -6,7 +6,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     DomesticViolence, HealthInsurance, UserNameAndIdMapping, Log, \
     VeteranInformation, ServicesProvidedSSVF, FinancialAssistanceSSVF, PercentOfAMI, LastPermanentAddress, \
     SSVFHPTargetingCriteria, HUDVASHVoucherTracking, HUDVASHExitInformation, ConnectionWithSOAR, LastGradeCompleted, \
-    EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA
+    EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, TCellCD4AndViralLoadHOPWA
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -42,6 +42,11 @@ class W1ServicesProvidedHOPWASerializer(serializers.ModelSerializer):
 class TransactionDetailSerializer(ModelSerializer):
     class Meta:
         model = TransactionDetails
+        fields = '__all__'
+
+class TCellCD4AndViralLoadHOPWASerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TCellCD4AndViralLoadHOPWA
         fields = '__all__'
 
 
@@ -273,6 +278,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     last_Grade_Completed = LastGradeCompletedSerializer(required=False)
     employment_Status = EmploymentStatusSerializer(required=False)
     w1ServicesProvidedHOPWA = W1ServicesProvidedHOPWASerializer(required=False)
+    tCellCD4AndViralLoadHOPWA = TCellCD4AndViralLoadHOPWASerializer(required=False)
 
     class Meta:
         model = Enrollment
@@ -280,7 +286,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'non_cash_benefits', 'disabling_condition', 'domestic_violence', 'health_insurance',
                   'veteran_Information', 'services_Provided_SSVF', 'financial_Assistance_SSVF',
                   'percent_Of_AMI', 'last_Permanent_Address', 'sSVFHP_Targeting_Criteria', 'hUD_VASH_Voucher_Tracking',
-                  'hUD_VASH_Exit_Information', 'connection_With_SOAR', 'last_Grade_Completed', 'employment_Status','w1ServicesProvidedHOPWA']
+                  'hUD_VASH_Exit_Information', 'connection_With_SOAR', 'last_Grade_Completed', 'employment_Status','w1ServicesProvidedHOPWA','tCellCD4AndViralLoadHOPWA']
 
     def create(self, validated_data):
 
@@ -301,6 +307,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         last_grade_completed_data = check_and_assign('last_Grade_Completed', validated_data)
         employment_status_data = check_and_assign('employment_Status', validated_data)
         w1_services_provided_hopwa_data = check_and_assign('w1ServicesProvidedHOPWA', validated_data)
+        tcellcd4_and_viral_load_hopwa_data = check_and_assign('tCellCD4AndViralLoadHOPWA', validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -348,6 +355,10 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if w1_services_provided_hopwa_data is not None:
             W1ServicesProvidedHOPWA.objects.create(EnrollmentID_id=enroll.EnrollmentID,
                                                    **w1_services_provided_hopwa_data)
+        if tcellcd4_and_viral_load_hopwa_data is not None:
+            TCellCD4AndViralLoadHOPWA.objects.create(EnrollmentID_id=enroll.EnrollmentID,
+                                                    **tcellcd4_and_viral_load_hopwa_data)
+
         return enroll
 
     # TODO:
