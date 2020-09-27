@@ -1,6 +1,6 @@
 """
 This is for object information generating database table
-@author:Shivam/Naren/Aditya/Prashana/Akash 
+@author:Shivam/Naren/Aditya/Prashana/Akash
 """
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -77,7 +77,7 @@ class Homeless(models.Model):
 
     class Ethnicity(models.IntegerChoices):
         """
-        This class is for homeless person ethnicity information 
+        This class is for homeless person ethnicity information
         """
         NON_HISPANIC_NON_LATINO = 0, _('Non Hispanic/Non Latino')
         HISPANIC_LATINO = 1, _('Hispanic/Latino')
@@ -473,11 +473,11 @@ class IncomeAndSources(models.Model):
 
 class VeteranInformation(models.Model):
     """
-    This class is for veteran project information 
+    This class is for veteran project information
     """
     class MilitaryBranchCategory(models.IntegerChoices):
         """
-        This class is for veteran military branch information 
+        This class is for veteran military branch information
         """
         ARMY = 1, _('Army')
         AIRFORCE = 2, _('Air Force')
@@ -490,7 +490,7 @@ class VeteranInformation(models.Model):
 
     class DischargeStatusCategory(models.IntegerChoices):
         """
-        This class is for veteran discharge icategory nformation 
+        This class is for veteran discharge icategory nformation
         """
         HONORABLE = 1, _('Honorable')
         GENERAL_UNDER_HONORABLE_CONDITIONS = 2, _('General under honorable conditions')
@@ -521,7 +521,7 @@ class VeteranInformation(models.Model):
 
 class ServicesProvidedSSVF(models.Model):
     """
-    This class is for service provider SSVF information 
+    This class is for service provider SSVF information
     """
     class TypeOfServiceCategory(models.IntegerChoices):
         """
@@ -540,7 +540,7 @@ class ServicesProvidedSSVF(models.Model):
 
     class IfAssistanceObtainingVABenefitsCategory(models.IntegerChoices):
         """
-        this class is for VA benefits category information 
+        this class is for VA benefits category information
         """
         VA_VOCATIONAL_AND_REHABILITATION_COUNSELING = 1, _('VA vocational and rehabilitation counseling')
         EMPLOYMENT_AND_TRAINING_SERVICES = 2, _('Employment and training services')
@@ -549,7 +549,7 @@ class ServicesProvidedSSVF(models.Model):
 
     class IfAssistanceObtainingOrCoordinatingOtherPublicBenefitsCategory(models.IntegerChoices):
         """
-        this class is for public benefits category information 
+        this class is for public benefits category information
         """
         HEALTH_CARE_SERVICES = 1, _('Health care services')
         DAILY_LIVING_SERVICES = 2, _('Daily living services')
@@ -567,7 +567,7 @@ class ServicesProvidedSSVF(models.Model):
 
     class IfDirectProvisionOfOtherPublicBenefitsCategory(models.IntegerChoices):
         """
-        this class is for public benefits category information 
+        this class is for public benefits category information
         """
         PERSONAL_FINANCIAL_PLANNING_SERVICES = 1, _('Personal financial planning services')
         TRANSPORTATION_SERVICES = 2, _('Transportation services')
@@ -595,11 +595,11 @@ class ServicesProvidedSSVF(models.Model):
 
 class FinancialAssistanceSSVF(models.Model):
     """
-    this class is for financial assistance SSVF information 
+    this class is for financial assistance SSVF information
     """
     class FinancialAssistanceTypeCategory(models.IntegerChoices):
         """
-        This class is for financial assistance SSVF category type 
+        This class is for financial assistance SSVF category type
         """
         RENTAL_ASSISTANCE = 1, _('Rental assistance')
         SECURITY_DEPOSITS = 2, _('Security deposit')
@@ -872,3 +872,37 @@ class MedicalAssistanceHOPWA(models.Model):
     InformationDate = models.DateField()
     ReceivingPublicHIVAIDSMedicalAssistance = models.IntegerField(choices=ResponseCategory.choices)
 
+class HousingAssessmentAtExitHOPWA(models.Model):
+    """
+    This class is for housing assessment at exit HOPWA information
+    """
+    class HousingAssessmentAtExitResponseCategory(models.IntegerChoices):
+        """
+        This class is for housing assessment at exit HOPWA response category
+        """
+        ABLE_TO_MAINTAIN_THE_HOUSING_THEY_HAD_AT_PROJECT_ENTRY = 1, _(
+            "Able to maintain the housing they had at project entry")
+        MOVED_TO_NEW_HOUSING_UNIT = 2, _('Moved to new housing unit')
+        MOVED_IN_WITH_FAMILY_FRIENDS_ON_A_TEMPORARY_BASIS = 3, _('Moved in with family/friends on a temporary basis')
+        MOVED_IN_WITH_FAMILY_FRIENDS_ON_A_PERMANENT_BASIS = 4, _('Moved in with family/friends on a permanent basis')
+        MOVED_TO_A_TRANSITIONAL_OR_TEMPORARY_HOUSING_FACILITY_OR_PROGRAM = 5, _(
+            " Moved to a transitional or temporary housing facility or program")
+        CLIENT_BECAME_HOMELESS_MOVING_TO_A_SHELTER_OR_OTHER_PLACE_UNFIT_FOR_HUMAN_HABITATION = 6, _(
+            "Client became homeless - moving to a shelter or other place unfit for human habitation")
+        CLIENT_WENT_TO_JAIL_PRISON = 7, _('Client went to jail/prison')
+        CLIENT_DIED = 10, _('Client Died')
+        CLIENT_DOESNOT_KNOW = 8, _('Client Doesn\'t Know')
+        CLIENT_REFUSED = 9, _('Client Refused')
+        DATA_NOT_COLLECTED = 99, _('Data Not Collected')
+
+	class AnotherSubsidyInformationResponseCategory(models.IntegerChoices):
+        """
+        This class is for housing assessment at exit HOPWA subsidy response information
+        """
+        WITH_ONGOING_SUBSIDY = 1, _('With ongoing subsidy')
+        WITHOUT_AN_ONGOING_SUBSIDY = 2, _('Without an ongoing subsidy')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='HousingAssessmentAtExitHOPWA_EnrollmentID',
+                                     default=None)
+    HousingAssessmentAtExit = models.IntegerField(choices=HousingAssessmentAtExitResponseCategory.choices)

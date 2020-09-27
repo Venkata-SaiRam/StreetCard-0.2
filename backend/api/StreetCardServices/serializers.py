@@ -6,7 +6,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     DomesticViolence, HealthInsurance, UserNameAndIdMapping, Log, \
     VeteranInformation, ServicesProvidedSSVF, FinancialAssistanceSSVF, PercentOfAMI, LastPermanentAddress, \
     SSVFHPTargetingCriteria, HUDVASHVoucherTracking, HUDVASHExitInformation, ConnectionWithSOAR, LastGradeCompleted, \
-    EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA
+    EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -52,6 +52,11 @@ class TCellCD4AndViralLoadHOPWASerializer(serializers.ModelSerializer):
 class MedicalAssistanceHOPWASerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicalAssistanceHOPWA
+        fields = '__all__'
+
+class HousingAssessmentAtExitHOPWASerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HousingAssessmentAtExitHOPWA
         fields = '__all__'
 
 
@@ -285,6 +290,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     w1ServicesProvidedHOPWA = W1ServicesProvidedHOPWASerializer(required=False)
     tCellCD4AndViralLoadHOPWA = TCellCD4AndViralLoadHOPWASerializer(required=False)
     medicalAssistanceHOPWA = MedicalAssistanceHOPWASerializer(required=False)
+    housingAssessmentAtExitHOPWA = HousingAssessmentAtExitHOPWASerializer(required=False)
+
 
     class Meta:
         model = Enrollment
@@ -292,7 +299,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'non_cash_benefits', 'disabling_condition', 'domestic_violence', 'health_insurance',
                   'veteran_Information', 'services_Provided_SSVF', 'financial_Assistance_SSVF',
                   'percent_Of_AMI', 'last_Permanent_Address', 'sSVFHP_Targeting_Criteria', 'hUD_VASH_Voucher_Tracking',
-                  'hUD_VASH_Exit_Information', 'connection_With_SOAR', 'last_Grade_Completed', 'employment_Status','w1ServicesProvidedHOPWA','tCellCD4AndViralLoadHOPWA','medicalAssistanceHOPWA']
+                  'hUD_VASH_Exit_Information', 'connection_With_SOAR', 'last_Grade_Completed', 'employment_Status','w1ServicesProvidedHOPWA','tCellCD4AndViralLoadHOPWA','medicalAssistanceHOPWA','housingAssessmentAtExitHOPWA']
 
     def create(self, validated_data):
 
@@ -315,6 +322,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         w1_services_provided_hopwa_data = check_and_assign('w1ServicesProvidedHOPWA', validated_data)
         tcellcd4_and_viral_load_hopwa_data = check_and_assign('tCellCD4AndViralLoadHOPWA', validated_data)
         medical_assistance_hopwa_data = check_and_assign('medicalAssistanceHOPWA', validated_data)
+        housing_assessment_at_exit_hopwa_data = check_and_assign('housingAssessmentAtExitHOPWA', validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -367,6 +375,11 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                                                     **tcellcd4_and_viral_load_hopwa_data)
         if medical_assistance_hopwa_data is not None:
             MedicalAssistanceHOPWA.objects.create(EnrollmentID_id=enroll.EnrollmentID, **medical_assistance_hopwa_data)
+        if housing_assessment_at_exit_hopwa_data is not None:
+            HousingAssessmentAtExitHOPWA.objects.create(EnrollmentID_id=enroll.EnrollmentID,
+                                                        **housing_assessment_at_exit_hopwa_data)
+
+
 
         return enroll
 
@@ -448,6 +461,10 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if MedicalAssistanceHOPWA.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['medical_assistance_hopwa'] = MedicalAssistanceHOPWASerializer(
                 MedicalAssistanceHOPWA.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if HousingAssessmentAtExitHOPWA.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['housing_assessment_at_exit_hopwa'] = HousingAssessmentAtExitHOPWASerializer(
+            HousingAssessmentAtExitHOPWA.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+
 
 
         return response
