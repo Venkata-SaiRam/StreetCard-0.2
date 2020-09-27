@@ -902,8 +902,20 @@ class HousingAssessmentAtExitHOPWA(models.Model):
         WITH_ONGOING_SUBSIDY = 1, _('With ongoing subsidy')
         WITHOUT_AN_ONGOING_SUBSIDY = 2, _('Without an ongoing subsidy')
 
+    class SubsidyInformationResponseCategory(models.IntegerChoices):
+        """
+        This class is for housing assessment at exit HOPWA subsidy response information
+        """
+        WITHOUT_A_SUBSIDY = 1, _('Without_a_subsidy')
+        WITH_THE_SUBSIDY_THEY_HAD_AT_PROJECT_ENTRY = 2, _('With the subsidy they had at project entry')
+        WITH_AN_ONGOING_SUBSIDY_ACQUIRED_SINCE_PROJECT_ENTRY = 3, _(
+            'With an ongoing subsidy acquired since project entry')
+        ONLY_WITH_FINANCIAL_ASSISTANCE_OTHER_THAN_A_SUBSIDY = 4, _(
+            'Only with financial assistance other than a subsidy')
 
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='HousingAssessmentAtExitHOPWA_EnrollmentID',
                                      default=None)
     HousingAssessmentAtExit = models.IntegerField(choices=HousingAssessmentAtExitResponseCategory.choices)
+    SubsidyInformation = models.IntegerField(choices=SubsidyInformationResponseCategory.choices)
+    AnotherSubsidyInformation = models.IntegerField(choices=AnotherSubsidyInformationResponseCategory.choices)
