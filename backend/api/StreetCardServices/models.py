@@ -413,9 +413,6 @@ class DisablingCondition(models.Model):
     developmental_disability = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
     developmental_disability_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
                                                              default=None)
-    chronic_health = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
-    chronic_health_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
-                                                   default=None)
     hiv_aids = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
     hiv_aids_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True, default=None)
     mental_health = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
@@ -426,6 +423,9 @@ class DisablingCondition(models.Model):
     physical_disability = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
     physical_disability_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
                                                         default=None)
+    chronic_health = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
+    chronic_health_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
+                                                   default=None)
 
 
 class IncomeAndSources(models.Model):
