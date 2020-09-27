@@ -895,6 +895,13 @@ class HousingAssessmentAtExitHOPWA(models.Model):
         CLIENT_REFUSED = 9, _('Client Refused')
         DATA_NOT_COLLECTED = 99, _('Data Not Collected')
 
+	class AnotherSubsidyInformationResponseCategory(models.IntegerChoices):
+        """
+        This class is for housing assessment at exit HOPWA subsidy response information
+        """
+        WITH_ONGOING_SUBSIDY = 1, _('With ongoing subsidy')
+        WITHOUT_AN_ONGOING_SUBSIDY = 2, _('Without an ongoing subsidy')
+
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='HousingAssessmentAtExitHOPWA_EnrollmentID',
                                      default=None)
