@@ -866,8 +866,9 @@ class TCellCD4AndViralLoadHOPWA(models.Model):
 
 class MedicalAssistanceHOPWA(models.Model):
     """
-    This class is for medical assistance HOPWA
+    This class is consists of medical assistance HOPWA fields
     """
 
     InformationDate = models.DateField()
+    ReceivingPublicHIVAIDSMedicalAssistance = models.IntegerField(choices=ResponseCategory.choices)
 
