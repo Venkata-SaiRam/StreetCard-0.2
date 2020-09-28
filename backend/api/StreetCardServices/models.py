@@ -861,6 +861,7 @@ class TCellCD4AndViralLoadHOPWA(models.Model):
     """
     This class is for financial assistance HOPWA
     """
+    InformationDate = models.DateField()
     IfYesTCellCount = models.IntegerField(validators=[MaxValueValidator(1500), MinValueValidator(0)])
 
 
