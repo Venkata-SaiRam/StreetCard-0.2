@@ -869,8 +869,22 @@ class MedicalAssistanceHOPWA(models.Model):
     This class is consists of medical assistance HOPWA fields
     """
 
+    class IfNoReasonTypeCategory(models.IntegerChoices):
+        """
+        This class is for medical assistance HOPWA applied status
+        """
+        APPLIED_DECISION_PENDING = 1, _('Applied; decision pending')
+        APPLIED_CLIENT_NOT_ELIGIBLE = 2, _('Applied; client not eligible')
+        CLIENT_DIDNOT_APPLY = 3, _('Client did not apply ')
+        INSURANCE_TYPE_NA_FOR_THIS_CLIENT = 4, _('Insurance type N/A for this client')
+        CLIENT_DOESNOT_KNOW = 8, _('Client Doesn\'t Know')
+        CLIENT_REFUSED = 9, _('Client Refused')
+        DATA_NOT_COLLECTED = 99, _('Data Not Collected')
+
     InformationDate = models.DateField()
     ReceivingPublicHIVAIDSMedicalAssistance = models.IntegerField(choices=ResponseCategory.choices)
+    IfNoReason = models.IntegerField(choices=IfNoReasonTypeCategory.choices)
+    ReceivingAIDSDrugAssistanceProgram = models.IntegerField(choices=ResponseCategory.choices)
 
 class HousingAssessmentAtExitHOPWA(models.Model):
     """
