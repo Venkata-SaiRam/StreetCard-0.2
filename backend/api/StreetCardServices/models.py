@@ -885,6 +885,7 @@ class MedicalAssistanceHOPWA(models.Model):
     ReceivingPublicHIVAIDSMedicalAssistance = models.IntegerField(choices=ResponseCategory.choices)
     IfNoReason = models.IntegerField(choices=IfNoReasonTypeCategory.choices)
     ReceivingAIDSDrugAssistanceProgram = models.IntegerField(choices=ResponseCategory.choices)
+    IfNoReasonADAP = models.IntegerField(choices=IfNoReasonTypeCategory.choices)
 
 class HousingAssessmentAtExitHOPWA(models.Model):
     """
