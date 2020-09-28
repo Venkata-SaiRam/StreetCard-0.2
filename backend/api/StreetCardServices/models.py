@@ -386,9 +386,9 @@ class NonCashBenefits(models.Model):
     OtherTANF = models.IntegerField(choices=YesNoResponse.choices)
     OtherSource = models.IntegerField(choices=YesNoResponse.choices)
     SpecifySource = models.CharField(max_length=50)
-    RentalAssistanceOngoing = models.IntegerField(null=True)
-    RentalAssistanceTemp = models.IntegerField(null=True)
-    DataCollectionStage = models.IntegerField(null=True)
+    #RentalAssistanceOngoing = models.IntegerField(null=True)
+    #RentalAssistanceTemp = models.IntegerField(null=True)
+    #DataCollectionStage = models.IntegerField(null=True)
 
 
 class DomesticViolence(models.Model):
@@ -467,7 +467,7 @@ class IncomeAndSources(models.Model):
     OtherIncomeSources = models.IntegerField(choices=YesNoResponse.choices)
     OtherIncomeSourcesAmount = models.IntegerField(null=True)
     OtherIncomeSourcesIdentify = models.TextField(max_length=50, blank=True, null=True)
-    TotalMonthlyIncome = models.IntegerField(default=0)
+    #TotalMonthlyIncome = models.IntegerField(default=0)
 
 # VETERAN PROJECT MODELS
 
@@ -861,6 +861,13 @@ class TCellCD4AndViralLoadHOPWA(models.Model):
     """
     This class is for financial assistance HOPWA
     """
+    class InformationObtainedResponseCategory(models.IntegerChoices):
+        """
+        This class is for reprt type
+        """
+        MEDICAL_REPORT = 1, _('Medical Report')
+        CLIENT_REPORT = 2, _('Client Report')
+        OTHER = 3, _('Other')
     InformationDate = models.DateField()
     IfYesTCellCount = models.IntegerField(validators=[MaxValueValidator(1500), MinValueValidator(0)])
     HowWasTheInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices)
