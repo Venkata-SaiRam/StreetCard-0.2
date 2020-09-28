@@ -864,6 +864,7 @@ class TCellCD4AndViralLoadHOPWA(models.Model):
     InformationDate = models.DateField()
     IfYesTCellCount = models.IntegerField(validators=[MaxValueValidator(1500), MinValueValidator(0)])
     HowWasTheInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices)
+    ViralLoadInformationAvailable = models.IntegerField(choices=ResponseCategory.choices)
 
 
 class MedicalAssistanceHOPWA(models.Model):
