@@ -898,6 +898,9 @@ class MedicalAssistanceHOPWA(models.Model):
     IfNoReason = models.IntegerField(choices=IfNoReasonTypeCategory.choices)
     ReceivingAIDSDrugAssistanceProgram = models.IntegerField(choices=ResponseCategory.choices)
     IfNoReasonADAP = models.IntegerField(choices=IfNoReasonTypeCategory.choices)
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='MedicalAssistanceHOPWA_EnrollmentID',
+                                     default=None)
 
 class HousingAssessmentAtExitHOPWA(models.Model):
     """
