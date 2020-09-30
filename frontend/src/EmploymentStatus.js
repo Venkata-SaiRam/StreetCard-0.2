@@ -1,14 +1,45 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
 const {Panel} = Collapse;
-
+const TypeOfEmploymentCategory = [
+        {
+            value: 1,
+            label: "Full-time"
+        },
+        {
+            value: 2,
+            label: "Part-time"
+        }
+    ];
+const WhyNotEmployedCategory = [
+    {
+        value: 1,
+        label: "Looking for work"
+    },
+    {
+        value: 2,
+        label: "Unable to work"
+    },
+    {
+        value: 3,
+        label: "Not looking for work"
+    }];
+const YesNoResponse = [
+    {
+        value: 0,
+        label: "No"
+    },
+    {
+        value: 1,
+        label: "Yes"
+    },
+];
 class EmploymentStatus extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isEnabled: true
         }
-        // this.handleOnSubmit = this.handleOnSubmit.bind(this);
     }
 
     render(){
