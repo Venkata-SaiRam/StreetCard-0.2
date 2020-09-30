@@ -1,6 +1,164 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
 
+const {Panel} = Collapse;
+const TypeOfServiceCategory = [
+        {
+            value: 1,
+            label: "Outreach services"
+        },
+        {
+            value: 2,
+            label: "Case management services"
+        },
+        {
+            value: 3,
+            label: "Assistance obtaining VA benefits"
+        },
+        {
+            value: 4,
+            label: "Assistance obtaining/coordinating other public benefits"
+        },
+        {
+            value: 5,
+            label: "Direct provision of other public benefits"
+        },
+        {
+            value: 6,
+            label: "Other (non TFA)supportive service approved by VA"
+        },
+        {
+            value: 7,
+            label: "Extended Shallow Subsidy"
+        },
+        {
+            value: 8,
+            label: "Returning Home"
+        },
+        {
+            value: 9,
+            label: "Rapid Resolution"
+        }
+];
+const IfAssistanceObtainingOrCoordinatingOtherPublicBenefitsCategory = [
+    {
+        value: 1,
+        label: "Health care services"
+    },
+    {
+        value: 2,
+        label: "Daily living services"
+    },
+    {
+        value: 3,
+        label: "Personal financial planning services"
+    },
+    {
+        value: 4,
+        label: "Transportation services"
+    },
+    {
+        value: 5,
+        label: "Income support services"
+    },
+    {
+        value: 6,
+        label: "Fiduciary and representative payee services"
+    },
+    {
+        value: 7,
+        label: "Legal services - child support"
+    },
+    {
+        value: 8,
+        label: "Legal services - eviction prevention"
+    },
+    {
+        value: 9,
+        label: "Legal services - outstanding fines and penalties"
+    },
+    {
+        value: 10,
+        label: "Legal services - restore/acquire drivers license"
+    },
+    {
+        value: 11,
+        label: "Legal services - other"
+    },
+    {
+        value: 12,
+        label: "Child care"
+    },
+    {
+        value: 13,
+        label: "Housing counseling"
+    }
+];
+const IfDirectProvisionOfOtherPublicBenefitsCategory = [
+    {
+        value: 1,
+        label: "Personal financial planning services"
+    },
+    {
+        value: 2,
+        label: "Transportation services"
+    },
+    {
+        value: 3,
+        label: "Income support services"
+    },
+    {
+        value: 4,
+        label: "Fiduciary and representative payee services"
+    },
+    {
+        value: 5,
+        label: "Legal services - child support"
+    },
+    {
+        value: 6,
+        label: "Legal services - eviction prevention"
+    },
+    {
+        value: 7,
+        label: "Legal services - outstanding fines and penalties"
+    },
+    {
+        value: 8,
+        label: "Legal services - restore/acquire drivers license"
+    },
+    {
+        value: 9,
+        label: "Legal services - other"
+    },
+    {
+        value: 10,
+        label: "Child care"
+    },
+    {
+        value: 11,
+        label: "Housing counseling"
+    }
+];
+const IfAssistanceObtainingVABenefitsCategory = [
+    {
+        value: 1,
+        label: "VA vocational and rehabilitation counseling"
+    },
+    {
+        value: 2,
+        label: "Employment and training services"
+    },
+    {
+        value: 3,
+        label: "Educational assistance"
+    },
+    {
+        value: 4,
+        label: "Health care services"
+    }
+];
+
 class ServicesProvidedSSVF extends Component {
     constructor(props) {
         super(props);
