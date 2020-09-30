@@ -1,7 +1,28 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
 const {Panel} = Collapse;
-
+const ResponseCategory = [
+    {
+        value: 0,
+        label: "No"
+    },
+    {
+        value: 1,
+        label: "Yes"
+    },
+    {
+        value: 8,
+        label: "Client Doesn't Know"
+    },
+    {
+        value: 9,
+        label: "Client Refused"
+    },
+    {
+        value: 99,
+        label: "Data Not Collected"
+    }
+];
 class ConnectionWithSOAR extends Component {
     constructor(props) {
         super(props);
