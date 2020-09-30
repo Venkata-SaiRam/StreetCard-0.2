@@ -1,6 +1,17 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
 
+const {Panel} = Collapse;
+const YesNoResponse = [
+    {
+        value: 0,
+        label: "No"
+    },
+    {
+        value: 1,
+        label: "Yes"
+    },
+];
 class EnrollmentDetails extends Component {
     constructor(props) {
         super(props);
