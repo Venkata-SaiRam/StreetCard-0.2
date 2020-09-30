@@ -1,7 +1,100 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
 const {Panel} = Collapse;
-
+const DischargeStatusCategory = [
+        {
+            value: 1,
+            label: "Honorable"
+        },
+        {
+            value: 2,
+            label: "General under honorable conditions"
+        },
+        {
+            value: 6,
+            label: "Under other than honorable conditions (OTH)"
+        },
+        {
+            value: 4,
+            label: "Bad conduct"
+        },
+        {
+            value: 5,
+            label: "Dishonorable"
+        },
+        {
+            value: 7,
+            label: "Uncharacterized"
+        },
+        {
+            value: 8,
+            label: "Client Doesn't Know"
+        },
+        {
+            value: 9,
+            label: "Client Refused"
+        },
+        {
+            value: 99,
+            label: "Data Not Collected"
+        }
+    ];
+const MilitaryBranchCategory = [
+        {
+            value: 1,
+            label: "Army"
+        },
+        {
+            value: 2,
+            label: "Air Force"
+        },
+        {
+            value: 3,
+            label: "Navy"
+        },
+        {
+            value: 4,
+            label: "Marines"
+        },
+        {
+            value: 6,
+            label: "Coast Guard"
+        },
+        {
+            value: 8,
+            label: "Client Doesn't Know"
+        },
+        {
+            value: 9,
+            label: "Client Refused"
+        },
+        {
+            value: 99,
+            label: "Data Not Collected"
+        }
+    ];
+const ResponseCategory = [
+    {
+        value: 0,
+        label: "No"
+    },
+    {
+        value: 1,
+        label: "Yes"
+    },
+    {
+        value: 8,
+        label: "Client Doesn't Know"
+    },
+    {
+        value: 9,
+        label: "Client Refused"
+    },
+    {
+        value: 99,
+        label: "Data Not Collected"
+    }
+];
 class VeteransInformation extends Component {
     constructor(props) {
         super(props);
