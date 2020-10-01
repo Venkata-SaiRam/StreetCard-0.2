@@ -300,6 +300,7 @@ class ProjectCategory(models.TextChoices):
         'VA:Grant Per Diem – Case Management / Housing Retention')
     VA_SSVF_HOMELESSNESS_PREVENTION = 'VA: SSVF - Homelessness Prevention', _('VA: SSVF - Homelessness Prevention')
     VA_SSVF_RAPID_RE_HOUSING = 'VA: SSVF - Rapid Re-Housing', _('VA: SSVF - Rapid Re-Housing')
+    HOPWA_AIDS_Housing = 'HOPWA:Housing for people with AIDS', _('HOPWA:Housing for people with AIDS')
 
 
 class SubstanceAbuseCategory(models.IntegerChoices):
@@ -875,6 +876,9 @@ class TCellCD4AndViralLoadHOPWA(models.Model):
     ViralLoadCount = models.IntegerField(validators=[MaxValueValidator(999999), MinValueValidator(0)])
     HowWasTheViralInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices)
     TCellCD4CountAvailable = models.IntegerField(choices=ResponseCategory.choices)
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='TCellCD4AndViralLoadHOPWA_EnrollmentID',
+                                     default=None)
 
 
 class MedicalAssistanceHOPWA(models.Model):
