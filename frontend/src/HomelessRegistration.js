@@ -242,6 +242,7 @@ class homelessRegistration extends React.Component {
                             homelessData: json,
                             isLoaded: true
                         })
+                        console.log(this.state.homelessData);
                     })
                 } else if (Math.round(res.status / 100) == 4) {
                     if (window.confirm("Error, invalid personal id: " + (res.status).toString())) {
@@ -260,6 +261,8 @@ class homelessRegistration extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.state);
+
         setTimeout(this.waitComponent(), 6000);
     }
 
@@ -608,6 +611,7 @@ class homelessRegistration extends React.Component {
                                                 <Col span={8} push={1}>
                                                     <Form.Item>
                                                         {getFieldDecorator("Race", {
+                                                            initialValue:[this.state.homelessData.Race],
                                                             rules: [
                                                                 {
                                                                     type: "array",
@@ -621,6 +625,8 @@ class homelessRegistration extends React.Component {
                                                 <Col span={8} push={1}>
                                                     <Form.Item>
                                                         {getFieldDecorator("Ethnicity", {
+                                                            initialValue:[this.state.homelessData.Ethnicity],
+
                                                             rules: [
                                                                 {
                                                                     type: "array",
@@ -634,6 +640,8 @@ class homelessRegistration extends React.Component {
                                                 <Col span={8} push={1}>
                                                     <Form.Item>
                                                         {getFieldDecorator("Gender", {
+                                                            initialValue:[this.state.homelessData.Gender],
+
                                                             rules: [
                                                                 {
                                                                     type: "array",
@@ -651,6 +659,8 @@ class homelessRegistration extends React.Component {
                                                 <Col span={8} push={1}>
                                                     <Form.Item>
                                                         {getFieldDecorator("VeteranStatus", {
+                                                            initialValue:[this.state.homelessData.VeteranStatus],
+
                                                             rules: [
                                                                 {
                                                                     type: "array",

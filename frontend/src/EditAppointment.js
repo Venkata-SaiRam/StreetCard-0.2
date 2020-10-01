@@ -199,6 +199,7 @@ class EditAppointment extends React.Component {
                                                     <Col span={8} push={1}>
                                                         <Form.Item>
                                                             {getFieldDecorator("serviceProvider", {
+                                                                initialValue: [appointment.serviceProvider],
                                                                 rules: [
                                                                     {
                                                                         type: "array",
@@ -325,6 +326,7 @@ class EditAppointment extends React.Component {
                                                     <Col span={8} push={1}>
                                                         <Form.Item>
                                                             {getFieldDecorator("timeZone", {
+                                                                initialValue: [appointment.timeZone],
                                                                 rules: [
                                                                     {
                                                                         type: "array",
