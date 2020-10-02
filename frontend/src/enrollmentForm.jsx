@@ -6,6 +6,7 @@ import StreetCardFooter from "./StreetCardFooter";
 import SiderComponent from './SiderComponent'
 import HomelessPreventionHUD from "./HomelessPreventionHUD";
 import RapidReHousingVA from "./RapidReHousingVA";
+import HOPWA from "./HOPWA";
 
 const {Content} = Layout;
 const {Panel} = Collapse;
@@ -17,6 +18,10 @@ const ProjectCategory = [
     {
         value: "VA: SSVF - Rapid Re-Housing",
         label: "VA: SSVF - Rapid Re-Housing"
+    },
+    {
+        value: "HOPWA:Housing for people with AIDS",
+        label: "HOPWA:Housing for people with AIDS"
     }
 ];
 const message = "Mandatory field! Please provide a response."
@@ -91,6 +96,11 @@ class EnrollmentForm extends Component {
             case "VA: SSVF - Rapid Re-Housing":
                 changingPanel.pop();
                 changingPanel.push(<RapidReHousingVA data={e[0]} personalId={this.state.items.PersonalId}
+                                                     history={this.props.history}/>)
+                break;
+            case "HOPWA:Housing for people with AIDS":
+                changingPanel.pop();
+                changingPanel.push(<HOPWA data={e[0]} personalId={this.state.items.PersonalId}
                                                      history={this.props.history}/>)
                 break;
         }
