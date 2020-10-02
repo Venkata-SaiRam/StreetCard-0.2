@@ -330,20 +330,6 @@ class HealthInsurance extends Component {
                                 )}
                                 </Form.Item>
                             </Col>
-                            <Col span={8}>
-                                <Form.Item
-                                    label="Workers Comp Amount"
-                                >{getFieldDecorator("workerscompamount", {
-                                    rules: [
-                                        {
-                                            message: {message},
-                                            required: false
-                                        }
-                                    ]
-                                })(
-                                    <Input/>)}
-                                </Form.Item>
-                            </Col>
                         </Row>
                     </Panel>
             </Collapse>
