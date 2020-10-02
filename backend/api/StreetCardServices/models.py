@@ -1,6 +1,6 @@
 """
 This is for object information generating database table
-@author:Shivam/Naren/Aditya/Prashana/Akash 
+@author:Shivam/Naren/Aditya/Prashana/Akash
 """
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -77,7 +77,7 @@ class Homeless(models.Model):
 
     class Ethnicity(models.IntegerChoices):
         """
-        This class is for homeless person ethnicity information 
+        This class is for homeless person ethnicity information
         """
         NON_HISPANIC_NON_LATINO = 0, _('Non Hispanic/Non Latino')
         HISPANIC_LATINO = 1, _('Hispanic/Latino')
@@ -251,9 +251,9 @@ class SocialWorker(models.Model):
         ADMIN = "admin", _("Admin")
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phonenumber = models.CharField(max_length=15)
     clearanceLevel = models.TextField(choices=ClearanceLevel.choices)
     address = models.CharField(max_length=500)
-	phonenumber = models.CharField(max_length=20)
     serviceProvider = models.TextField(choices=ServiceProvider.choices)
 
 
@@ -300,6 +300,7 @@ class ProjectCategory(models.TextChoices):
         'VA:Grant Per Diem – Case Management / Housing Retention')
     VA_SSVF_HOMELESSNESS_PREVENTION = 'VA: SSVF - Homelessness Prevention', _('VA: SSVF - Homelessness Prevention')
     VA_SSVF_RAPID_RE_HOUSING = 'VA: SSVF - Rapid Re-Housing', _('VA: SSVF - Rapid Re-Housing')
+    HOPWA_AIDS_Housing = 'HOPWA:Housing for people with AIDS', _('HOPWA:Housing for people with AIDS')
 
 
 class SubstanceAbuseCategory(models.IntegerChoices):
@@ -354,8 +355,7 @@ class HealthInsurance(models.Model):
         CLIENT_REFUSED = 9, _('Client Refused')
         DATA_NOT_COLLECTED = 99, _('Data Not Collected')
 
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE, related_name='HealthInsurance_EnrollmentID',
-                                     default=None)
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE, related_name='HealthInsurance_EnrollmentID', default=None)
     InformationDate = models.DateField()
     CoveredByHealthInsurance = models.IntegerField(choices=ResponseCategory.choices)
     Medicaid = models.IntegerField(choices=YesNoResponse.choices)
@@ -387,9 +387,9 @@ class NonCashBenefits(models.Model):
     OtherTANF = models.IntegerField(choices=YesNoResponse.choices)
     OtherSource = models.IntegerField(choices=YesNoResponse.choices)
     SpecifySource = models.CharField(max_length=50)
-    RentalAssistanceOngoing = models.IntegerField(null=True)
-    RentalAssistanceTemp = models.IntegerField(null=True)
-    DataCollectionStage = models.IntegerField(null=True)
+    #RentalAssistanceOngoing = models.IntegerField(null=True)
+    #RentalAssistanceTemp = models.IntegerField(null=True)
+    #DataCollectionStage = models.IntegerField(null=True)
 
 
 class DomesticViolence(models.Model):
@@ -397,7 +397,7 @@ class DomesticViolence(models.Model):
     This class is for domestic violence victim information
     """
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='DomesticViolence_EnrollmentID')
+                                     related_name='DomesticViolence_EnrollmentID',default=None)
     InformationDate = models.DateField()
     DomesticViolenceVictim = models.IntegerField(choices=YesNoResponse.choices)
     WhenOccurred = models.IntegerField(choices=DomesticViolenceOccurrence.choices)
@@ -409,17 +409,11 @@ class DisablingCondition(models.Model):
     This class is for client disability condition
     """
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='DisablingCondition_EnrollmentID')
+                                     related_name='DisablingCondition_EnrollmentID',default=None)
     InformationDate = models.DateField()
-    physical_disability = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
-    physical_disability_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
-                                                        default=None)
     developmental_disability = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
     developmental_disability_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
                                                              default=None)
-    chronic_health = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
-    chronic_health_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
-                                                   default=None)
     hiv_aids = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
     hiv_aids_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True, default=None)
     mental_health = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
@@ -427,6 +421,12 @@ class DisablingCondition(models.Model):
     substance_abuse = models.IntegerField(choices=SubstanceAbuseCategory.choices, null=True, default=None)
     substance_abuse_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
                                                     default=None)
+    physical_disability = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
+    physical_disability_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
+                                                        default=None)
+    chronic_health = models.IntegerField(choices=ResponseCategory.choices, null=True, default=None)
+    chronic_health_impairing = models.IntegerField(choices=ResponseCategory.choices, blank=True, null=True,
+                                                   default=None)
 
 
 class IncomeAndSources(models.Model):
@@ -468,325 +468,17 @@ class IncomeAndSources(models.Model):
     OtherIncomeSources = models.IntegerField(choices=YesNoResponse.choices)
     OtherIncomeSourcesAmount = models.IntegerField(null=True)
     OtherIncomeSourcesIdentify = models.TextField(max_length=50, blank=True, null=True)
-    TotalMonthlyIncome = models.IntegerField(default=0)
-
-
-# HOPWA Specific Project Elements
-
-class W1ServicesProvidedHOPWA(models.Model):
-    """
-    This class is for HOPWA information
-    """
-    class HOPWAServiceType(models.IntegerChoices):
-        ADULT_DAYCARE_AND_PERSONAL_ASSISTANCE = 1, _('Adult day care and personal assistance')
-        CASE_MANAGEMENT = 2, _('Case management')
-        CHILDCARE = 3, _('Child care')
-        CRIMINAL_JUSTICE_LEGAL_SERVICES = 4, _('Criminal justice/legal services')
-        EDUCATION = 5, _('Education')
-        EMPLOYMENT_AND_TRAINING_SERVICES = 6, _('Employment and training services')
-        FOOD_MEALS_NUTRITIONAL_SERVICES = 7, _('Food/meals/nutritional services')
-        HEALTH_MEDICAL_CARE = 8, _('Health/medical care')
-        LIFE_SKILLS_TRAINING = 9, _('Life skills training')
-        MENTAL_HEALTH_CARE_COUNSELING = 10, _('Mental health care/counseling')
-        OUTREACH_AND_OR_ENGAGEMENT = 11, _('Outreach and/or engagement')
-        SUBSTANCE_ABUSE_SERVICES_TREATMENT = 12, _('Substance abuse services/treatment')
-        TRANSPORTATION = 13, _('Transportation')
-        OTHER_HOPWA_FUNDED_SERVICE = 14, _('Other HOPWA funded service')
-
-    DateOfService = models.DateField()
-    TypeOfService = models.IntegerField(choices=HOPWAServiceType.choices)
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='W1ServicesProvidedHOPWA_EnrollmentID',
-                                     default=None)
-
-
-class FinancialAssistanceHOPWA(models.Model):
-    """
-    This class is for financial assistance HOPWA
-    """
-    class FinancialAssistanceTypeCategory(models.IntegerChoices):
-        """
-        This class is for financial assistance category type
-        """
-        RENTAL_ASSISTANCE = 1, _('Rental assistance')
-        SECURITY_DEPOSITS = 2, _('Security deposits')
-        UTILITY_DEPOSITS = 3, _('Utility deposits')
-        UTILITY_PAYMENTS = 4, _('Utility payments')
-        MORTGAGE_ASSISTANCE = 7, _('Mortgage assistance')
-
-    DateOfFinancialAssistance = models.DateField()
-    FinancialAssistanceType = models.IntegerField(choices=FinancialAssistanceTypeCategory.choices)
-    FinancialAssistanceAmount = models.IntegerField(default=0)
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='FinancialAssistanceHOPWA_EnrollmentID',
-                                     default=None)
-
-
-class MedicalAssistanceHOPWA(models.Model):
-    """
-    This class is for medical assistance HOPWA
-    """
-    class IfNoReasonTypeCategory(models.IntegerChoices):
-        """
-        This class is for medical assistance HOPWA applied status
-        """
-        APPLIED_DECISION_PENDING = 1, _('Applied; decision pending')
-        APPLIED_CLIENT_NOT_ELIGIBLE = 2, _('Applied; client not eligible')
-        CLIENT_DIDNOT_APPLY = 3, _('Client did not apply ')
-        INSURANCE_TYPE_NA_FOR_THIS_CLIENT = 4, _('Insurance type N/A for this client')
-        CLIENT_DOESNOT_KNOW = 8, _('Client Doesn\'t Know')
-        CLIENT_REFUSED = 9, _('Client Refused')
-        DATA_NOT_COLLECTED = 99, _('Data Not Collected')
-
-    InformationDate = models.DateField()
-    ReceivingPublicHIVAIDSMedicalAssistance = models.IntegerField(choices=ResponseCategory.choices)
-    IfNoReason = models.IntegerField(choices=IfNoReasonTypeCategory.choices)
-    ReceivingAIDSDrugAssistanceProgram = models.IntegerField(choices=ResponseCategory.choices)
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='MedicalAssistanceHOPWA_EnrollmentID',
-                                     default=None)
-
-
-class TCellCD4AndViralLoadHOPWA(models.Model):
-    """
-    This class is for financial assistance HOPWA
-    """
-    class InformationObtainedResponseCategory(models.IntegerChoices):
-        """
-        This class is for reprt type
-        """
-        MEDICAL_REPORT = 1, _('Medical Report')
-        CLIENT_REPORT = 2, _('Client Report')
-        OTHER = 3, _('Other')
-
-    InformationDate = models.DateField()
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='TCellCD4AndViralLoadHOPWA_EnrollmentID',
-                                     default=None)
-    TCellCD4CountAvailable = models.IntegerField(choices=ResponseCategory.choices)
-    IfYesTCellCount = models.IntegerField(validators=[MaxValueValidator(1500), MinValueValidator(0)])
-    HowWasTheInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices)
-    ViralLoadInformationAvailable = models.IntegerField(choices=ResponseCategory.choices)
-    ViralLoadCount = models.IntegerField(validators=[MaxValueValidator(999999), MinValueValidator(0)])
-
-
-class HousingAssessmentAtExitHOPWA(models.Model):
-    """
-    This class is for housing assessment at exit HOPWA information
-    """
-    class HousingAssessmentAtExitResponseCategory(models.IntegerChoices):
-        """
-        This class is for housing assessment at exit HOPWA response category
-        """
-        ABLE_TO_MAINTAIN_THE_HOUSING_THEY_HAD_AT_PROJECT_ENTRY = 1, _(
-            "Able to maintain the housing they had at project entry")
-        MOVED_TO_NEW_HOUSING_UNIT = 2, _('Moved to new housing unit')
-        MOVED_IN_WITH_FAMILY_FRIENDS_ON_A_TEMPORARY_BASIS = 3, _('Moved in with family/friends on a temporary basis')
-        MOVED_IN_WITH_FAMILY_FRIENDS_ON_A_PERMANENT_BASIS = 4, _('Moved in with family/friends on a permanent basis')
-        MOVED_TO_A_TRANSITIONAL_OR_TEMPORARY_HOUSING_FACILITY_OR_PROGRAM = 5, _(
-            " Moved to a transitional or temporary housing facility or program")
-        CLIENT_BECAME_HOMELESS_MOVING_TO_A_SHELTER_OR_OTHER_PLACE_UNFIT_FOR_HUMAN_HABITATION = 6, _(
-            "Client became homeless - moving to a shelter or other place unfit for human habitation")
-        CLIENT_WENT_TO_JAIL_PRISON = 7, _('Client went to jail/prison')
-        CLIENT_DIED = 10, _('Client Died')
-        CLIENT_DOESNOT_KNOW = 8, _('Client Doesn\'t Know')
-        CLIENT_REFUSED = 9, _('Client Refused')
-        DATA_NOT_COLLECTED = 99, _('Data Not Collected')
-
-    class SubsidyInformationResponseCategory(models.IntegerChoices):
-        """
-        This class is for housing assessment at exit HOPWA subsidy response information
-        """
-        WITHOUT_A_SUBSIDY = 1, _('Without_a_subsidy')
-        WITH_THE_SUBSIDY_THEY_HAD_AT_PROJECT_ENTRY = 2, _('With the subsidy they had at project entry')
-        WITH_AN_ONGOING_SUBSIDY_ACQUIRED_SINCE_PROJECT_ENTRY = 3, _(
-            'With an ongoing subsidy acquired since project entry')
-        ONLY_WITH_FINANCIAL_ASSISTANCE_OTHER_THAN_A_SUBSIDY = 4, _(
-            'Only with financial assistance other than a subsidy')
-
-    class AnotherSubsidyInformationResponseCategory(models.IntegerChoices):
-        """
-        This class is for housing assessment at exit HOPWA subsidy response information
-        """
-        WITH_ONGOING_SUBSIDY = 1, _('With ongoing subsidy')
-        WITHOUT_AN_ONGOING_SUBSIDY = 2, _('Without an ongoing subsidy')
-
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='HousingAssessmentAtExitHOPWA_EnrollmentID',
-                                     default=None)
-    HousingAssessmentAtExit = models.IntegerField(choices=HousingAssessmentAtExitResponseCategory.choices)
-    SubsidyInformation = models.IntegerField(choices=SubsidyInformationResponseCategory.choices)
-
-
-class LivingSituationResponse(models.IntegerChoices):
-    """
-    This class is for client living situation type
-    """
-    HOMELESS_SITUATION = 1, _("Homeless")
-    INSTITUTIONAL_SITUATION = 2, _("Institutional Housing")
-    TEMPORARY_AND_PERMANENT_HOUSING_SITUATION = 3, _("Temporary or Permanent Housing")
-    OTHER = 4, _("Other")
-
-
-class CurrentLivingSituation(models.Model):
-    """
-    This class is for client living situation information
-    """
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='CurrentLivingSituation_EnrollmentID',
-                                     default=None)
-    InformationDate = models.DateField()
-    CurrentLivingSituation = models.IntegerField(choices=LivingSituationResponse.choices)
-    VerifiedByProject = models.TextField(choices=ProjectCategory.choices)
-    HasToLeaveCurrentSituation = models.IntegerField(choices=ResponseCategory.choices)
-    HasASubsequentResidence = models.IntegerField(choices=ResponseCategory.choices)
-    HasResourcesToObtainPermanentHousing = models.IntegerField(choices=ResponseCategory.choices)
-    OwnershipInPermanentHousing = models.IntegerField(choices=ResponseCategory.choices)
-    HasClientMoved = models.IntegerField(choices=ResponseCategory.choices)
-    LocationDetails = models.TextField(blank=True, null=True)
-
-
-class DateOfEngagement(models.Model):
-    """
-    This class is for Date 
-    """
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='DateOfEngagement_EnrollmentID',
-                                     default=None)
-    DateOfEngagement = models.DateField()
-
-
-class BedNightDate(models.Model):
-    """
-    This class is for Date 
-    """
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='BedNightDate_EnrollmentID',
-                                     default=None)
-    BedNightDate = models.DateField()
-
-
-class AssessmentTypeCategory(models.IntegerChoices):
-    """
-    This class is for appointment assessment category type 
-    """
-    PHONE = 1, _("Phone")
-    VIRTUAL = 2, _("Virtual")
-    IN_PERSON = 3, _("In Person")
-
-
-class AssessmentLevelCategory(models.IntegerChoices):
-    """
-    This class is for appointment assessment level 
-    """
-    CRISIS_NEED_ASSESSMENT = 1, _("Crisis Need Assessment")
-    HOUSING_NEED_ASSESSMENT = 2, _("Housing Need Assessment")
-
-
-class PrioritizationStatusCategory(models.IntegerChoices):
-    """
-    This class is for appointment priority type 
-    """
-    ON_PRIORITY_LIST = 1, _("On Priority List")
-    NOT_ON_PRIORITY_LIST = 2, _("Not on Priority List")
-
-
-class CoordinatedEntryAssessment(models.Model):
-    """
-    This class is for appointment coordinated assessment entry
-    """
-    DateOfAssessment = models.DateField()
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='CoordinatedEntryAssessment_EnrollmentID', default=None)
-    AssessmentLocation = models.TextField(max_length=250)  # Admin-managed list of locations
-    AssessmentType = models.IntegerField(choices=AssessmentTypeCategory.choices)
-    AssessmentLevel = models.IntegerField(choices=AssessmentLevelCategory.choices)
-    AssessmentQuestion = models.TextField(max_length=250)
-    AssessmentAnswer = models.TextField(max_length=250)
-    AssessmentResultType = models.TextField(max_length=250)
-    AssessmentResult = models.TextField(max_length=250)
-    PrioritizationStatus = models.IntegerField(choices=PrioritizationStatusCategory.choices)
-
-
-class EventCategoryType(models.IntegerChoices):
-    """
-    This class is for event category
-    """
-    PREVENTION_ASSISTANCE = 1, _("Referral to a Prevention Assistance project")
-    DIVERSION_OR_RAPID_RESOLUTION = 2, _("Problem Solving/Diversion/Rapid Resolution intervention or service")
-    COORDINATED_ENTRY_CRISIS_ASSESSMENT = 3, _("Scheduled Coordinated Entry Crisis Assessment")
-    COORDINATED_ENTRY_HOUSING_NEED_ASSESSMENT = 4, _("Scheduled Coordinated Entry Housing Needs Assessment")
-    CASE_MANAGEMENT = 5, _("Post Placement/ Follow-up Case Management")
-    STREET_OUTREACH = 6, _("Street Outreach Project or Services")
-    HOUSING_NAVIGATION = 7, _("Housing Navigation Project or Services")
-    INELIGIBLE_CONTINUUM_SERVICES = 8, _("Ineligible for continuum services")
-    NA_CONTINUUM_SERVICES = 9, _("No availability in continuum services")
-    EMERGENCY_SHELTER = 10, _("Emergency Shelter bed opening")
-    TRANSITIONAL_HOUSING = 11, _("Transitional Housing bed/unit opening")
-    JOINT_TH_RRH = 12, _("Joint TH-RRH project/unit/resource opening")
-    RRH_PROJECT_RESOURCE = 13, _("RRH Project Resource Opening")
-    PSH_PROJECT_RESOURCE = 14, _("PSH Project Resource Opening")
-    OTHER_PROJECT = 15, _("Other Project/Unit/Resource Opening")
-
-
-class ReferralResultCategory(models.IntegerChoices):
-    """
-    This class is for referral result type 
-    """
-    CLIENT_ACCEPTED = 1, _("Successful Referral: Client Accepted")
-    CLIENT_REJECTED = 2, _("Unsuccessful Referral: Client Rejected")
-    PROVIDER_REJECTED = 3, _("Unsuccessful Referral: Provider Rejected")
-
-
-class CoordinatedEntryEvent(models.Model):
-    """
-    This class is for coordinate entry event information 
-    """
-    DateOfEvent = models.DateField()
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='CoordinatedEntryEvent_EnrollmentID', default=None)
-    Event = models.IntegerField(choices=EventCategoryType.choices)
-    ClientHousedOrReHoused = models.CharField(choices=YesNoResponse.choices, max_length=3)
-    EnrolledInAfterCareProject = models.CharField(choices=YesNoResponse.choices, max_length=3)
-    LocationOfHousing = models.TextField(choices=ProjectCategory.choices)
-    ReferralResult = models.IntegerField(choices=ReferralResultCategory.choices)
-    DateOfResult = models.DateField()
-
-
-class SexualOrientationCategory(models.IntegerChoices):
-    """
-    This class is for sexual orientation type 
-    """
-    HETEROSEXUAL = 1, _("Heterosexual")
-    GAY = 2, _("Gay")
-    LESBIAN = 3, _("Lesbian")
-    BISEXUAL = 4, _("Bisexual")
-    UNSURE = 5, _("Questioning / Unsure")
-    OTHERS = 6, _("Others")
-    CLIENT_DOESNOT_KNOW = 8, _('Client Doesn\'t Know')
-    CLIENT_REFUSED = 9, _('Client Refused')
-    DATA_NOT_COLLECTED = 99, _('Data Not Collected')
-
-
-class SexualOrientation(models.Model):
-    """
-    This class is for coordinate entry event information 
-    """
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='SexualOrientation_EnrollmentID', default=None)
-    SexualOrientation = models.IntegerField(choices=SexualOrientationCategory.choices)
-    Description = models.TextField()
-
+    #TotalMonthlyIncome = models.IntegerField(default=0)
 
 # VETERAN PROJECT MODELS
 
 class VeteranInformation(models.Model):
     """
-    This class is for veteran project information 
+    This class is for veteran project information
     """
     class MilitaryBranchCategory(models.IntegerChoices):
         """
-        This class is for veteran military branch information 
+        This class is for veteran military branch information
         """
         ARMY = 1, _('Army')
         AIRFORCE = 2, _('Air Force')
@@ -799,7 +491,7 @@ class VeteranInformation(models.Model):
 
     class DischargeStatusCategory(models.IntegerChoices):
         """
-        This class is for veteran discharge icategory nformation 
+        This class is for veteran discharge icategory nformation
         """
         HONORABLE = 1, _('Honorable')
         GENERAL_UNDER_HONORABLE_CONDITIONS = 2, _('General under honorable conditions')
@@ -830,7 +522,7 @@ class VeteranInformation(models.Model):
 
 class ServicesProvidedSSVF(models.Model):
     """
-    This class is for service provider SSVF information 
+    This class is for service provider SSVF information
     """
     class TypeOfServiceCategory(models.IntegerChoices):
         """
@@ -849,7 +541,7 @@ class ServicesProvidedSSVF(models.Model):
 
     class IfAssistanceObtainingVABenefitsCategory(models.IntegerChoices):
         """
-        this class is for VA benefits category information 
+        this class is for VA benefits category information
         """
         VA_VOCATIONAL_AND_REHABILITATION_COUNSELING = 1, _('VA vocational and rehabilitation counseling')
         EMPLOYMENT_AND_TRAINING_SERVICES = 2, _('Employment and training services')
@@ -858,7 +550,7 @@ class ServicesProvidedSSVF(models.Model):
 
     class IfAssistanceObtainingOrCoordinatingOtherPublicBenefitsCategory(models.IntegerChoices):
         """
-        this class is for public benefits category information 
+        this class is for public benefits category information
         """
         HEALTH_CARE_SERVICES = 1, _('Health care services')
         DAILY_LIVING_SERVICES = 2, _('Daily living services')
@@ -876,7 +568,7 @@ class ServicesProvidedSSVF(models.Model):
 
     class IfDirectProvisionOfOtherPublicBenefitsCategory(models.IntegerChoices):
         """
-        this class is for public benefits category information 
+        this class is for public benefits category information
         """
         PERSONAL_FINANCIAL_PLANNING_SERVICES = 1, _('Personal financial planning services')
         TRANSPORTATION_SERVICES = 2, _('Transportation services')
@@ -904,11 +596,11 @@ class ServicesProvidedSSVF(models.Model):
 
 class FinancialAssistanceSSVF(models.Model):
     """
-    this class is for financial assistance SSVF information 
+    this class is for financial assistance SSVF information
     """
     class FinancialAssistanceTypeCategory(models.IntegerChoices):
         """
-        This class is for financial assistance SSVF category type 
+        This class is for financial assistance SSVF category type
         """
         RENTAL_ASSISTANCE = 1, _('Rental assistance')
         SECURITY_DEPOSITS = 2, _('Security deposit')
@@ -1136,3 +828,129 @@ class EmploymentStatus(models.Model):
     Employed = models.IntegerField(choices=YesNoResponse.choices)
     TypeOfEmployment = models.IntegerField(choices=TypeOfEmploymentCategory.choices)
     WhyNotEmployed = models.IntegerField(choices=WhyNotEmployedCategory.choices)
+
+
+
+class W1ServicesProvidedHOPWA(models.Model):
+
+    """
+    This class is for HOPWA  Services information
+    """
+    class HOPWAServiceType(models.IntegerChoices):
+        ADULT_DAYCARE_AND_PERSONAL_ASSISTANCE = 1, _('Adult day care and personal assistance')
+        CASE_MANAGEMENT = 2, _('Case management')
+        CHILDCARE = 3, _('Child care')
+        CRIMINAL_JUSTICE_LEGAL_SERVICES = 4, _('Criminal justice/legal services')
+        EDUCATION = 5, _('Education')
+        EMPLOYMENT_AND_TRAINING_SERVICES = 6, _('Employment and training services')
+        FOOD_MEALS_NUTRITIONAL_SERVICES = 7, _('Food/meals/nutritional services')
+        HEALTH_MEDICAL_CARE = 8, _('Health/medical care')
+        LIFE_SKILLS_TRAINING = 9, _('Life skills training')
+        MENTAL_HEALTH_CARE_COUNSELING = 10, _('Mental health care/counseling')
+        OUTREACH_AND_OR_ENGAGEMENT = 11, _('Outreach and/or engagement')
+        SUBSTANCE_ABUSE_SERVICES_TREATMENT = 12, _('Substance abuse services/treatment')
+        TRANSPORTATION = 13, _('Transportation')
+        OTHER_HOPWA_FUNDED_SERVICE = 14, _('Other HOPWA funded service')
+
+    DateOfService = models.DateField()
+    TypeOfService = models.IntegerField(choices=HOPWAServiceType.choices)
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='W1ServicesProvidedHOPWA_EnrollmentID',
+                                     default=None)
+
+class TCellCD4AndViralLoadHOPWA(models.Model):
+    """
+    This class is for financial assistance HOPWA
+    """
+    class InformationObtainedResponseCategory(models.IntegerChoices):
+        """
+        This class is for reprt type
+        """
+        MEDICAL_REPORT = 1, _('Medical Report')
+        CLIENT_REPORT = 2, _('Client Report')
+        OTHER = 3, _('Other')
+    InformationDate = models.DateField()
+    IfYesTCellCount = models.IntegerField(validators=[MaxValueValidator(1500), MinValueValidator(0)])
+    HowWasTheInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices)
+    ViralLoadInformationAvailable = models.IntegerField(choices=ResponseCategory.choices)
+    ViralLoadCount = models.IntegerField(validators=[MaxValueValidator(999999), MinValueValidator(0)])
+    HowWasTheViralInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices)
+    TCellCD4CountAvailable = models.IntegerField(choices=ResponseCategory.choices)
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='TCellCD4AndViralLoadHOPWA_EnrollmentID',
+                                     default=None)
+
+
+class MedicalAssistanceHOPWA(models.Model):
+    """
+    This class is consists of medical assistance HOPWA fields
+    """
+
+    class IfNoReasonTypeCategory(models.IntegerChoices):
+        """
+        This class is for medical assistance HOPWA applied status
+        """
+        APPLIED_DECISION_PENDING = 1, _('Applied; decision pending')
+        APPLIED_CLIENT_NOT_ELIGIBLE = 2, _('Applied; client not eligible')
+        CLIENT_DIDNOT_APPLY = 3, _('Client did not apply ')
+        INSURANCE_TYPE_NA_FOR_THIS_CLIENT = 4, _('Insurance type N/A for this client')
+        CLIENT_DOESNOT_KNOW = 8, _('Client Doesn\'t Know')
+        CLIENT_REFUSED = 9, _('Client Refused')
+        DATA_NOT_COLLECTED = 99, _('Data Not Collected')
+
+    InformationDate = models.DateField()
+    ReceivingPublicHIVAIDSMedicalAssistance = models.IntegerField(choices=ResponseCategory.choices)
+    IfNoReason = models.IntegerField(choices=IfNoReasonTypeCategory.choices)
+    ReceivingAIDSDrugAssistanceProgram = models.IntegerField(choices=ResponseCategory.choices)
+    IfNoReasonADAP = models.IntegerField(choices=IfNoReasonTypeCategory.choices)
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='MedicalAssistanceHOPWA_EnrollmentID',
+                                     default=None)
+
+class HousingAssessmentAtExitHOPWA(models.Model):
+    """
+    This class is for housing assessment at exit HOPWA information
+    """
+    class HousingAssessmentAtExitResponseCategory(models.IntegerChoices):
+        """
+        This class is for housing assessment at exit HOPWA response category
+        """
+        ABLE_TO_MAINTAIN_THE_HOUSING_THEY_HAD_AT_PROJECT_ENTRY = 1, _(
+            "Able to maintain the housing they had at project entry")
+        MOVED_TO_NEW_HOUSING_UNIT = 2, _('Moved to new housing unit')
+        MOVED_IN_WITH_FAMILY_FRIENDS_ON_A_TEMPORARY_BASIS = 3, _('Moved in with family/friends on a temporary basis')
+        MOVED_IN_WITH_FAMILY_FRIENDS_ON_A_PERMANENT_BASIS = 4, _('Moved in with family/friends on a permanent basis')
+        MOVED_TO_A_TRANSITIONAL_OR_TEMPORARY_HOUSING_FACILITY_OR_PROGRAM = 5, _(
+            " Moved to a transitional or temporary housing facility or program")
+        CLIENT_BECAME_HOMELESS_MOVING_TO_A_SHELTER_OR_OTHER_PLACE_UNFIT_FOR_HUMAN_HABITATION = 6, _(
+            "Client became homeless - moving to a shelter or other place unfit for human habitation")
+        CLIENT_WENT_TO_JAIL_PRISON = 7, _('Client went to jail/prison')
+        CLIENT_DIED = 10, _('Client Died')
+        CLIENT_DOESNOT_KNOW = 8, _('Client Doesn\'t Know')
+        CLIENT_REFUSED = 9, _('Client Refused')
+        DATA_NOT_COLLECTED = 99, _('Data Not Collected')
+
+    class AnotherSubsidyInformationResponseCategory(models.IntegerChoices):
+        """
+        This class is for housing assessment at exit HOPWA subsidy response information
+        """
+        WITH_ONGOING_SUBSIDY = 1, _('With ongoing subsidy')
+        WITHOUT_AN_ONGOING_SUBSIDY = 2, _('Without an ongoing subsidy')
+
+    class SubsidyInformationResponseCategory(models.IntegerChoices):
+        """
+        This class is for housing assessment at exit HOPWA subsidy response information
+        """
+        WITHOUT_A_SUBSIDY = 1, _('Without_a_subsidy')
+        WITH_THE_SUBSIDY_THEY_HAD_AT_PROJECT_ENTRY = 2, _('With the subsidy they had at project entry')
+        WITH_AN_ONGOING_SUBSIDY_ACQUIRED_SINCE_PROJECT_ENTRY = 3, _(
+            'With an ongoing subsidy acquired since project entry')
+        ONLY_WITH_FINANCIAL_ASSISTANCE_OTHER_THAN_A_SUBSIDY = 4, _(
+            'Only with financial assistance other than a subsidy')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='HousingAssessmentAtExitHOPWA_EnrollmentID',
+                                     default=None)
+    HousingAssessmentAtExit = models.IntegerField(choices=HousingAssessmentAtExitResponseCategory.choices)
+    SubsidyInformation = models.IntegerField(choices=SubsidyInformationResponseCategory.choices)
+    AnotherSubsidyInformation = models.IntegerField(choices=AnotherSubsidyInformationResponseCategory.choices)

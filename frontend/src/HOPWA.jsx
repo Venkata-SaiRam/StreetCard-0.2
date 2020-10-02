@@ -1,13 +1,16 @@
 import React, {Component} from "react";
 import "antd/dist/antd.css";
 import {Button, Cascader, Checkbox, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
-import DomesticViolence from "./DomesticViolence";
-import DisablingCondition from "./DisablingCondition";
 import EnrollmentDetails from "./EnrollmentDetails";
 import IncomeAndSource from "./IncomeAndSource";
 import NonCashBenefits from "./NonCashBenefits";
 import HealthInsurance from "./HealthInsurance";
-
+import DisablingCondition from "./DisablingCondition";
+import DomesticViolence from "./DomesticViolence";
+import ServicesProvidedHOPWA from "./ServicesProvidedHOPWA";
+import MedicalAssistance from "./MedicalAssistance";
+import TCellCD4ViralLoad from "./TCellCD4ViralLoad";
+import HousingAssessment from "./HousingAssessment";
 
 const {Panel} = Collapse;
 
@@ -32,7 +35,7 @@ const formItemLayout = {
         }
     }
 };
-class HomelessPreventionHUD extends Component {
+class HOPWA extends Component {
     constructor(props) {
         super(props);
         this.state={
@@ -122,6 +125,7 @@ class HomelessPreventionHUD extends Component {
                 healthInsuranceObject.OtherInsurance = this.handleValue(values.otherinsurance);
                 healthInsuranceObject.SpecifySource = values.specifysourceHealthInsurance;
                 healthInsuranceObject.Reason = this.handleValue(values.reason);
+                healthInsuranceObject.WorkersCompAmount = values.workerscompamountHI;
                 enrollmentRequestObject.health_insurance = healthInsuranceObject;
                 var domesticViolenceObject = {};
                 domesticViolenceObject.InformationDate = values['informationdateDV'] != null ? values['informationdateDV'].format('YYYY-MM-DD') : null;
@@ -143,78 +147,32 @@ class HomelessPreventionHUD extends Component {
                 disablingCondition.substance_abuse = this.handleValue(values.substance_abuse);
                 disablingCondition.substance_abuse_impairing = this.handleValue(values.substance_abuse_impairing);
                 enrollmentRequestObject.disabling_condition = disablingCondition;
-                var dateofEngagementObject = {};
-                dateofEngagementObject.DateOfEngagement = values['dateofengagement'] != null ? values['dateofengagement'].format('YYYY-MM-DD') : null;
-                enrollmentRequestObject.date_of_engagement = dateofEngagementObject;
-                var bedNightDateObject = {};
-                bedNightDateObject.BedNightDate = values['bednightdate'] != null ? values['bednightdate'].format('YYYY-MM-DD') : null;
-                enrollmentRequestObject.bed_night_date = bedNightDateObject;
-                var currentLivingSituationObject = {};
-                currentLivingSituationObject.InformationDate = values['informationdateCL'] != null ? values['informationdateCL'].format('YYYY-MM-DD') : null;
-                currentLivingSituationObject.CurrentLivingSituation = this.handleValue(values.currentlivingsituation);
-                currentLivingSituationObject.VerifiedByProject = this.handleValue(values.verifiedbyproject);
-                currentLivingSituationObject.HasToLeaveCurrentSituation = this.handleValue(values.hastoleavecurrentsituation);
-                currentLivingSituationObject.HasASubsequentResidence = this.handleValue(values.hasasubsequentresidence);
-                currentLivingSituationObject.HasResourcesToObtainPermanentHousing = this.handleValue(values.hasresourcestoobtainpermanenthousing);
-                currentLivingSituationObject.OwnershipInPermanentHousing = this.handleValue(values.ownershipinpermanenthousing);
-                currentLivingSituationObject.HasClientMoved = this.handleValue(values.hasclientmoved);
-                currentLivingSituationObject.LocationDetails = values.locationdetails;
-                enrollmentRequestObject.current_living_situation = currentLivingSituationObject;
-                var coordinatedEntryAssessmentObject = {};
-                coordinatedEntryAssessmentObject.DateOfAssessment = values['dateofassessment'] != null ? values['dateofassessment'].format('YYYY-MM-DD') : null;
-                coordinatedEntryAssessmentObject.AssessmentLocation = values.assessmentlocation;
-                coordinatedEntryAssessmentObject.AssessmentType = this.handleValue(values.assessmenttype);
-                coordinatedEntryAssessmentObject.AssessmentLevel = this.handleValue(values.assessmentlevel);
-                coordinatedEntryAssessmentObject.AssessmentQuestion = values.assessmentquestion;
-                coordinatedEntryAssessmentObject.AssessmentAnswer = values.assessmentanswer;
-                coordinatedEntryAssessmentObject.AssessmentResultType = values.assessmentresulttype;
-                coordinatedEntryAssessmentObject.AssessmentResult = values.assessmentresult;
-                coordinatedEntryAssessmentObject.PrioritizationStatus = values.prioritizationstatus;
-                enrollmentRequestObject.coordinated_entry_assessment = coordinatedEntryAssessmentObject;
-                var coordinatedEntryEventObject = {};
-                coordinatedEntryEventObject.DateOfEvent = values['dateofevent'] != null ? values['dateofevent'].format('YYYY-MM-DD') : null;
-                coordinatedEntryEventObject.Event = this.handleValue(values.event);
-                coordinatedEntryEventObject.ClientHousedOrReHoused = this.handleValue(values.clienthousedorrehoused);
-                coordinatedEntryEventObject.EnrolledInAfterCareProject = this.handleValue(values.enrolledinaftercareproject);
-                coordinatedEntryEventObject.LocationOfHousing = this.handleValue(values.locationofhousing);
-                coordinatedEntryEventObject.ReferralResult = this.handleValue(values.referralresult);
-                coordinatedEntryEventObject.DateOfResult = values['dateofresult'] != null ? values['dateofresult'].format('YYYY-MM-DD') : null;
-                enrollmentRequestObject.coordinated_entry_event = coordinatedEntryEventObject;
-                var sexualOrientationObject = {};
-                sexualOrientationObject.SexualOrientation = this.handleValue(values.sexualorientation);
-                sexualOrientationObject.Description = values.description;
-                enrollmentRequestObject.sexual_orientation = sexualOrientationObject;
-                var veteransInfoObject = {};
-                veteransInfoObject.YearEnteredMilitaryService = values.yearenteredmilitaryservice;
-                veteransInfoObject.YearSeparatedFromMilitaryService = values.yearseparatedfrommilitaryservice;
-                veteransInfoObject.TheatreOfOperations_WorldWar2 = this.handleValue(values.theatreofoperations_worldwar2);
-                veteransInfoObject.TheatreOfOperations_KoreanWar = this.handleValue(values.theatreofoperations_koreanwar);
-                veteransInfoObject.TheatreOfOperations_VietnamWar = this.handleValue(values.theatreofoperations_vietnamwar);
-                veteransInfoObject.TheatreOfOperations_PersianGulfWar = this.handleValue(values.theatreofoperations_persiangulfwar);
-                veteransInfoObject.TheatreOfOperations_Afghanistan = this.handleValue(values.theatreofoperations_afghanistan);
-                veteransInfoObject.TheatreOfOperations_Iraq_IraqiFreedom = this.handleValue(values.theatreofoperations_iraq_iraqifreedom);
-                veteransInfoObject.TheatreOfOperations_Iraq_NewDawn = this.handleValue(values.theatreofoperations_iraq_newdawn);
-                veteransInfoObject.TheatreOfOperations_OtherPeacekeepingOperations = this.handleValue(values.theatreofoperations_otherpeacekeepingoperations);
-                veteransInfoObject.BranchOfMilitary = this.handleValue(values.branchofmilitary);
-                veteransInfoObject.DischargeStatus = this.handleValue(values.dischargestatus);
-                enrollmentRequestObject.veteran_Information = veteransInfoObject;
-                var servicesProvidedSSVFObject = {};
-                servicesProvidedSSVFObject.DateOfService = values['dateofservice'] != null ? values['dateofservice'].format('YYYY-MM-DD') : null;
-                servicesProvidedSSVFObject.TypeOfService = this.handleValue(values.typeofservice);
-                servicesProvidedSSVFObject.IfAssistanceObtainingVABenefits = this.handleValue(values.ifassistanceobtainingvabenefits);
-                servicesProvidedSSVFObject.IfAssistanceObtainingOrCoordinatingOtherPublicBenefits = this.handleValue(values.ifassistanceobtainingorcoordinatingotherpublicbenefits);
-                servicesProvidedSSVFObject.IfDirectProvisionOfOtherPublicBenefits = this.handleValue(values.ifdirectprovisionofotherpublicbenefits);
-                servicesProvidedSSVFObject.IfOtherSupportiveServiceApprovedByVA = values.ifothersupportiveserviceapprovedbyva
-                enrollmentRequestObject.services_Provided_SSVF = servicesProvidedSSVFObject;
-                var connectionWithSOARObject = {};
-                connectionWithSOARObject.ConnectionWithSOAR = this.handleValue(values.connectionwithsoar);
-                enrollmentRequestObject.connection_With_SOAR = connectionWithSOARObject;
-                var employmentStatusObject = {};
-                employmentStatusObject.InformationDate = values['informationdate'] != null ? values['informationdate'].format('YYYY-MM-DD') : null;
-                employmentStatusObject.Employed = this.handleValue(values.employed)
-                employmentStatusObject.TypeOfEmployment = this.handleValue(values.typeofemployment)
-                employmentStatusObject.WhyNotEmployed = this.handleValue(values.whynotemployed)
-                enrollmentRequestObject.employment_Status = employmentStatusObject;
+                var servicesProvidedHOPWAObject = {};
+                servicesProvidedHOPWAObject.DateOfService = values['dateofservice'] != null ? values['dateofservice'].format('YYYY-MM-DD') : null;
+                servicesProvidedHOPWAObject.TypeOfService = this.handleValue(values.typeofservice);
+                enrollmentRequestObject.w1ServicesProvidedHOPWA = servicesProvidedHOPWAObject;
+                var medicalAssistanceObject = {};
+                medicalAssistanceObject.InformationDate = values['informationdateMA'] != null ? values['informationdateMA'].format('YYYY-MM-DD') : null;
+                medicalAssistanceObject.ReceivingPublicHIVAIDSMedicalAssistance = this.handleValue(values.receivingAssistance);
+                medicalAssistanceObject.IfNoReason = this.handleValue(values.ifNoReason);
+                medicalAssistanceObject.ReceivingAIDSDrugAssistanceProgram = this.handleValue(values.receivingDrugAsssistance);
+                medicalAssistanceObject.IfNoReasonADAP = this.handleValue(values.ifNoReasonADAP);
+                enrollmentRequestObject.medicalAssistanceHOPWA = medicalAssistanceObject;
+                var tCellCD4AndViralLoadHOPWAObject = {};
+                tCellCD4AndViralLoadHOPWAObject.InformationDate = values['informationdateVL'] != null ? values['informationdateVL'].format('YYYY-MM-DD') : null;
+                tCellCD4AndViralLoadHOPWAObject.TCellCD4CountAvailable = this.handleValue(values.tCellCD4CountAvailable);
+                tCellCD4AndViralLoadHOPWAObject.IfYesTCellCount = values.ifYesTCellCount;
+                tCellCD4AndViralLoadHOPWAObject.HowWasTheInformationObtained = this.handleValue(values.howWasTheInformationObtained);
+                tCellCD4AndViralLoadHOPWAObject.ViralLoadInformationAvailable = this.handleValue(values.viralLoadInformationAvailable);
+                tCellCD4AndViralLoadHOPWAObject.ViralLoadCount = values.viralLoadCount;
+                tCellCD4AndViralLoadHOPWAObject.HowWasTheViralInformationObtained = this.handleValue(values.howWasTheViralInformationObtained);
+                enrollmentRequestObject.tCellCD4AndViralLoadHOPWA = tCellCD4AndViralLoadHOPWAObject;
+                var housingAssessmentAtExitHOPWAObject = {};
+                housingAssessmentAtExitHOPWAObject.HousingAssessmentAtExit = this.handleValue(values.housingAssessmentAtExit);
+                housingAssessmentAtExitHOPWAObject.SubsidyInformation = this.handleValue(values.subsidyInformation);
+                housingAssessmentAtExitHOPWAObject.AnotherSubsidyInformation = this.handleValue(values.anotherSubsidyInformation);
+                enrollmentRequestObject.housingAssessmentAtExitHOPWA = housingAssessmentAtExitHOPWAObject;
+
                 this.handleEmptyObject(enrollmentRequestObject);
 
 
@@ -264,12 +222,16 @@ class HomelessPreventionHUD extends Component {
                   onSubmit={this.handleOnSubmit}>
                 <Collapse style={{backgroundColor: "#f0f9ff"}}>
                     <EnrollmentDetails personalProps={this.props}/>
-                    <NonCashBenefits nonCash={this.props}/>
                     <IncomeAndSource incomeSource={this.props}/>
+                    <NonCashBenefits nonCash={this.props}/>
                     <HealthInsurance healthInsurance={this.props}/>
                     <DisablingCondition disablingCondition={this.props}/>
                     <DomesticViolence domesticViolence={this.props}/>
-                    <DisablingCondition disablingCondition={this.props}/>
+                    <ServicesProvidedHOPWA servicesProvidedHOPWA={this.props}/>
+                    <MedicalAssistance medicalAssistance={this.props}/>
+                    <TCellCD4ViralLoad tCellCD4ViralLoad={this.props}/>
+                    <HousingAssessment housingAssessment={this.props}/>
+
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="17">
                         <Row>
@@ -298,7 +260,7 @@ class HomelessPreventionHUD extends Component {
     }
 }
 
-const WrappedHomelessEnrollment = Form.create({name: "enrollment"})(
-    HomelessPreventionHUD
+const WrappedHOPWAEnrollment = Form.create({name: "enrollment"})(
+    HOPWA
 );
-export default WrappedHomelessEnrollment;
+export default WrappedHOPWAEnrollment;
