@@ -7,6 +7,7 @@ import SiderComponent from './SiderComponent'
 import HomelessPreventionHUD from "./HomelessPreventionHUD";
 import RapidReHousingVA from "./RapidReHousingVA";
 import HOPWA from "./HOPWA";
+import RunawayHomelessYouth from "./RunawayHomelessYouth"
 
 const {Content} = Layout;
 const {Panel} = Collapse;
@@ -22,6 +23,10 @@ const ProjectCategory = [
     {
         value: "HOPWA:Housing for people with AIDS",
         label: "HOPWA:Housing for people with AIDS"
+    },
+    {
+        value: "RHY:Runaway and Homeless Youth",
+        label: "RHY:Runaway and Homeless Youth"
     }
 ];
 const message = "Mandatory field! Please provide a response."
@@ -101,6 +106,11 @@ class EnrollmentForm extends Component {
             case "HOPWA:Housing for people with AIDS":
                 changingPanel.pop();
                 changingPanel.push(<HOPWA data={e[0]} personalId={this.state.items.PersonalId}
+                                                     history={this.props.history}/>)
+                break;
+            case "RHY:Runaway and Homeless Youth":
+                changingPanel.pop();
+                changingPanel.push(<RunawayHomelessYouth data={e[0]} personalId={this.state.items.PersonalId}
                                                      history={this.props.history}/>)
                 break;
         }
