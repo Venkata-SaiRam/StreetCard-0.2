@@ -80,20 +80,116 @@ class FamilyCriticalIssues extends Component {
         const message = "Mandatory field! Please provide a response."
         return(
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
-            <Panel header="Health Insurance" key="4">
+            <Panel header="Family Critical Issues" key="15">
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="Information Date">
-                                    {getFieldDecorator("informationdateCritical", {
-                                        rules: [
-                                            {
-                                                message: {message},
-                                                required: false
-                                            }
-                                        ]
-                                    })(
-                                        <DatePicker style={{width: "100%"}}/>)}
+                                    label="Family member unemployed?"
+                                >{getFieldDecorator("unemployedFamilyMember", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Mental Health Issues"
+                                >{getFieldDecorator("mentalHealthIssues", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Physical Disability"
+                                >{getFieldDecorator("physicalDisabilityFamily", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={8}>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Alcohol or Substance Abuse"
+                                >{getFieldDecorator("alcoholOrSubstanceAbuse", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Insufficient Income to support Youth"
+                                >{getFieldDecorator("insufficientIncome", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Incarcerated Parent of Youth"
+                                >{getFieldDecorator("incarceratedParent", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
                                 </Form.Item>
                             </Col>
                         </Row>

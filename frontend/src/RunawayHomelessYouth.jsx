@@ -139,9 +139,6 @@ class RunawayHomelessYouth extends Component {
                 disablingCondition.substance_abuse = this.handleValue(values.substance_abuse);
                 disablingCondition.substance_abuse_impairing = this.handleValue(values.substance_abuse_impairing);
                 enrollmentRequestObject.disabling_condition = disablingCondition;
-                var familyCriticalIssues = {};
-                familyCriticalIssues.InformationDate = values['informationdateCritical'] != null ? values['informationdateDC'].format('YYYY-MM-DD') : null;
-                // enrollmentRequestObject.disabling_condition = familyCriticalIssues;
 
 
                 this.handleEmptyObject(enrollmentRequestObject);
@@ -197,7 +194,7 @@ class RunawayHomelessYouth extends Component {
                     <NonCashBenefits nonCash={this.props}/>
                     <HealthInsurance healthInsurance={this.props}/>
                     <DisablingCondition disablingCondition={this.props}/>
-                    {/*<FamilyCriticalIssues familyCriticalIssues={this.props}/>>*/}
+                    <FamilyCriticalIssues familyCriticalIssues={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="17">
