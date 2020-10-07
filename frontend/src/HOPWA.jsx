@@ -49,7 +49,7 @@ class HOPWA extends Component {
         if (e != null) {
             return e[0];
         } else
-            return null;
+            return 1;
     };
 
 
@@ -161,10 +161,10 @@ class HOPWA extends Component {
                 var tCellCD4AndViralLoadHOPWAObject = {};
                 tCellCD4AndViralLoadHOPWAObject.InformationDate = values['informationdateVL'] != null ? values['informationdateVL'].format('YYYY-MM-DD') : null;
                 tCellCD4AndViralLoadHOPWAObject.TCellCD4CountAvailable = this.handleValue(values.tCellCD4CountAvailable);
-                tCellCD4AndViralLoadHOPWAObject.IfYesTCellCount = values.ifYesTCellCount;
+                tCellCD4AndViralLoadHOPWAObject.IfYesTCellCount = values.ifYesTCellCount ?? "0";
                 tCellCD4AndViralLoadHOPWAObject.HowWasTheInformationObtained = this.handleValue(values.howWasTheInformationObtained);
                 tCellCD4AndViralLoadHOPWAObject.ViralLoadInformationAvailable = this.handleValue(values.viralLoadInformationAvailable);
-                tCellCD4AndViralLoadHOPWAObject.ViralLoadCount = values.viralLoadCount;
+                tCellCD4AndViralLoadHOPWAObject.ViralLoadCount = values.viralLoadCount ?? "0";
                 tCellCD4AndViralLoadHOPWAObject.HowWasTheViralInformationObtained = this.handleValue(values.howWasTheViralInformationObtained);
                 enrollmentRequestObject.tCellCD4AndViralLoadHOPWA = tCellCD4AndViralLoadHOPWAObject;
                 var housingAssessmentAtExitHOPWAObject = {};
