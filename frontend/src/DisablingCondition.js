@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
+
 
 const {Panel} = Collapse;
 const YesNoResponse = [

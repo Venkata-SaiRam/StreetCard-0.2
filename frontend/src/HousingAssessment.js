@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
+
 
 const {Panel} = Collapse;
 const YesNoResponse = [
@@ -178,8 +180,6 @@ class HousingAssessment extends Component {
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
-                        </Row>
-                        <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
                                     label="Another Subsidy Information"

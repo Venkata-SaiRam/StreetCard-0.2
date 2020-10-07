@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
+
 const {Panel} = Collapse;
 const DischargeStatusCategory = [
         {
@@ -254,7 +256,7 @@ class VeteransInformation extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="TheatreOfOperations: Iraq - NewDawn">
+                                    label="TOO: Iraq - NewDawn">
                                     {getFieldDecorator("theatreofoperations_iraq_newdawn", {
                                         rules: [
                                             {

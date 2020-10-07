@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import "antd/dist/antd.css";
 import {Button, Cascader, Checkbox, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
 import EnrollmentDetails from "./EnrollmentDetails";
 import IncomeAndSource from "./IncomeAndSource";
 import NonCashBenefits from "./NonCashBenefits";

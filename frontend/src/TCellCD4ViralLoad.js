@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
 
 const {Panel} = Collapse;
 const YesNoResponse = [
@@ -121,7 +122,7 @@ class TCellCD4ViralLoad extends Component {
     }
 
     handleTCellCountDropDownChange(fieldName, values) {
-        if(values[0] === 0) {
+        if(values[0] === 1) {
              this.setState({ifYesTCellCountDisabled: false});
         }else {
             this.setState({ifYesTCellCountDisabled: true});
@@ -132,7 +133,7 @@ class TCellCD4ViralLoad extends Component {
     }
 
     handleViralLoadCountDropDownChange(fieldName, values) {
-        if(values[0] === 0) {
+        if(values[0] === 1) {
              this.setState({viralLoadCountDisabled: false});
         }else {
             this.setState({viralLoadCountDisabled: true});
@@ -184,7 +185,7 @@ class TCellCD4ViralLoad extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="TCellCD4CountAvailable"
+                                    label="TCell (CD4) Count Available"
                                 >{getFieldDecorator("tCellCD4CountAvailable", {
                                     rules: [
                                         {
@@ -205,7 +206,7 @@ class TCellCD4ViralLoad extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="IfYesTCellCount"
+                                    label="If Yes, TCell Count"
                                 >{getFieldDecorator("ifYesTCellCount", {
                                     rules: [
                                         {
@@ -243,7 +244,7 @@ class TCellCD4ViralLoad extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="ViralLoadInformationAvailable"
+                                    label="Viral Load Information Available"
                                 >{getFieldDecorator("viralLoadInformationAvailable", {
                                     rules: [
                                         {
@@ -264,7 +265,7 @@ class TCellCD4ViralLoad extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="ViralLoadCount"
+                                    label="Viral Load Count"
                                 >{getFieldDecorator("viralLoadCount", {
                                     rules: [
                                         {
@@ -280,9 +281,11 @@ class TCellCD4ViralLoad extends Component {
                                     />)}
                                 </Form.Item>
                             </Col>
+                        </Row>
+                        <Row>
                             <Col span={8}>
                                 <Form.Item
-                                    label="HowWasTheViralInformationObtained"
+                                    label="How Was Viral Information Obtained"
                                 >{getFieldDecorator("howWasTheViralInformationObtained", {
                                     rules: [
                                         {

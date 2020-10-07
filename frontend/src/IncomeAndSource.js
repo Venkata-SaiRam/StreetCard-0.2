@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
 
 const {Panel} = Collapse;
 const {TextArea} = Input;
@@ -37,13 +38,13 @@ const YesNoResponse = [
     },
 ];
 
+
 class IncomeAndSource extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isEnabled: true
         }
-        // this.handleOnSubmit = this.handleOnSubmit.bind(this);
     }
 
     render(){
@@ -56,7 +57,7 @@ class IncomeAndSource extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="Information Date">
+                                    label="Information Date" >
                                     {getFieldDecorator("informationdateIncome", {
                                         rules: [
                                             {
@@ -69,8 +70,8 @@ class IncomeAndSource extends Component {
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
-                                <Form.Item
-                                    label="IncomeFromAnySources"
+                                <Form.Item style={{whiteSpace : "pre-wrap", lineHeight : "normal"}}
+                                    label="Income From Any Sources"
                                 >{getFieldDecorator("incomefromanysources", {
                                     rules: [
                                         {
@@ -108,7 +109,7 @@ class IncomeAndSource extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="EarnedIncome"
+                                    label="Earned Income"
                                 >{getFieldDecorator("earnedincome", {
                                     rules: [
                                         {
@@ -208,7 +209,7 @@ class IncomeAndSource extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="SSDIAmount"
+                                    label="SSDI Amount"
                                 >{getFieldDecorator("ssdiamount", {
                                     rules: [
                                         {
@@ -256,7 +257,7 @@ class IncomeAndSource extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="VA Disability Non-Service"
+                                    label="VA Disability NonService"
                                 >{getFieldDecorator("vadisabilitynonservice", {
                                     rules: [
                                         {
@@ -274,7 +275,7 @@ class IncomeAndSource extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="VADisabilityNonServiceNonAmount"
+                                    label="VA Disability NonService NonAmount"
                                 >{getFieldDecorator("vadisabilitynonservicenonamount", {
                                     rules: [
                                         {
@@ -440,7 +441,7 @@ class IncomeAndSource extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="SocSecRetirementAmount"
+                                    label="Soc Sec Retirement Amount"
                                 >{getFieldDecorator("socsecretirementamount", {
                                     rules: [
                                         {
@@ -489,7 +490,7 @@ class IncomeAndSource extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="ChildSupport"
+                                    label="Child Support"
                                 >{getFieldDecorator("childsupport", {
                                     rules: [
                                         {
@@ -509,7 +510,7 @@ class IncomeAndSource extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="ChildSupportAmount"
+                                    label="Child Support Amount"
                                 >{getFieldDecorator("Child Support Amount", {
                                     rules: [
                                         {
