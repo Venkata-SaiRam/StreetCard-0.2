@@ -954,3 +954,13 @@ class HousingAssessmentAtExitHOPWA(models.Model):
     HousingAssessmentAtExit = models.IntegerField(choices=HousingAssessmentAtExitResponseCategory.choices)
     SubsidyInformation = models.IntegerField(choices=SubsidyInformationResponseCategory.choices)
     AnotherSubsidyInformation = models.IntegerField(choices=AnotherSubsidyInformationResponseCategory.choices)
+
+class LabourExploitationTrafficking(models.Model):
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='LabourExploitationTrafficking_EnrollmentID',
+                                     default=None)
+    leavejob = models.IntegerField(choices=ResponseCategory.choices)
+    paymentdifference = models.IntegerField(choices=ResponseCategory.choices)
+    forcedintojob = models.IntegerField(choices=ResponseCategory.choices)
+    last3months = models.IntegerField(choices=ResponseCategory.choices)
