@@ -974,9 +974,27 @@ class ChildWelfareFoster(models.Model):
         Less_than_one_year = 1, _('Less than one year')
         One_to_Two_Years = 2, _('1 to 2 years')
         Three_to_Five_Years = 3,_('3 to 5 or more years')
-        EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='ChildWelfareFoster_EnrollmentID',
                                      default=None)
     formerChildWelfare = models.IntegerField(choices=ResponseCategory.choices)
     noofyears = models.IntegerField(choices=NoofYearsCategory.choices)
     noofmonths = models.IntegerField()
+
+class GeneralHealthStatus(models.Model):
+
+
+    class GeneralHealthStatusCategory(models.IntegerChoices):
+        Excellent = 1, _('Excellent')
+        Very_good = 2, _('Very Good')
+        Good = 3, _('Good')
+        Fair = 4, _('Fair')
+        Poor = 5, _('Poor')
+        Client_doesnt_know = 8, _('Client doesn\'t know')
+        Client_refused = 9, _('Client refused')
+        Data_not_collected = 99, _('Data not collected')
+
+    statusmentalhealth = models.IntegerField(choices=GeneralHealthStatusCategory.choices)
+
+
+

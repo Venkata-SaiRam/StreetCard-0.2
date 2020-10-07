@@ -6,7 +6,9 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     DomesticViolence, HealthInsurance, UserNameAndIdMapping, Log, \
     VeteranInformation, ServicesProvidedSSVF, FinancialAssistanceSSVF, PercentOfAMI, LastPermanentAddress, \
     SSVFHPTargetingCriteria, HUDVASHVoucherTracking, HUDVASHExitInformation, ConnectionWithSOAR, LastGradeCompleted, \
-    EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, ChildWelfareFoster
+    EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, \
+    TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
+    ChildWelfareFoster, GeneralHealthStatus
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -279,6 +281,11 @@ class ChildWelfareFosterCareAgencySerializer(serializers.ModelSerializer):
         model = ChildWelfareFoster
         fields = '_all_'
 
+class GeneralHealthStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GeneralHealthStatus
+        fields = '_all_'
+
 
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
@@ -303,6 +310,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     housingAssessmentAtExitHOPWA = HousingAssessmentAtExitHOPWASerializer(required=False)
     LabourExploitationTraffickingRHY = LabourExploitationTraffickingSerializer(required=False)
     ChildWelfareFosterRHY = ChildWelfareFosterCareAgencySerializer(required=False)
+    GeneralHealthStatusRHY = GeneralHealthStatusSerializer(required=False)
 
 
     class Meta:
@@ -311,7 +319,9 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'non_cash_benefits', 'disabling_condition', 'domestic_violence', 'health_insurance',
                   'veteran_Information', 'services_Provided_SSVF', 'financial_Assistance_SSVF',
                   'percent_Of_AMI', 'last_Permanent_Address', 'sSVFHP_Targeting_Criteria', 'hUD_VASH_Voucher_Tracking',
-                  'hUD_VASH_Exit_Information', 'connection_With_SOAR', 'last_Grade_Completed', 'employment_Status','w1ServicesProvidedHOPWA','tCellCD4AndViralLoadHOPWA','medicalAssistanceHOPWA','housingAssessmentAtExitHOPWA','LabourExploitationTraffickingRHY','ChildWelfareFosterRHY']
+                  'hUD_VASH_Exit_Information', 'connection_With_SOAR', 'last_Grade_Completed', 'employment_Status',
+                  'w1ServicesProvidedHOPWA', 'tCellCD4AndViralLoadHOPWA', 'medicalAssistanceHOPWA', 'housingAssessmentAtExitHOPWA',
+                  'LabourExploitationTraffickingRHY', 'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY']
 
     def create(self, validated_data):
 
@@ -337,6 +347,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         housing_assessment_at_exit_hopwa_data = check_and_assign('housingAssessmentAtExitHOPWA', validated_data)
         labour_exploitation_trafficking_rhy_data = check_and_assign('LabourExploitationTraffickingRHY', validated_data)
         child_welfare_foster_rhy_data = check_and_assign('ChildWelfareFosterRHY', validated_data)
+        general_health_status_rhy_data=check_and_assign('GeneralHealthStatusRHY', validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -398,6 +409,9 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if child_welfare_foster_rhy_data is not None:
             ChildWelfareFoster.objects.create(EnrollmentID_id=enroll.EnrollmentID,
                                                         **child_welfare_foster_rhy_data)
+        if general_health_status_rhy_data is not None:
+            GeneralHealthStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,
+                                                        **general_health_status_rhy_data)
 
 
 
@@ -490,6 +504,9 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if ChildWelfareFoster.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['child_welfare_foster_rhy'] = ChildWelfareFosterCareAgencySerializer(
                 ChildWelfareFoster.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if GeneralHealthStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['general_health_status_rhy'] = GeneralHealthStatusSerializer(
+                GeneralHealthStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
 
 
 
