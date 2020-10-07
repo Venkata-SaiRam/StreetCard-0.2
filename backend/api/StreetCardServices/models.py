@@ -996,5 +996,19 @@ class GeneralHealthStatus(models.Model):
 
     statusmentalhealth = models.IntegerField(choices=GeneralHealthStatusCategory.choices)
 
+class DentalHealthStatus(models.Model):
+
+    class DentalHealthStatusCategory(models.IntegerChoices):
+        Excellent = 1, _('Excellent')
+        Very_good = 2, _('Very Good')
+        Good = 3, _('Good')
+        Fair = 4, _('Fair')
+        Poor = 5, _('Poor')
+        Client_doesnt_know = 8, _('Client doesn\'t know')
+        Client_refused = 9, _('Client refused')
+        Data_not_collected = 99, _('Data not collected')
+
+    statusdentalhealth = models.IntegerField(choices=DentalHealthStatusCategory.choices)
+
 
 
