@@ -139,6 +139,14 @@ class RunawayHomelessYouth extends Component {
                 disablingCondition.substance_abuse = this.handleValue(values.substance_abuse);
                 disablingCondition.substance_abuse_impairing = this.handleValue(values.substance_abuse_impairing);
                 enrollmentRequestObject.disabling_condition = disablingCondition;
+                var familyCriticalIssues = {};
+                familyCriticalIssues.unemployed_family_member = this.handleValue(values.unemployedFamilyMember);
+                familyCriticalIssues.mental_health_issues = this.handleValue(values.mentalHealthIssues);
+                familyCriticalIssues.physical_disability_family = this.handleValue(values.physicalDisabilityFamily);
+                familyCriticalIssues.alocohol_substance_abuse = this.handleValue(values.alcoholOrSubstanceAbuse);
+                familyCriticalIssues.insufficient_income = this.handleValue(values.insufficientIncome);
+                familyCriticalIssues.incarcerated_parent = this.handleValue(values.incarceratedParent);
+                enrollmentRequestObject.family_CriticalIssues = familyCriticalIssues;
 
 
                 this.handleEmptyObject(enrollmentRequestObject);
