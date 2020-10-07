@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
+
 const {Panel} = Collapse;
 const {TextArea} = Input;
 const InsuranceReasonCategory = [
@@ -96,7 +98,7 @@ class HealthInsurance extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="CoveredByHealthInsurance"
+                                    label="Covered By Health Insurance"
                                 >{getFieldDecorator("coveredbyhealthinsurance", {
                                     rules: [
                                         {
@@ -169,7 +171,7 @@ class HealthInsurance extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="VAMedicalServices"
+                                    label="VA Medical Services"
                                 >{getFieldDecorator("vamedicalservices", {
                                     rules: [
                                         {
@@ -188,7 +190,7 @@ class HealthInsurance extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="EmployerProvided"
+                                    label="Employer Provided"
                                 >{getFieldDecorator("employerprovided", {
                                     rules: [
                                         {
@@ -223,7 +225,7 @@ class HealthInsurance extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="PrivatePay"
+                                    label="Private Pay"
                                 >{getFieldDecorator("privatepay", {
                                     rules: [
                                         {
@@ -243,7 +245,7 @@ class HealthInsurance extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="StateHealthInsuranceForAdults"
+                                    label="State Health Insurance For Adults"
                                 >{getFieldDecorator("statehealthinsuranceforadults", {
                                     rules: [
                                         {
@@ -299,7 +301,7 @@ class HealthInsurance extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="SpecifySource"
+                                    label="Specify Source"
                                 >{getFieldDecorator("specifysourceHealthInsurance", {
                                     rules: [
                                         {

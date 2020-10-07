@@ -610,10 +610,6 @@ class RegistrationForm extends React.Component {
             this.setState({SSNRequired: true, SSNType: 2});
         } else {
             this.setState({SSNRequired: false, SSNType: 0});
-            this
-                .props
-                .form
-                .resetFields();
         }
     }
     validateDOB(values) {

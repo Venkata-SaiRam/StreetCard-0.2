@@ -8,6 +8,8 @@ import {
     Input,
     Row
 } from "antd";
+import './LabelWrap.css';
+
 
 const { Panel } = Collapse;
 
@@ -228,7 +230,7 @@ class MedicalAssistance extends Component {
                             </Form.Item>
                         </Col>
                         <Col span={8}>
-                            <Form.Item label="If NO Reason">{getFieldDecorator("ifNoReason", {
+                            <Form.Item label="If NO, Reason">{getFieldDecorator("ifNoReason", {
                                 rules: [
                                     {
                                         message: {
@@ -240,7 +242,7 @@ class MedicalAssistance extends Component {
                                     }
                                 ]
                             })(
-                                <Cascader placeholder="If NO Reason" options={IfNoReasonTypeCategory} 
+                                <Cascader placeholder="If NO Reason" options={IfNoReasonTypeCategory}
                                 disabled={this.state.ifNoReasonDisabled}/>
                             )}
                             </Form.Item>
@@ -269,7 +271,7 @@ class MedicalAssistance extends Component {
                     </Row>
                     <Row gutter={8}>
                         <Col span={8}>
-                            <Form.Item label="If NO Reason ADAP">{getFieldDecorator("ifNoReasonADAP", {
+                            <Form.Item label="If NO, Reason ADAP">{getFieldDecorator("ifNoReasonADAP", {
                                 rules: [
                                     {
                                         message: {

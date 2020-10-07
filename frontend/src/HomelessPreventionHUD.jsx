@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import "antd/dist/antd.css";
 import {Button, Cascader, Checkbox, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
 import DomesticViolence from "./DomesticViolence";
 import DisablingCondition from "./DisablingCondition";
 import EnrollmentDetails from "./EnrollmentDetails";

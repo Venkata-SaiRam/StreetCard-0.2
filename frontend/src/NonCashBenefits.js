@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
 
 const {Panel} = Collapse;
 const {TextArea} = Input;
@@ -125,7 +126,7 @@ class NonCashBenefits extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="TANFChildCare"
+                                    label="TANF ChildCare"
                                 >{getFieldDecorator("tanfchildcare", {
                                     rules: [
                                         {
@@ -143,7 +144,7 @@ class NonCashBenefits extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="TANFTransportation"
+                                    label="TANF Transportation"
                                 >{getFieldDecorator("tanftransportation", {
                                     rules: [
                                         {
@@ -163,7 +164,7 @@ class NonCashBenefits extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="OtherTANF"
+                                    label="Other TANF"
                                 >{getFieldDecorator("othertanf", {
                                     rules: [
                                         {
