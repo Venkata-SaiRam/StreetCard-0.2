@@ -964,3 +964,19 @@ class LabourExploitationTrafficking(models.Model):
     paymentdifference = models.IntegerField(choices=ResponseCategory.choices)
     forcedintojob = models.IntegerField(choices=ResponseCategory.choices)
     last3months = models.IntegerField(choices=ResponseCategory.choices)
+
+class ChildWelfareFoster(models.Model):
+
+    class NoofYearsCategory(models.IntegerChoices):
+        """
+        This class is for how many years is he a child welfare member
+        """
+        Less_than_one_year = 1, _('Less than one year')
+        One_to_Two_Years = 2, _('1 to 2 years')
+        Three_to_Five_Years = 3,_('3 to 5 or more years')
+        EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='ChildWelfareFoster_EnrollmentID',
+                                     default=None)
+    formerChildWelfare = models.IntegerField(choices=ResponseCategory.choices)
+    noofyears = models.IntegerField(choices=NoofYearsCategory.choices)
+    noofmonths = models.IntegerField()
