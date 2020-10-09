@@ -993,7 +993,9 @@ class GeneralHealthStatus(models.Model):
         Client_doesnt_know = 8, _('Client doesn\'t know')
         Client_refused = 9, _('Client refused')
         Data_not_collected = 99, _('Data not collected')
-
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='GeneralHealthStatus_EnrollmentID',
+                                     default=None)
     statusmentalhealth = models.IntegerField(choices=GeneralHealthStatusCategory.choices)
 
 class DentalHealthStatus(models.Model):
@@ -1007,8 +1009,21 @@ class DentalHealthStatus(models.Model):
         Client_doesnt_know = 8, _('Client doesn\'t know')
         Client_refused = 9, _('Client refused')
         Data_not_collected = 99, _('Data not collected')
-
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='DentalHealthStatus_EnrollmentID',
+                                     default=None)
     statusdentalhealth = models.IntegerField(choices=DentalHealthStatusCategory.choices)
 
 
+class FamilyCriticalIssues(models.Model):
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='FamilyCriticalIssues_EnrollmentID',
+                                     default=None)
+    unemploymentfamilymember=models.IntegerField(choices=YesNoResponse.choices)
+    mentalhealthissues=models.IntegerField(choices=YesNoResponse.choices)
+    physicaldisability=models.IntegerField(choices=YesNoResponse.choices)
+    alcoholorsubstanceabuse=models.IntegerField(choices=YesNoResponse.choices)
+    insufficientincome=models.IntegerField(choices=YesNoResponse.choices)
+    parentofyouth=models.IntegerField(choices=YesNoResponse.choices)
 

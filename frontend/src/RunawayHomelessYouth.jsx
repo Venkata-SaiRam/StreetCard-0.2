@@ -8,7 +8,7 @@ import NonCashBenefits from "./NonCashBenefits";
 import HealthInsurance from "./HealthInsurance";
 import DisablingCondition from "./DisablingCondition";
 import FamilyCriticalIssues from "./FamilyCriticalIssues";
-import SexualExploitation from "./SexualExploitation";
+import sexualExploitation from "./SexualExploitation";
 
 
 const {Panel} = Collapse;
@@ -141,9 +141,13 @@ class RunawayHomelessYouth extends Component {
                 disablingCondition.substance_abuse_impairing = this.handleValue(values.substance_abuse_impairing);
                 enrollmentRequestObject.disabling_condition = disablingCondition;
                 var familyCriticalIssues = {};
-                familyCriticalIssues.InformationDate = values['informationdateCritical'] != null ? values['informationdateDC'].format('YYYY-MM-DD') : null;
-                // enrollmentRequestObject.disabling_condition = familyCriticalIssues;
-
+                familyCriticalIssues.unemploymentfamilymember = this.handleValue(values.unemployedFamilyMember);
+                familyCriticalIssues.mentalhealthissues = this.handleValue(values.mentalHealthIssues);
+                familyCriticalIssues.physicaldisability = this.handleValue(values.physicalDisabilityFamily);
+                familyCriticalIssues.alcoholorsubstanceabuse = this.handleValue(values.alcoholOrSubstanceAbuse);
+                familyCriticalIssues.insufficientincome = this.handleValue(values.insufficientIncome);
+                familyCriticalIssues.parentofyouth = this.handleValue(values.incarceratedParent);
+                enrollmentRequestObject.FamilyCriticalIssuesRHY = familyCriticalIssues;
                 var sexualExploitation = {};
                 sexualExploitation.in_last_3_months = this.handleValue(values.in_last_3_months)
                 sexualExploitation.in_last_3_months_confirm = this.handleValue(values.in_last_3_months_confirm)
@@ -205,6 +209,7 @@ class RunawayHomelessYouth extends Component {
                     <NonCashBenefits nonCash={this.props}/>
                     <HealthInsurance healthInsurance={this.props}/>
                     <DisablingCondition disablingCondition={this.props}/>
+                    <FamilyCriticalIssues familyCriticalIssues={this.props}/>
                     <sexualExploitation sexualExploitation={this.props}/>
                     {/*<FamilyCriticalIssues familyCriticalIssues={this.props}/>>*/}
 

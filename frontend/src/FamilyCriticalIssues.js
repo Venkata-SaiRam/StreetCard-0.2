@@ -3,58 +3,6 @@ import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
 import './LabelWrap.css';
 
 const {Panel} = Collapse;
-const {TextArea} = Input;
-const InsuranceReasonCategory = [
-    {
-        value: 1,
-        label: "Applied;decision pending"
-    },
-    {
-        value: 2,
-        label: "Applied;client not eligible"
-    },
-    {
-        value: 3,
-        label: "Client did not apply"
-    },
-    {
-        value: 4,
-        label: "Insurance type N/A for this client"
-    },
-    {
-        value: 8,
-        label: "Client Doesn\'t Know"
-    },
-    {
-        value: 9,
-        label: "Client Refused"
-    },
-    {
-        value: 99,
-        label: "Data Not Collected"
-    }];
-const ResponseCategory = [
-    {
-        value: 0,
-        label: "No"
-    },
-    {
-        value: 1,
-        label: "Yes"
-    },
-    {
-        value: 8,
-        label: "Client Doesn't Know"
-    },
-    {
-        value: 9,
-        label: "Client Refused"
-    },
-    {
-        value: 99,
-        label: "Data Not Collected"
-    }
-];
 const YesNoResponse = [
     {
         value: 0,
@@ -80,20 +28,116 @@ class FamilyCriticalIssues extends Component {
         const message = "Mandatory field! Please provide a response."
         return(
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
-            <Panel header="Health Insurance" key="4">
+            <Panel header="Family Critical Issues" key="15">
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="Information Date">
-                                    {getFieldDecorator("informationdateCritical", {
-                                        rules: [
-                                            {
-                                                message: {message},
-                                                required: false
-                                            }
-                                        ]
-                                    })(
-                                        <DatePicker style={{width: "100%"}}/>)}
+                                    label="Family member unemployed?"
+                                >{getFieldDecorator("unemployedFamilyMember", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Mental Health Issues"
+                                >{getFieldDecorator("mentalHealthIssues", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Physical Disability"
+                                >{getFieldDecorator("physicalDisabilityFamily", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={8}>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Alcohol or Substance Abuse"
+                                >{getFieldDecorator("alcoholOrSubstanceAbuse", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Insufficient Income to support Youth"
+                                >{getFieldDecorator("insufficientIncome", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Incarcerated Parent of Youth"
+                                >{getFieldDecorator("incarceratedParent", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
                                 </Form.Item>
                             </Col>
                         </Row>

@@ -8,7 +8,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     SSVFHPTargetingCriteria, HUDVASHVoucherTracking, HUDVASHExitInformation, ConnectionWithSOAR, LastGradeCompleted, \
     EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, \
     TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
-    ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus
+    ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -298,6 +298,11 @@ class DentalHealthStatusSerializer(serializers.ModelSerializer):
         model = DentalHealthStatus
         fields = '_all_'
 
+class FamilyCriticalIssuesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FamilyCriticalIssues
+        fields = '_all_'
+
 
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
@@ -324,6 +329,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     ChildWelfareFosterRHY = ChildWelfareFosterCareAgencySerializer(required=False)
     GeneralHealthStatusRHY = GeneralHealthStatusSerializer(required=False)
     DentalHealthStatusRHY = DentalHealthStatusSerializer(required=False)
+    FamilyCriticalIssuesRHY = FamilyCriticalIssuesSerializer(required=False)
 
     class Meta:
         model = Enrollment
@@ -335,7 +341,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'w1ServicesProvidedHOPWA', 'tCellCD4AndViralLoadHOPWA', 'medicalAssistanceHOPWA',
                   'housingAssessmentAtExitHOPWA',
                   'LabourExploitationTraffickingRHY', 'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY',
-                  'DentalHealthStatusRHY']
+                  'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY']
 
     def create(self, validated_data):
 
@@ -363,7 +369,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         child_welfare_foster_rhy_data = check_and_assign('ChildWelfareFosterRHY', validated_data)
         general_health_status_rhy_data = check_and_assign('GeneralHealthStatusRHY', validated_data)
         dental_health_status_rhy_data = check_and_assign('DentalHealthStatusRHY', validated_data)
-
+        family_critical_issue_rhy_data = check_and_assign('FamilyCriticalIssuesRHY', validated_data)
         enroll = Enrollment.objects.create(**validated_data)
 
         if income_and_sources_data is not None:
@@ -430,6 +436,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if dental_health_status_rhy_data is not None:
             DentalHealthStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,
                                               **dental_health_status_rhy_data)
+        if family_critical_issue_rhy_data is not None:
+            FamilyCriticalIssues.objects.create(EnrollmentID_id=enroll.EnrollmentID,**family_critical_issue_rhy_data)
 
         return enroll
 
@@ -526,5 +534,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if DentalHealthStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['dental_health_status_rhy'] = DentalHealthStatusSerializer(
                 DentalHealthStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if FamilyCriticalIssues.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['family_critical_issues_rhy'] = FamilyCriticalIssuesSerializer(
+                FamilyCriticalIssues.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
 
         return response
