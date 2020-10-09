@@ -27,6 +27,20 @@ class YesNoResponse(models.IntegerChoices):
     NO = 0, _('No')
     YES = 1, _('Yes')
 
+class NoofTimesResponse(models.IntegerChoices):
+    """
+    This class is for select no of times
+    """
+    onetothreetimes = 1, _('1-3')
+    fourtoseventimes = 2, _('4-7')
+    eighttoeleventimes = 3, _('8-11')
+    twelveormore = 4, _('12 or more')
+    clientdoesnotknow = 8, _('Client Doesn\'t Know')
+    clientrefused = 9, _('Client Refused')
+    datanotcollected = 99, _('Data not collected')
+
+
+
 
 class Homeless(models.Model):
     """
@@ -1026,4 +1040,15 @@ class FamilyCriticalIssues(models.Model):
     alcoholorsubstanceabuse=models.IntegerField(choices=YesNoResponse.choices)
     insufficientincome=models.IntegerField(choices=YesNoResponse.choices)
     parentofyouth=models.IntegerField(choices=YesNoResponse.choices)
+
+class SexualExploitation(models.Model):
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='SexualExploitation_EnrollmentID',
+                                     default=None)
+    receivedanything=models.IntegerField(choices=ResponseCategory.choices)
+    receivedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices)
+    howmanytimes=models.IntegerField(choices=YesNoResponse.choices)
+    forcedanything=models.IntegerField(choices=ResponseCategory.choices)
+    forcedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices)
 
