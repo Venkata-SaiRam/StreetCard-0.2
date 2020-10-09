@@ -8,7 +8,7 @@ import NonCashBenefits from "./NonCashBenefits";
 import HealthInsurance from "./HealthInsurance";
 import DisablingCondition from "./DisablingCondition";
 import FamilyCriticalIssues from "./FamilyCriticalIssues";
-import SexualExploitation from "./SexualExploitation";
+import sexualExploitation from "./SexualExploitation";
 
 
 const {Panel} = Collapse;
@@ -141,14 +141,13 @@ class RunawayHomelessYouth extends Component {
                 disablingCondition.substance_abuse_impairing = this.handleValue(values.substance_abuse_impairing);
                 enrollmentRequestObject.disabling_condition = disablingCondition;
                 var familyCriticalIssues = {};
-                familyCriticalIssues.unemployed_family_member = this.handleValue(values.unemployedFamilyMember);
-                familyCriticalIssues.mental_health_issues = this.handleValue(values.mentalHealthIssues);
-                familyCriticalIssues.physical_disability_family = this.handleValue(values.physicalDisabilityFamily);
-                familyCriticalIssues.alocohol_substance_abuse = this.handleValue(values.alcoholOrSubstanceAbuse);
-                familyCriticalIssues.insufficient_income = this.handleValue(values.insufficientIncome);
-                familyCriticalIssues.incarcerated_parent = this.handleValue(values.incarceratedParent);
-                enrollmentRequestObject.family_CriticalIssues = familyCriticalIssues;
-
+                familyCriticalIssues.unemploymentfamilymember = this.handleValue(values.unemployedFamilyMember);
+                familyCriticalIssues.mentalhealthissues = this.handleValue(values.mentalHealthIssues);
+                familyCriticalIssues.physicaldisability = this.handleValue(values.physicalDisabilityFamily);
+                familyCriticalIssues.alcoholorsubstanceabuse = this.handleValue(values.alcoholOrSubstanceAbuse);
+                familyCriticalIssues.insufficientincome = this.handleValue(values.insufficientIncome);
+                familyCriticalIssues.parentofyouth = this.handleValue(values.incarceratedParent);
+                enrollmentRequestObject.FamilyCriticalIssuesRHY = familyCriticalIssues;
                 var sexualExploitation = {};
                 sexualExploitation.in_last_3_months = this.handleValue(values.in_last_3_months)
                 sexualExploitation.in_last_3_months_confirm = this.handleValue(values.in_last_3_months_confirm)

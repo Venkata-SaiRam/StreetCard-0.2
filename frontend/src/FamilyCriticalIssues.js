@@ -3,58 +3,6 @@ import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
 import './LabelWrap.css';
 
 const {Panel} = Collapse;
-const {TextArea} = Input;
-const InsuranceReasonCategory = [
-    {
-        value: 1,
-        label: "Applied;decision pending"
-    },
-    {
-        value: 2,
-        label: "Applied;client not eligible"
-    },
-    {
-        value: 3,
-        label: "Client did not apply"
-    },
-    {
-        value: 4,
-        label: "Insurance type N/A for this client"
-    },
-    {
-        value: 8,
-        label: "Client Doesn\'t Know"
-    },
-    {
-        value: 9,
-        label: "Client Refused"
-    },
-    {
-        value: 99,
-        label: "Data Not Collected"
-    }];
-const ResponseCategory = [
-    {
-        value: 0,
-        label: "No"
-    },
-    {
-        value: 1,
-        label: "Yes"
-    },
-    {
-        value: 8,
-        label: "Client Doesn't Know"
-    },
-    {
-        value: 9,
-        label: "Client Refused"
-    },
-    {
-        value: 99,
-        label: "Data Not Collected"
-    }
-];
 const YesNoResponse = [
     {
         value: 0,
