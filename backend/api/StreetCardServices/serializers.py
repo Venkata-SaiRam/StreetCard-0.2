@@ -8,7 +8,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     SSVFHPTargetingCriteria, HUDVASHVoucherTracking, HUDVASHExitInformation, ConnectionWithSOAR, LastGradeCompleted, \
     EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, \
     TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
-    ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues
+    ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -303,6 +303,10 @@ class FamilyCriticalIssuesSerializer(serializers.ModelSerializer):
         model = FamilyCriticalIssues
         fields = '_all_'
 
+class SexualExploitationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SexualExploitation
+        fields = '_all_'
 
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
@@ -330,6 +334,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     GeneralHealthStatusRHY = GeneralHealthStatusSerializer(required=False)
     DentalHealthStatusRHY = DentalHealthStatusSerializer(required=False)
     FamilyCriticalIssuesRHY = FamilyCriticalIssuesSerializer(required=False)
+    SexualExploitationRHY = SexualExploitationSerializer(required=False)
 
     class Meta:
         model = Enrollment
@@ -341,7 +346,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'w1ServicesProvidedHOPWA', 'tCellCD4AndViralLoadHOPWA', 'medicalAssistanceHOPWA',
                   'housingAssessmentAtExitHOPWA',
                   'LabourExploitationTraffickingRHY', 'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY',
-                  'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY']
+                  'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY', 'SexualExploitationRHY']
 
     def create(self, validated_data):
 
@@ -370,6 +375,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         general_health_status_rhy_data = check_and_assign('GeneralHealthStatusRHY', validated_data)
         dental_health_status_rhy_data = check_and_assign('DentalHealthStatusRHY', validated_data)
         family_critical_issue_rhy_data = check_and_assign('FamilyCriticalIssuesRHY', validated_data)
+        sexual_exploitation_rhy_data = check_and_assign('SexualExploitationRHY', validated_data)
         enroll = Enrollment.objects.create(**validated_data)
 
         if income_and_sources_data is not None:
@@ -438,6 +444,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                                               **dental_health_status_rhy_data)
         if family_critical_issue_rhy_data is not None:
             FamilyCriticalIssues.objects.create(EnrollmentID_id=enroll.EnrollmentID,**family_critical_issue_rhy_data)
+        if sexual_exploitation_rhy_data is not None:
+            SexualExploitation.objects.create(EnrollmentID_id=enroll.EnrollmentID,**sexual_exploitation_rhy_data)
 
         return enroll
 
@@ -537,5 +545,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if FamilyCriticalIssues.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['family_critical_issues_rhy'] = FamilyCriticalIssuesSerializer(
                 FamilyCriticalIssues.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if SexualExploitation.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['sexual_exploitation_rhy'] = SexualExploitationSerializer(
+                SexualExploitation.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
 
         return response
