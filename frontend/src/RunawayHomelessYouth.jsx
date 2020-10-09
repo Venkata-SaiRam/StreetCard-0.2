@@ -8,6 +8,7 @@ import NonCashBenefits from "./NonCashBenefits";
 import HealthInsurance from "./HealthInsurance";
 import DisablingCondition from "./DisablingCondition";
 import FamilyCriticalIssues from "./FamilyCriticalIssues";
+import SexualExploitation from "./SexualExploitation";
 
 
 const {Panel} = Collapse;
@@ -148,6 +149,13 @@ class RunawayHomelessYouth extends Component {
                 familyCriticalIssues.incarcerated_parent = this.handleValue(values.incarceratedParent);
                 enrollmentRequestObject.family_CriticalIssues = familyCriticalIssues;
 
+                var sexualExploitation = {};
+                sexualExploitation.in_last_3_months = this.handleValue(values.in_last_3_months)
+                sexualExploitation.in_last_3_months_confirm = this.handleValue(values.in_last_3_months_confirm)
+                sexualExploitation.how_many_times = this.handleValue(values.how_many_times)
+                sexualExploitation.persuaded_for_exchange = this.handleValue(values.persuaded_for_exchange)
+                sexualExploitation.received_in_exchange = this.handleValue(values.received_in_exchange)
+                enrollmentRequestObject.sexualExploitation = sexualExploitation;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -203,6 +211,8 @@ class RunawayHomelessYouth extends Component {
                     <HealthInsurance healthInsurance={this.props}/>
                     <DisablingCondition disablingCondition={this.props}/>
                     <FamilyCriticalIssues familyCriticalIssues={this.props}/>
+                    <sexualExploitation sexualExploitation={this.props}/>
+                    {/*<FamilyCriticalIssues familyCriticalIssues={this.props}/>>*/}
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="17">
