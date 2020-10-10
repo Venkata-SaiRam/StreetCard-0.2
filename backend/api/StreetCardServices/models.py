@@ -1068,5 +1068,18 @@ class SafeandAppropriateExit(models.Model):
     positivecommunityconnections = models.IntegerField(choices=WorkerStatusCategory.choices)
     positiveadultconnections = models.IntegerField(choices=WorkerStatusCategory.choices)
 
+class Counseling(models.Model):
 
+    class TypeofCounselingCategory(models.IntegerChoices):
+        Individual = 0, _('Individual')
+        Family = 1, _('Family')
+        Group = 2, _('Group - including peer counseling')
 
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='Counseling_EnrollmentID',
+                                     default=None)
+    receivedbyclient = models.IntegerField(choices=YesNoResponse.choices)
+    typeofCounseling = models.IntegerField(choices=TypeofCounselingCategory.choices)
+    noofsessions = models.IntegerField()
+    noofsessionsplanned = models.IntegerField()
+    continuecounseling = models.IntegerField(choices=YesNoResponse.choices)

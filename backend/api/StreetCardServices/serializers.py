@@ -8,7 +8,8 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     SSVFHPTargetingCriteria, HUDVASHVoucherTracking, HUDVASHExitInformation, ConnectionWithSOAR, LastGradeCompleted, \
     EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, \
     TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
-    ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit
+    ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit, \
+    Counseling
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -313,6 +314,11 @@ class SafeandApproriateExitSerializer(serializers.ModelSerializer):
         model = SafeandAppropriateExit
         fields = '_all_'
 
+class CounselingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Counseling
+        fields = '_all_'
+
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
     non_cash_benefits = NonCashBenefitsSerializer(required=False)
@@ -340,7 +346,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     DentalHealthStatusRHY = DentalHealthStatusSerializer(required=False)
     FamilyCriticalIssuesRHY = FamilyCriticalIssuesSerializer(required=False)
     SexualExploitationRHY = SexualExploitationSerializer(required=False)
-    SafeandAppropriateExitRHY =  SafeandApproriateExitSerializer(required=False)
+    SafeandAppropriateExitRHY = SafeandApproriateExitSerializer(required=False)
+    CounselingRHY = CounselingSerializer(required=False)
 
     class Meta:
         model = Enrollment
@@ -352,7 +359,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'w1ServicesProvidedHOPWA', 'tCellCD4AndViralLoadHOPWA', 'medicalAssistanceHOPWA',
                   'housingAssessmentAtExitHOPWA',
                   'LabourExploitationTraffickingRHY', 'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY',
-                  'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY', 'SexualExploitationRHY', 'SafeandAppropriateExitRHY']
+                  'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY', 'SexualExploitationRHY',
+                  'SafeandAppropriateExitRHY',  'CounselingRHY']
 
     def create(self, validated_data):
 
@@ -383,6 +391,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         family_critical_issue_rhy_data = check_and_assign('FamilyCriticalIssuesRHY', validated_data)
         sexual_exploitation_rhy_data = check_and_assign('SexualExploitationRHY', validated_data)
         safe_approriate_exit_rhy_data = check_and_assign('SafeandAppropriateExitRHY', validated_data)
+        counseling_rhy_data = check_and_assign('CounselingRHY', validated_data)
+
         enroll = Enrollment.objects.create(**validated_data)
 
         if income_and_sources_data is not None:
@@ -455,6 +465,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             SexualExploitation.objects.create(EnrollmentID_id=enroll.EnrollmentID,**sexual_exploitation_rhy_data)
         if safe_approriate_exit_rhy_data is not None:
             SafeandAppropriateExit.objects.create(EnrollmentID_id=enroll.EnrollmentID,**safe_approriate_exit_rhy_data)
+        if counseling_rhy_data is not None:
+            Counseling.objects.create(EnrollmentID_id=enroll.EnrollmentID,**counseling_rhy_data)
 
         return enroll
 
@@ -560,5 +572,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if SafeandAppropriateExit.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['safeappropriate_exit_rhy'] = SafeandApproriateExitSerializer(
                 SafeandAppropriateExit.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
+        if Counseling.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['counseling_rhy'] = CounselingSerializer(
+                Counseling.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
 
         return response
