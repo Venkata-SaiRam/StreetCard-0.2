@@ -8,7 +8,8 @@ import NonCashBenefits from "./NonCashBenefits";
 import HealthInsurance from "./HealthInsurance";
 import DisablingCondition from "./DisablingCondition";
 import FamilyCriticalIssues from "./FamilyCriticalIssues";
-import sexualExploitation from "./SexualExploitation";
+import SexualExploitation from "./SexualExploitation";
+import LabourExploitation from "./LabourExploitation";
 
 
 const {Panel} = Collapse;
@@ -155,6 +156,12 @@ class RunawayHomelessYouth extends Component {
                 sexualExploitation.persuaded_for_exchange = this.handleValue(values.persuaded_for_exchange)
                 sexualExploitation.received_in_exchange = this.handleValue(values.received_in_exchange)
                 enrollmentRequestObject.sexualExploitation = sexualExploitation;
+                var labourExploitation = {};
+                labourExploitation.leavejob = this.handleValue(values.afraidToLeaveWork)
+                labourExploitation.paymentdifference = this.handleValue(values.paymentNotAsExpected)
+                labourExploitation.forcedintojob = this.handleValue(values.feltForceInTheJob)
+                labourExploitation.last3months = this.handleValue(values.inLast3Months)
+                enrollmentRequestObject.labour_exploitation_trafficking_rhy_data = labourExploitation;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -210,11 +217,11 @@ class RunawayHomelessYouth extends Component {
                     <HealthInsurance healthInsurance={this.props}/>
                     <DisablingCondition disablingCondition={this.props}/>
                     <FamilyCriticalIssues familyCriticalIssues={this.props}/>
-                    <sexualExploitation sexualExploitation={this.props}/>
-                    {/*<FamilyCriticalIssues familyCriticalIssues={this.props}/>>*/}
+                    <SexualExploitation sexualExploitation={this.props}/>
+                    <LabourExploitation labourExploitation={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
-                           key="17">
+                           key="20">
                         <Row>
                             <Col span={12}>
                                 <p style={{padding: "2%"}}>
