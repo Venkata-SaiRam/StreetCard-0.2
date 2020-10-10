@@ -1083,3 +1083,20 @@ class Counseling(models.Model):
     noofsessions = models.IntegerField()
     noofsessionsplanned = models.IntegerField()
     continuecounseling = models.IntegerField(choices=YesNoResponse.choices)
+
+class MentalHealthStatus(models.Model):
+
+    class MentalHealthStatusCategory(models.IntegerChoices):
+        Excellent = 1, _('Excellent')
+        Very_good = 2, _('Very Good')
+        Good = 3, _('Good')
+        Fair = 4, _('Fair')
+        Poor = 5, _('Poor')
+        Client_doesnt_know = 8, _('Client doesn\'t know')
+        Client_refused = 9, _('Client refused')
+        Data_not_collected = 99, _('Data not collected')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='MentalHealthStatus_EnrollmentID',
+                                     default=None)
+    mentalhealthstatus = models.IntegerField(choices=MentalHealthStatusCategory.choices)
