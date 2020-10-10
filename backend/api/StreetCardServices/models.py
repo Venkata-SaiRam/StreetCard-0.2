@@ -1052,3 +1052,21 @@ class SexualExploitation(models.Model):
     forcedanything=models.IntegerField(choices=ResponseCategory.choices)
     forcedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices)
 
+class SafeandAppropriateExit(models.Model):
+
+    class WorkerStatusCategory(models.IntegerChoices):
+        No = 0, _('No')
+        Yes = 1, _('Yes')
+        Workerdoesnotknow = 2, _('Worker does not know')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='Safeandappropriateexit_EnrollmentID',
+                                     default=None)
+    destinationsafeclient = models.IntegerField(choices=ResponseCategory.choices)
+    destinationsafecaseworker = models.IntegerField(choices=WorkerStatusCategory.choices)
+    positivepeerconnections = models.IntegerField(choices=WorkerStatusCategory.choices)
+    positivecommunityconnections = models.IntegerField(choices=WorkerStatusCategory.choices)
+    positiveadultconnections = models.IntegerField(choices=WorkerStatusCategory.choices)
+
+
+
