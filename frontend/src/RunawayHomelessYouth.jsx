@@ -10,6 +10,7 @@ import DisablingCondition from "./DisablingCondition";
 import FamilyCriticalIssues from "./FamilyCriticalIssues";
 import SexualExploitation from "./SexualExploitation";
 import LabourExploitation from "./LabourExploitation";
+import DentalHealthStatus from "./DentalHealthStatus";
 
 
 const {Panel} = Collapse;
@@ -161,7 +162,10 @@ class RunawayHomelessYouth extends Component {
                 labourExploitation.paymentdifference = this.handleValue(values.paymentNotAsExpected)
                 labourExploitation.forcedintojob = this.handleValue(values.feltForceInTheJob)
                 labourExploitation.last3months = this.handleValue(values.inLast3Months)
-                enrollmentRequestObject.labour_exploitation_trafficking_rhy_data = labourExploitation;
+                enrollmentRequestObject.LabourExploitationTraffickingRHY = labourExploitation;
+                var dentalHealthStatus = {}
+                dentalHealthStatus.statusdentalhealth = this.handleValue(values.dentalHealthStatus)
+                enrollmentRequestObject.DentalHealthStatusRHY = dentalHealthStatus;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -219,6 +223,7 @@ class RunawayHomelessYouth extends Component {
                     <FamilyCriticalIssues familyCriticalIssues={this.props}/>
                     <SexualExploitation sexualExploitation={this.props}/>
                     <LabourExploitation labourExploitation={this.props}/>
+                    <DentalHealthStatus dentalHealthStatus={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="20">
