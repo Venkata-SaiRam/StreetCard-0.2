@@ -1119,5 +1119,19 @@ class SchoolStatus(models.Model):
                                      default=None)
     schoolstatusfield = models.IntegerField(choices=SchoolstatusCategory.choices)
 
-
-
+class SexualOrientation(models.Model):
+    class SexualOrientationCategory(models.IntegerChoices):
+        Heterosexual = 1, _('Heterosexual')
+        Gay = 2, _('Gay')
+        Lesbian = 3, _('Lesbian')
+        Bisexual = 4, _('Bisexual')
+        Questioning = 5, _('Questioning / Unsure')
+        Other = 6, _('Other')
+        Expelled = 7, _('Expelled')
+        Client_doesnt_know = 8, _('Client doesn\'t know')
+        Client_refused = 9, _('Client refused')
+        Data_not_collected = 99, _('Data not collected')
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='SexualOrientation_EnrollmentID',
+                                     default=None)
+    sexualorientation = models.IntegerField(choices=SexualOrientationCategory.choices)
