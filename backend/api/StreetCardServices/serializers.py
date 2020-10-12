@@ -9,7 +9,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, \
     TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
     ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit, \
-    Counseling, MentalHealthStatus, SchoolStatus
+    Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -329,6 +329,11 @@ class SchoolStatusSerializer(serializers.ModelSerializer):
         model = SchoolStatus
         fields = '_all_'
 
+class SexualOrientationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SexualOrientation
+        fields = '_all_'
+
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
     non_cash_benefits = NonCashBenefitsSerializer(required=False)
@@ -360,6 +365,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     CounselingRHY = CounselingSerializer(required=False)
     MentalHealthStatusRHY = MentalHealthStatusSerializer(required=False)
     SchoolStatusRHY = SchoolStatusSerializer(required=False)
+    SexualOrientationRHY = SexualOrientationSerializer(required=False)
 
     class Meta:
         model = Enrollment
@@ -372,7 +378,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'housingAssessmentAtExitHOPWA',
                   'LabourExploitationTraffickingRHY', 'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY',
                   'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY', 'SexualExploitationRHY',
-                  'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY']
+                  'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY'
+                  'SexualOrientationRHY']
 
     def create(self, validated_data):
 
@@ -406,6 +413,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         counseling_rhy_data = check_and_assign('CounselingRHY', validated_data)
         mental_health_status_rhy_data = check_and_assign('MentalHealthStatusRHY', validated_data)
         school_status_rhy_data = check_and_assign('SchoolStatusRHY', validated_data)
+        sexual_orientation_rhy_data = check_and_assign('SexualOrientationRHY', validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -485,6 +493,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             MentalHealthStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**mental_health_status_rhy_data)
         if school_status_rhy_data is not None:
             SchoolStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**school_status_rhy_data)
+        if sexual_orientation_rhy_data is not None:
+            SexualOrientation.objects.create(EnrollmentID_id=enroll.EnrollmentID,**sexual_orientation_rhy_data)
 
         return enroll
 
@@ -599,5 +609,9 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if SchoolStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['schoolstatus_rhy'] = SchoolStatusSerializer(
                 SchoolStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
+        if SexualOrientation.objects.filter(EnrollmenrID_id=response['EnrollmentID']).exists:
+            response['sexualorientation_rhy'] = SexualOrientationSerializer(
+                SexualOrientation.objects.get(EnrollmentID_id=response['EnrollmentID']).data()
+            )
 
         return response
