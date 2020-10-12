@@ -1100,3 +1100,24 @@ class MentalHealthStatus(models.Model):
                                      related_name='MentalHealthStatus_EnrollmentID',
                                      default=None)
     mentalhealthstatus = models.IntegerField(choices=MentalHealthStatusCategory.choices)
+
+class SchoolStatus(models.Model):
+
+    class SchoolstatusCategory(models.IntegerChoices):
+        Attending_school_regularly = 1, _('Attending school regularly')
+        Attending_school_irregularly = 2, _('Attending school irregularly')
+        Graduated_from_high_school = 3, _('Graduated from high school')
+        Obtained_GED = 4, _('Obtained GED')
+        Dropped_out = 5, _('Dropped out')
+        Suspended = 6, _('Suspended')
+        Expelled = 7, _('Expelled')
+        Client_doesnt_know = 8, _('Client doesn\'t know')
+        Client_refused = 9, _('Client refused')
+        Data_not_collected = 99, _('Data not collected')
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='SchoolStatus_EnrollmentID',
+                                     default=None)
+    schoolstatusfield = models.IntegerField(choices=SchoolstatusCategory.choices)
+
+
+
