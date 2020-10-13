@@ -14,6 +14,7 @@ import DentalHealthStatus from "./DentalHealthStatus";
 import RHY_Employment_Status from "./RHY_Emplyment_Status";
 import SchoolStatus from "./SchoolStatus";
 import RhyBcpStatus from "./RhyBcpStatus";
+import ReferralSource from "./ReferralSource"
 
 const {Panel} = Collapse;
 
@@ -153,20 +154,20 @@ class RunawayHomelessYouth extends Component {
                 familyCriticalIssues.parentofyouth = this.handleValue(values.incarceratedParent);
                 enrollmentRequestObject.FamilyCriticalIssuesRHY = familyCriticalIssues;
                 var sexualExploitation = {};
-                sexualExploitation.in_last_3_months = this.handleValue(values.in_last_3_months)
-                sexualExploitation.in_last_3_months_confirm = this.handleValue(values.in_last_3_months_confirm)
-                sexualExploitation.how_many_times = this.handleValue(values.how_many_times)
-                sexualExploitation.persuaded_for_exchange = this.handleValue(values.persuaded_for_exchange)
-                sexualExploitation.received_in_exchange = this.handleValue(values.received_in_exchange)
+                sexualExploitation.in_last_3_months = this.handleValue(values.in_last_3_months);
+                sexualExploitation.in_last_3_months_confirm = this.handleValue(values.in_last_3_months_confirm);
+                sexualExploitation.how_many_times = this.handleValue(values.how_many_times);
+                sexualExploitation.persuaded_for_exchange = this.handleValue(values.persuaded_for_exchange);
+                sexualExploitation.received_in_exchange = this.handleValue(values.received_in_exchange);
                 enrollmentRequestObject.sexualExploitation = sexualExploitation;
                 var labourExploitation = {};
-                labourExploitation.leavejob = this.handleValue(values.afraidToLeaveWork)
-                labourExploitation.paymentdifference = this.handleValue(values.paymentNotAsExpected)
-                labourExploitation.forcedintojob = this.handleValue(values.feltForceInTheJob)
-                labourExploitation.last3months = this.handleValue(values.inLast3Months)
+                labourExploitation.leavejob = this.handleValue(values.afraidToLeaveWork);
+                labourExploitation.paymentdifference = this.handleValue(values.paymentNotAsExpected);
+                labourExploitation.forcedintojob = this.handleValue(values.feltForceInTheJob);
+                labourExploitation.last3months = this.handleValue(values.inLast3Months);
                 enrollmentRequestObject.LabourExploitationTraffickingRHY = labourExploitation;
                 var dentalHealthStatus = {}
-                dentalHealthStatus.statusdentalhealth = this.handleValue(values.dentalHealthStatus)
+                dentalHealthStatus.statusdentalhealth = this.handleValue(values.dentalHealthStatus);
                 enrollmentRequestObject.DentalHealthStatusRHY = dentalHealthStatus;
                 var employmentStatus = {}
                 employmentStatus.information_Date = values['informationdate'] != null ? values['informationdate'].format('YYYY-MM-DD') : null;
@@ -183,6 +184,10 @@ class RunawayHomelessYouth extends Component {
                 rhy_bcp_status.service_funding_response = this.handleValue(values.service_funding_response);
                 rhy_bcp_status.run_away_youth = this.handleValue(values.run_away_youth);
                 enrollmentRequestObject.rhy_bcp_status = rhy_bcp_status;
+                var referralSource = {}
+                referralSource.referralsource = this.handleValue(values.referralSource);
+                referralSource.nooftimes = values.noOfTimes;
+                enrollmentRequestObject.ReferralSourceRHY= referralSource;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -244,6 +249,7 @@ class RunawayHomelessYouth extends Component {
                     <RHY_Employment_Status rhy_employment_status={this.props}/>
                     <SchoolStatus schoolStatus={this.props}/>
                     <RhyBcpStatus rhy_bcp_status ={this.props}/>
+                    <ReferralSource referralSource={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="20">
