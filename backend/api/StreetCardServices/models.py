@@ -1159,6 +1159,22 @@ class ReferralSource(models.Model):
     referralsource = models.IntegerField(choices=ReferralCategory.choices)
     nooftimes = models.IntegerField()
 
+class AftercarePlans(models.Model):
+    class AftercareplansCategory(models.IntegerChoices):
+        Viaemailsocialmedia = 1, _('Via email/social media')
+        Viatelephone = 2, _('Via telephone')
+        oneonone = 3, _('In person: one-on-one')
+        Inpersongroup  = 4, _('In person: group ')
+    class Yesnocategory(models.IntegerChoices):
+        No = 0, _('No')
+        Yes = 1, _('Yes')
+        clientrefused = 9, _('Client refused')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='Aftercareplans_EnrollmentID',
+                                     default=None)
+    aftercareprovided = models.IntegerField(choices=Yesnocategory.choices)
+    primaryway = models.IntegerField(choices=AftercareplansCategory.choices)
 
 
 
