@@ -12,6 +12,7 @@ import SexualExploitation from "./SexualExploitation";
 import LabourExploitation from "./LabourExploitation";
 import DentalHealthStatus from "./DentalHealthStatus";
 import RHY_Employment_Status from "./RHY_Emplyment_Status";
+import SchoolStatus from "./SchoolStatus";
 
 const {Panel} = Collapse;
 
@@ -172,6 +173,8 @@ class RunawayHomelessYouth extends Component {
                 employmentStatus.typeofemployment = this.handleValue(values.typeofemployment);
                 employmentStatus.whynotemployed = this.handleValue(values.whynotemployed);
                 enrollmentRequestObject.employmentStatus = employmentStatus;
+                var schoolStatusRecords = {}
+                schoolStatusRecords.schoolStatus = this.handleValue(values.schoolStatus);
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -231,6 +234,8 @@ class RunawayHomelessYouth extends Component {
                     <LabourExploitation labourExploitation={this.props}/>
                     <DentalHealthStatus dentalHealthStatus={this.props}/>
                     <RHY_Employment_Status rhy_employment_status={this.props}/>
+                    <SchoolStatus schoolStatus={this.props}/>
+                    
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="20">
