@@ -13,6 +13,7 @@ import LabourExploitation from "./LabourExploitation";
 import DentalHealthStatus from "./DentalHealthStatus";
 import RHY_Employment_Status from "./RHY_Emplyment_Status";
 import SchoolStatus from "./SchoolStatus";
+import RhyBcpStatus from "./RhyBcpStatus";
 
 const {Panel} = Collapse;
 
@@ -175,6 +176,13 @@ class RunawayHomelessYouth extends Component {
                 enrollmentRequestObject.employmentStatus = employmentStatus;
                 var schoolStatusRecords = {}
                 schoolStatusRecords.schoolStatus = this.handleValue(values.schoolStatus);
+                enrollmentRequestObject.schoolStatusRecords = schoolStatusRecords;
+                var rhy_bcp_status = {}
+                rhy_bcp_status.information_Date = values['information_date'] != null ? values['information_date'].format('YYYY-MM-DD') : null;
+                rhy_bcp_status.is_youth_eligible = this.handleValue(values.is_youth_eligible);
+                rhy_bcp_status.service_funding_response = this.handleValue(values.service_funding_response);
+                rhy_bcp_status.run_away_youth = this.handleValue(values.run_away_youth);
+                enrollmentRequestObject.rhy_bcp_status = rhy_bcp_status;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -235,7 +243,7 @@ class RunawayHomelessYouth extends Component {
                     <DentalHealthStatus dentalHealthStatus={this.props}/>
                     <RHY_Employment_Status rhy_employment_status={this.props}/>
                     <SchoolStatus schoolStatus={this.props}/>
-                    
+                    <RhyBcpStatus rhy_bcp_status ={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="20">
