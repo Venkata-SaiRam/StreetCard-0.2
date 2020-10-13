@@ -11,7 +11,7 @@ import FamilyCriticalIssues from "./FamilyCriticalIssues";
 import SexualExploitation from "./SexualExploitation";
 import LabourExploitation from "./LabourExploitation";
 import DentalHealthStatus from "./DentalHealthStatus";
-
+import RHY_Employment_Status from "./RHY_Emplyment_Status";
 
 const {Panel} = Collapse;
 
@@ -166,6 +166,12 @@ class RunawayHomelessYouth extends Component {
                 var dentalHealthStatus = {}
                 dentalHealthStatus.statusdentalhealth = this.handleValue(values.dentalHealthStatus)
                 enrollmentRequestObject.DentalHealthStatusRHY = dentalHealthStatus;
+                var employmentStatus = {}
+                employmentStatus.information_Date = values['informationdate'] != null ? values['informationdate'].format('YYYY-MM-DD') : null;
+                employmentStatus.employed = this.handleValue(values.employed);
+                employmentStatus.typeofemployment = this.handleValue(values.typeofemployment);
+                employmentStatus.whynotemployed = this.handleValue(values.whynotemployed);
+                enrollmentRequestObject.employmentStatus = employmentStatus;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -210,7 +216,7 @@ class RunawayHomelessYouth extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const message = "Mandatory field! Please provide a response."
+        const message = "Mandatory field! Please provide a response.";
         return (
             <Form {...formItemLayout} name="enrollment"
                   onSubmit={this.handleOnSubmit}>
@@ -224,6 +230,7 @@ class RunawayHomelessYouth extends Component {
                     <SexualExploitation sexualExploitation={this.props}/>
                     <LabourExploitation labourExploitation={this.props}/>
                     <DentalHealthStatus dentalHealthStatus={this.props}/>
+                    <RHY_Employment_Status rhy_employment_status={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="20">
