@@ -1173,6 +1173,7 @@ class AftercarePlans(models.Model):
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='Aftercareplans_EnrollmentID',
                                      default=None)
+    InformationDate = models.DateField()
     aftercareprovided = models.IntegerField(choices=Yesnocategory.choices)
     primaryway = models.IntegerField(choices=AftercareplansCategory.choices)
 
