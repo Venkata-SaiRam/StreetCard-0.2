@@ -1135,3 +1135,26 @@ class SexualOrientation(models.Model):
                                      related_name='SexualOrientation_EnrollmentID',
                                      default=None)
     sexualorientation = models.IntegerField(choices=SexualOrientationCategory.choices)
+
+class ReferralSource(models.Model):
+    class ReferralCategory(models.IntegerChoices):
+        SelfReferral = 1, _('Self-Referral')
+        Individual = 2, _('Individual: Parent/Guardian/Relative/Friend/Foster Parent/Other Individual')
+        OutreachProject = 7, _('Outreach Project')
+        TemporaryShelter = 11, _('Temporary Shelter')
+        ResidentialProject = 18, _('Residential Project:')
+        Hotline = 28, _('Hotline:')
+        ChildWelfareCPS = 30, _('Child Welfare/CPS')
+        JuvenileJustice = 34, _('Juvenile Justice')
+        LawEnforcementPolice = 35, _('Law Enforcement/ Police')
+        MentalHospital = 37, _('Mental Hospital')
+        School = 38, _('School')
+        OtherOrganization = 39, _('Other Organization')
+        Client_doesnt_know = 8, _('Client doesn\'t know')
+        Client_refused = 9, _('Client refused')
+        Data_not_collected = 99, _('Data not collected')
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='Referral_EnrollmentID',
+                                     default=None)
+    referralsource = models.IntegerField(choices=ReferralCategory.choices)
+    nooftimes = models.IntegerField()
