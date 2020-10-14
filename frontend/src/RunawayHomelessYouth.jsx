@@ -14,8 +14,11 @@ import DentalHealthStatus from "./DentalHealthStatus";
 import RHY_Employment_Status from "./RHY_Emplyment_Status";
 import SchoolStatus from "./SchoolStatus";
 import RhyBcpStatus from "./RhyBcpStatus";
-import ReferralSource from "./ReferralSource";
-import AfterCarePlans from "./AfterCarePlans";
+import PregnancyStatus from "./PregnancyStatus";
+import ProjectCompletionStatus from "./ProjectCompletionStatus";
+import SafeandApproximateExit from "./SafeandApproximateExit";
+import LastGradeCompleted from "./LastGradeCompleted";
+
 
 const {Panel} = Collapse;
 
@@ -155,20 +158,20 @@ class RunawayHomelessYouth extends Component {
                 familyCriticalIssues.parentofyouth = this.handleValue(values.incarceratedParent);
                 enrollmentRequestObject.FamilyCriticalIssuesRHY = familyCriticalIssues;
                 var sexualExploitation = {};
-                sexualExploitation.in_last_3_months = this.handleValue(values.in_last_3_months);
-                sexualExploitation.in_last_3_months_confirm = this.handleValue(values.in_last_3_months_confirm);
-                sexualExploitation.how_many_times = this.handleValue(values.how_many_times);
-                sexualExploitation.persuaded_for_exchange = this.handleValue(values.persuaded_for_exchange);
-                sexualExploitation.received_in_exchange = this.handleValue(values.received_in_exchange);
+                sexualExploitation.in_last_3_months = this.handleValue(values.in_last_3_months)
+                sexualExploitation.in_last_3_months_confirm = this.handleValue(values.in_last_3_months_confirm)
+                sexualExploitation.how_many_times = this.handleValue(values.how_many_times)
+                sexualExploitation.persuaded_for_exchange = this.handleValue(values.persuaded_for_exchange)
+                sexualExploitation.received_in_exchange = this.handleValue(values.received_in_exchange)
                 enrollmentRequestObject.sexualExploitation = sexualExploitation;
                 var labourExploitation = {};
-                labourExploitation.leavejob = this.handleValue(values.afraidToLeaveWork);
-                labourExploitation.paymentdifference = this.handleValue(values.paymentNotAsExpected);
-                labourExploitation.forcedintojob = this.handleValue(values.feltForceInTheJob);
-                labourExploitation.last3months = this.handleValue(values.inLast3Months);
+                labourExploitation.leavejob = this.handleValue(values.afraidToLeaveWork)
+                labourExploitation.paymentdifference = this.handleValue(values.paymentNotAsExpected)
+                labourExploitation.forcedintojob = this.handleValue(values.feltForceInTheJob)
+                labourExploitation.last3months = this.handleValue(values.inLast3Months)
                 enrollmentRequestObject.LabourExploitationTraffickingRHY = labourExploitation;
                 var dentalHealthStatus = {}
-                dentalHealthStatus.statusdentalhealth = this.handleValue(values.dentalHealthStatus);
+                dentalHealthStatus.statusdentalhealth = this.handleValue(values.dentalHealthStatus)
                 enrollmentRequestObject.DentalHealthStatusRHY = dentalHealthStatus;
                 var employmentStatus = {}
                 employmentStatus.information_Date = values['informationdate'] != null ? values['informationdate'].format('YYYY-MM-DD') : null;
@@ -185,15 +188,18 @@ class RunawayHomelessYouth extends Component {
                 rhy_bcp_status.service_funding_response = this.handleValue(values.service_funding_response);
                 rhy_bcp_status.run_away_youth = this.handleValue(values.run_away_youth);
                 enrollmentRequestObject.rhy_bcp_status = rhy_bcp_status;
-                var referralSource = {}
-                referralSource.referralsource = this.handleValue(values.referralSource);
-                referralSource.nooftimes = values.noOfTimes;
-                enrollmentRequestObject.ReferralSourceRHY= referralSource;
-                var afterCarePlans = {}
-                afterCarePlans.InformationDate = values['informationdateACPlans'] != null ? values['informationdateACPlans'].format('YYYY-MM-DD') : null;
-                afterCarePlans.aftercareprovided = this.handleValue(values.afterCareProvided);
-                afterCarePlans.primaryway = this.handleValue(values.primaryWay);
-                enrollmentRequestObject.AftercareRHY = afterCarePlans;
+                var safe_exit_status = {}
+                safe_exit_status.exit_status = this.handleValue(values.exit_status);
+                enrollmentRequestObject.safe_exit_status = safe_exit_status;
+                var pregnancy_status_values = {}
+                pregnancy_status_values.pregnancy_status = this.handleValue(values.pregnancy_status);
+                enrollmentRequestObject.pregnancy_status_values = pregnancy_status_values;
+                var project_completion = {}
+                project_completion.project_completion_status = this.handleValue(values.project_completion_status);
+                enrollmentRequestObject.project_completion = project_completion;
+                var last_grade = {}
+                last_grade.last_grade_completed = this.handleValue(values.last_grade_completed);
+                enrollmentRequestObject.last_grade = last_grade;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -242,7 +248,7 @@ class RunawayHomelessYouth extends Component {
         return (
             <Form {...formItemLayout} name="enrollment"
                   onSubmit={this.handleOnSubmit}>
-                <Collapse style={{backgroundColor: "#f0f9ff"}}>
+                    <Collapse style={{backgroundColor: "#f0f9ff"}}>
                     <EnrollmentDetails personalProps={this.props}/>
                     <IncomeAndSource incomeSource={this.props}/>
                     <NonCashBenefits nonCash={this.props}/>
@@ -255,8 +261,11 @@ class RunawayHomelessYouth extends Component {
                     <RHY_Employment_Status rhy_employment_status={this.props}/>
                     <SchoolStatus schoolStatus={this.props}/>
                     <RhyBcpStatus rhy_bcp_status ={this.props}/>
-                    <ReferralSource referralSource={this.props}/>
-                    <AfterCarePlans afterCarePlans={this.props}/>
+                    <ProjectCompletionStatus project_completion ={this.props}/>
+                    <SafeandApproximateExit safeexit ={this.props}/>
+                    <LastGradeCompleted lastgradecompleted ={this.props}/>
+                    <PregnancyStatus pregnancy ={this.props}/>
+
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="20">
