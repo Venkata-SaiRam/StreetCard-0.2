@@ -1203,6 +1203,21 @@ class PregancyStatus(models.Model):
     pregancystatus = models.IntegerField(choices=ResponseCategory.choices)
     duedate = models.DateField()
 
+class RHYBCPStatus(models.Model):
+    class notfundedcategory(models.IntegerChoices):
+        Out_of_Age = 1, _('Out of age range')
+        Ward_of_state = 2, _('Ward of the State – Immediate Reunification')
+        Ward_of_criminal = 3, _('Ward of the Criminal Justice System – Immediate Reunification')
+        Other = 4, _('Other')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='RHYBCPStatus_EnrollmentID',
+                                     default=None)
+    runawayyouth = models.IntegerField(choices=ResponseCategory.choices)
+    notfundedreason = models.IntegerField(choices=notfundedcategory.choices)
+    dateofstatus = models.DateField()
+
+
 
 
 
