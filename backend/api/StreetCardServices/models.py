@@ -1195,6 +1195,14 @@ class ProjectCompletionStatus(models.Model):
     projectcompletion = models.IntegerField(choices=ProjectCompletionCategory.choices)
     majorreason = models.IntegerField(choices=majorreasoncategory.choices)
 
+class PregancyStatus(models.Model):
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='PregancyStatus_EnrollmentID',
+                                     default=None)
+    pregancystatus = models.IntegerField(choices=ResponseCategory.choices)
+    duedate = models.DateField()
+
 
 
 

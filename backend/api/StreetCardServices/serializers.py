@@ -9,7 +9,8 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, \
     TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
     ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit, \
-    Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation, ReferralSource, AftercarePlans,ProjectCompletionStatus
+    Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation, ReferralSource, AftercarePlans,ProjectCompletionStatus, \
+    PregancyStatus
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -349,6 +350,11 @@ class ProjectCompletionSerializer(serializers.ModelSerializer):
         model = ProjectCompletionStatus
         fields = '_all_'
 
+class PregancyStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PregancyStatus
+        fields = '_all_'
+
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
     non_cash_benefits = NonCashBenefitsSerializer(required=False)
@@ -384,6 +390,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     ReferralSourceRHY = ReferralSourceSerializer(required=False)
     AftercareRHY = AfterCareSerializer(required=False)
     ProjectCompletionRHY = ProjectCompletionSerializer(required=False)
+    PregancyStatusRHY = PregancyStatusSerializer(required=False)
 
     class Meta:
         model = Enrollment
@@ -397,7 +404,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'LabourExploitationTraffickingRHY', 'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY',
                   'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY', 'SexualExploitationRHY',
                   'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY'
-                  'SexualOrientationRHY','ReferralSourceRHY','AftercareRHY' , 'ProjectCompletionRHY']
+                  'SexualOrientationRHY','ReferralSourceRHY','AftercareRHY' , 'ProjectCompletionRHY', 'PregancyStatusRHY']
 
     def create(self, validated_data):
 
@@ -435,6 +442,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         referral_source_rhy_data = check_and_assign('ReferralSourceRHY', validated_data)
         after_care_rhy_data = check_and_assign('AftercareRHY', validated_data)
         project_completion_rhy_data = check_and_assign('ProjectCompletionRHY',validated_data)
+        pregancy_status_rhy_data = check_and_assign('PregancyStatusRHY', validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -522,6 +530,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             AftercarePlans.objects.create(EnrollmentID_id=enroll.EnrollmentID,**after_care_rhy_data)
         if project_completion_rhy_data is not None:
             ProjectCompletionStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**project_completion_rhy_data)
+        if pregancy_status_rhy_data is not None:
+            PregancyStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**pregancy_status_rhy_data)
 
         return enroll
 
@@ -648,5 +658,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if ProjectCompletionStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists:
             response['projectcompletion_rhy'] = ProjectCompletionSerializer(
                 ProjectCompletionStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
+        if PregancyStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists:
+            response['pregancystatus_rhy'] = PregancyStatusSerializer(
+                PregancyStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
 
         return response
