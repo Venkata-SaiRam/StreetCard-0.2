@@ -1173,9 +1173,27 @@ class AftercarePlans(models.Model):
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='Aftercareplans_EnrollmentID',
                                      default=None)
-    InformationDate = models.DateField()
     aftercareprovided = models.IntegerField(choices=Yesnocategory.choices)
     primaryway = models.IntegerField(choices=AftercareplansCategory.choices)
+
+class ProjectCompletionStatus(models.Model):
+    class ProjectCompletionCategory(models.IntegerChoices):
+        Completedproject = 1, _('Completed project')
+        Youthvountarily = 2, _('Youth voluntarily left early')
+        Youthexpelled = 3, _('Youth was expelled or otherwise involuntarily discharged from project')
+    class majorreasoncategory(models.IntegerChoices):
+        CriminalActivity = 1, _('Criminal activity/destruction of property/violence')
+        Noncompliance = 2, _('Noncompliance')
+        Nonpayment = 3, _('Non-payment of rent/occupancy charge')
+        MaximumTime = 4, _('Reached maximum time allowed by project')
+        projectterminated = 5, _('Project terminated')
+        unknown = 6, _('Unknown/disappeared')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='ProjectCompletion_EnrollmentID',
+                                     default=None)
+    projectcompletion = models.IntegerField(choices=ProjectCompletionCategory.choices)
+    majorreason = models.IntegerField(choices=majorreasoncategory.choices)
 
 
 

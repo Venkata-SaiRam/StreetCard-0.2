@@ -9,7 +9,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     EmploymentStatus, Appointments, TransactionDetails, Product, Transactions, Homeless, W1ServicesProvidedHOPWA, \
     TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
     ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit, \
-    Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation, ReferralSource, AftercarePlans
+    Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation, ReferralSource, AftercarePlans,ProjectCompletionStatus
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -336,12 +336,17 @@ class SexualOrientationSerializer(serializers.ModelSerializer):
 
 class ReferralSourceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SexualOrientation
+        model = ReferralSource
         fields = '_all_'
 
 class AfterCareSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SexualOrientation
+        model = AftercarePlans
+        fields = '_all_'
+
+class ProjectCompletionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProjectCompletionStatus
         fields = '_all_'
 
 class EnrollmentSerializer(serializers.ModelSerializer):
@@ -378,6 +383,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     SexualOrientationRHY = SexualOrientationSerializer(required=False)
     ReferralSourceRHY = ReferralSourceSerializer(required=False)
     AftercareRHY = AfterCareSerializer(required=False)
+    ProjectCompletionRHY = ProjectCompletionSerializer(required=False)
 
     class Meta:
         model = Enrollment
@@ -391,7 +397,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'LabourExploitationTraffickingRHY', 'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY',
                   'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY', 'SexualExploitationRHY',
                   'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY'
-                  'SexualOrientationRHY','ReferralSourceRHY','AftercareRHY']
+                  'SexualOrientationRHY','ReferralSourceRHY','AftercareRHY' , 'ProjectCompletionRHY']
 
     def create(self, validated_data):
 
@@ -427,7 +433,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         school_status_rhy_data = check_and_assign('SchoolStatusRHY', validated_data)
         sexual_orientation_rhy_data = check_and_assign('SexualOrientationRHY', validated_data)
         referral_source_rhy_data = check_and_assign('ReferralSourceRHY', validated_data)
-        after_care_rhy_data =check_and_assign('AftercareRHY', validated_data)
+        after_care_rhy_data = check_and_assign('AftercareRHY', validated_data)
+        project_completion_rhy_data = check_and_assign('ProjectCompletionRHY',validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -513,6 +520,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             ReferralSource.objects.create(EnrollmentID_id=enroll.EnrollmentID,**referral_source_rhy_data)
         if after_care_rhy_data is not None:
             AftercarePlans.objects.create(EnrollmentID_id=enroll.EnrollmentID,**after_care_rhy_data)
+        if project_completion_rhy_data is not None:
+            ProjectCompletionStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**project_completion_rhy_data)
 
         return enroll
 
@@ -636,5 +645,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if AftercarePlans.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists:
             response['aftercareplans_rhy'] = AfterCareSerializer(
                 AftercarePlans.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
+        if ProjectCompletionStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists:
+            response['projectcompletion_rhy'] = ProjectCompletionSerializer(
+                ProjectCompletionStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
 
         return response
