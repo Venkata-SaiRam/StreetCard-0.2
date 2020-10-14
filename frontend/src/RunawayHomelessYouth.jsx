@@ -21,6 +21,7 @@ import SafeandApproximateExit from "./SafeandApproximateExit";
 import LastGradeCompleted from "./LastGradeCompleted";
 import ReferralSource from "./ReferralSource";
 import AfterCarePlans from "./AfterCarePlans";
+import FormerChildWelfare from "./FormerChildWelfare";
 
 
 const {Panel} = Collapse;
@@ -179,6 +180,11 @@ class RunawayHomelessYouth extends Component {
                 var dentalHealthStatus = {}
                 dentalHealthStatus.statusdentalhealth = this.handleValue(values.dentalHealthStatus)
                 enrollmentRequestObject.DentalHealthStatusRHY = dentalHealthStatus;
+                var formerChildWelfare = {}
+                formerChildWelfare.formerChildWelfare = this.handleValue(values.formerWardOfChildWelfare);
+                formerChildWelfare.noofyears = this.handleValue(values.noOfYears);
+                formerChildWelfare.noofmonths = values.noOfMonths;
+                enrollmentRequestObject.ChildWelfareFosterRHY = formerChildWelfare;
                 var employmentStatus = {}
                 employmentStatus.information_Date = values['informationdate'] != null ? values['informationdate'].format('YYYY-MM-DD') : null;
                 employmentStatus.employed = this.handleValue(values.employed);
@@ -274,6 +280,7 @@ class RunawayHomelessYouth extends Component {
                     <LabourExploitation labourExploitation={this.props}/>
                     <GeneralHealthStatus generalHealthStatus={this.props}/>
                     <DentalHealthStatus dentalHealthStatus={this.props}/>
+                    <FormerChildWelfare formerChildWelfare={this.props}/>
                     <RHY_Employment_Status rhy_employment_status={this.props}/>
                     <SchoolStatus schoolStatus={this.props}/>
                     <RhyBcpStatus rhy_bcp_status ={this.props}/>
