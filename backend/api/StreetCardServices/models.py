@@ -1135,3 +1135,89 @@ class SexualOrientation(models.Model):
                                      related_name='SexualOrientation_EnrollmentID',
                                      default=None)
     sexualorientation = models.IntegerField(choices=SexualOrientationCategory.choices)
+
+class ReferralSource(models.Model):
+    class ReferralCategory(models.IntegerChoices):
+        SelfReferral = 1, _('Self-Referral')
+        Individual = 2, _('Individual: Parent/Guardian/Relative/Friend/Foster Parent/Other Individual')
+        OutreachProject = 7, _('Outreach Project')
+        TemporaryShelter = 11, _('Temporary Shelter')
+        ResidentialProject = 18, _('Residential Project:')
+        Hotline = 28, _('Hotline:')
+        ChildWelfareCPS = 30, _('Child Welfare/CPS')
+        JuvenileJustice = 34, _('Juvenile Justice')
+        LawEnforcementPolice = 35, _('Law Enforcement/ Police')
+        MentalHospital = 37, _('Mental Hospital')
+        School = 38, _('School')
+        OtherOrganization = 39, _('Other Organization')
+        Client_doesnt_know = 8, _('Client doesn\'t know')
+        Client_refused = 9, _('Client refused')
+        Data_not_collected = 99, _('Data not collected')
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='Referral_EnrollmentID',
+                                     default=None)
+    referralsource = models.IntegerField(choices=ReferralCategory.choices)
+    nooftimes = models.IntegerField()
+
+class AftercarePlans(models.Model):
+    class AftercareplansCategory(models.IntegerChoices):
+        Viaemailsocialmedia = 1, _('Via email/social media')
+        Viatelephone = 2, _('Via telephone')
+        oneonone = 3, _('In person: one-on-one')
+        Inpersongroup  = 4, _('In person: group ')
+    class Yesnocategory(models.IntegerChoices):
+        No = 0, _('No')
+        Yes = 1, _('Yes')
+        clientrefused = 9, _('Client refused')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='Aftercareplans_EnrollmentID',
+                                     default=None)
+    aftercareprovided = models.IntegerField(choices=Yesnocategory.choices)
+    primaryway = models.IntegerField(choices=AftercareplansCategory.choices)
+
+class ProjectCompletionStatus(models.Model):
+    class ProjectCompletionCategory(models.IntegerChoices):
+        Completedproject = 1, _('Completed project')
+        Youthvountarily = 2, _('Youth voluntarily left early')
+        Youthexpelled = 3, _('Youth was expelled or otherwise involuntarily discharged from project')
+    class majorreasoncategory(models.IntegerChoices):
+        CriminalActivity = 1, _('Criminal activity/destruction of property/violence')
+        Noncompliance = 2, _('Noncompliance')
+        Nonpayment = 3, _('Non-payment of rent/occupancy charge')
+        MaximumTime = 4, _('Reached maximum time allowed by project')
+        projectterminated = 5, _('Project terminated')
+        unknown = 6, _('Unknown/disappeared')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='ProjectCompletion_EnrollmentID',
+                                     default=None)
+    projectcompletion = models.IntegerField(choices=ProjectCompletionCategory.choices)
+    majorreason = models.IntegerField(choices=majorreasoncategory.choices)
+
+class PregancyStatus(models.Model):
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='PregancyStatus_EnrollmentID',
+                                     default=None)
+    pregancystatus = models.IntegerField(choices=ResponseCategory.choices)
+    duedate = models.DateField()
+
+class RHYBCPStatus(models.Model):
+    class notfundedcategory(models.IntegerChoices):
+        Out_of_Age = 1, _('Out of age range')
+        Ward_of_state = 2, _('Ward of the State – Immediate Reunification')
+        Ward_of_criminal = 3, _('Ward of the Criminal Justice System – Immediate Reunification')
+        Other = 4, _('Other')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='RHYBCPStatus_EnrollmentID',
+                                     default=None)
+    runawayyouth = models.IntegerField(choices=ResponseCategory.choices)
+    notfundedreason = models.IntegerField(choices=notfundedcategory.choices)
+    dateofstatus = models.DateField()
+
+
+
+
+
