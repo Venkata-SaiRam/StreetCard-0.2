@@ -18,6 +18,8 @@ import PregnancyStatus from "./PregnancyStatus";
 import ProjectCompletionStatus from "./ProjectCompletionStatus";
 import SafeandApproximateExit from "./SafeandApproximateExit";
 import LastGradeCompleted from "./LastGradeCompleted";
+import ReferralSource from "./ReferralSource";
+import AfterCarePlans from "./AfterCarePlans";
 
 
 const {Panel} = Collapse;
@@ -188,6 +190,15 @@ class RunawayHomelessYouth extends Component {
                 rhy_bcp_status.service_funding_response = this.handleValue(values.service_funding_response);
                 rhy_bcp_status.run_away_youth = this.handleValue(values.run_away_youth);
                 enrollmentRequestObject.rhy_bcp_status = rhy_bcp_status;
+                var referralSource = {}
+                referralSource.referralsource = this.handleValue(values.referralSource);
+                referralSource.nooftimes = values.noOfTimes;
+                enrollmentRequestObject.ReferralSourceRHY= referralSource;
+                var afterCarePlans = {}
+                afterCarePlans.InformationDate = values['informationdateACPlans'] != null ? values['informationdateACPlans'].format('YYYY-MM-DD') : null;
+                afterCarePlans.aftercareprovided = this.handleValue(values.afterCareProvided);
+                afterCarePlans.primaryway = this.handleValue(values.primaryWay);
+                enrollmentRequestObject.AftercareRHY = afterCarePlans;
                 var safe_exit_status = {}
                 safe_exit_status.exit_status = this.handleValue(values.exit_status);
                 enrollmentRequestObject.safe_exit_status = safe_exit_status;
@@ -261,6 +272,8 @@ class RunawayHomelessYouth extends Component {
                     <RHY_Employment_Status rhy_employment_status={this.props}/>
                     <SchoolStatus schoolStatus={this.props}/>
                     <RhyBcpStatus rhy_bcp_status ={this.props}/>
+                    <ReferralSource referralSource={this.props}/>
+                    <AfterCarePlans afterCarePlans={this.props}/>
                     <ProjectCompletionStatus project_completion ={this.props}/>
                     <SafeandApproximateExit safeexit ={this.props}/>
                     <LastGradeCompleted lastgradecompleted ={this.props}/>
