@@ -826,25 +826,6 @@ class LastGradeCompleted(models.Model):
     LastGradeCompleted = models.IntegerField(choices=LastGradeCompletedCategory.choices)
 
 
-class EmploymentStatus(models.Model):
-    class TypeOfEmploymentCategory(models.IntegerChoices):
-        FULL_TIME = 1, _('Full-time')
-        PART_TIME = 2, _('Part-time')
-
-    class WhyNotEmployedCategory(models.IntegerChoices):
-        LOOKING_FOR_WORK = 1, _(' WhyNotEmployedCategory')
-        UNABLE_TO_WORK = 2, _('Unable to work')
-        NOT_LOOKING_FOR_WORK = 3, _('Not looking for work')
-
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='EmploymentStatus_EnrollmentID', default=None)
-    InformationDate = models.DateField()
-    Employed = models.IntegerField(choices=YesNoResponse.choices)
-    TypeOfEmployment = models.IntegerField(choices=TypeOfEmploymentCategory.choices)
-    WhyNotEmployed = models.IntegerField(choices=WhyNotEmployedCategory.choices)
-
-
-
 class W1ServicesProvidedHOPWA(models.Model):
 
     """
@@ -1216,6 +1197,24 @@ class RHYBCPStatus(models.Model):
     runawayyouth = models.IntegerField(choices=ResponseCategory.choices)
     notfundedreason = models.IntegerField(choices=notfundedcategory.choices)
     dateofstatus = models.DateField()
+
+class EmploymentStatus(models.Model):
+    class employmentstatuscategory(models.IntegerChoices):
+        Fulltime = 1, _('Full-time')
+        Parttime = 2, _('Part-time')
+        Seasonal = 3, _('Seasonal / sporadic (including day labor)')
+    class notemployedcategory(models.IntegerChoices):
+        Looking_for_work = 1, _('Looking for work')
+        Unable_to_work = 2, _('Unable to work')
+        Not_looking_for_work = 3, _('Not looking for work')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='EmploymentStatus_EnrollmentID',
+                                     default=None)
+    employed = models.IntegerField(choices=ResponseCategory.choices)
+    employmentstatus = models.IntegerField(choices=employmentstatuscategory.choices)
+    notemployed = models.IntegerField(choices=notemployedcategory.choices)
+    InformationDate = models.DateField()
 
 
 
