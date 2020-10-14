@@ -233,10 +233,34 @@ class RunawayHomelessYouth extends Component {
                     },
                     body: JSON.stringify(enrollmentRequestObject)
                 })
-                    .then(res => res.json())
-                    .then(json => {
-                        this.props.history.push('/success');
-                    });
+                .then(res => {
+                    if (res.status === 200) {
+                        res
+                            .json()
+                            .then(json => {
+                                if (json === null) {
+                                    this
+                                        .props
+                                        .history
+                                        .push('/error');
+                                } else {
+                                    this
+                                        .props
+                                        .history
+                                        .push('/success');
+                                }
+                            });
+                    } else if(Math.round(res.status / 100) == 4 || Math.round(res.status / 100) == 5) {
+                        this
+                            .props
+                            .history
+                            .push({
+                                pathname: '/error',
+                                state: { errorCode: res.status }
+                            });
+                        return null;
+                    }
+                })
             }
         });
     }
