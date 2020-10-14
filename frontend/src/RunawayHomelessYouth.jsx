@@ -10,6 +10,7 @@ import DisablingCondition from "./DisablingCondition";
 import FamilyCriticalIssues from "./FamilyCriticalIssues";
 import SexualExploitation from "./SexualExploitation";
 import LabourExploitation from "./LabourExploitation";
+import GeneralHealthStatus from "./GeneralHealthStatus";
 import DentalHealthStatus from "./DentalHealthStatus";
 import RHY_Employment_Status from "./RHY_Emplyment_Status";
 import SchoolStatus from "./SchoolStatus";
@@ -172,6 +173,9 @@ class RunawayHomelessYouth extends Component {
                 labourExploitation.forcedintojob = this.handleValue(values.feltForceInTheJob)
                 labourExploitation.last3months = this.handleValue(values.inLast3Months)
                 enrollmentRequestObject.LabourExploitationTraffickingRHY = labourExploitation;
+                var generalHealthStatus = {}
+                generalHealthStatus.statusmentalhealth = this.handleValue(values.generalHealthStatus);
+                enrollmentRequestObject.GeneralHealthStatusRHY = generalHealthStatus;
                 var dentalHealthStatus = {}
                 dentalHealthStatus.statusdentalhealth = this.handleValue(values.dentalHealthStatus)
                 enrollmentRequestObject.DentalHealthStatusRHY = dentalHealthStatus;
@@ -268,6 +272,7 @@ class RunawayHomelessYouth extends Component {
                     <FamilyCriticalIssues familyCriticalIssues={this.props}/>
                     <SexualExploitation sexualExploitation={this.props}/>
                     <LabourExploitation labourExploitation={this.props}/>
+                    <GeneralHealthStatus generalHealthStatus={this.props}/>
                     <DentalHealthStatus dentalHealthStatus={this.props}/>
                     <RHY_Employment_Status rhy_employment_status={this.props}/>
                     <SchoolStatus schoolStatus={this.props}/>
