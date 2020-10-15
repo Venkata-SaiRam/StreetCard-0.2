@@ -24,6 +24,7 @@ import AfterCarePlans from "./AfterCarePlans";
 import FormerChildWelfare from "./FormerChildWelfare";
 import SexualOrientation from "./SexualOrientation";
 import Counselling from "./Counselling";
+import RHYServiceConnections from "./RHYServiceConnections";
 
 
 const {Panel} = Collapse;
@@ -233,6 +234,10 @@ class RunawayHomelessYouth extends Component {
                 counselling_values.noofsessionsplanned = values.noOfSessions;
                 counselling_values.continuecounseling = this.handleValue(values.planAfterExit);
                 enrollmentRequestObject.CounselingRHY = values.counselling_values;
+                var rhyServiceConnections = {};
+                rhyServiceConnections.InformationDate = values["dateOfRHYService"] != null ? values["dateOfRHYService"].format("YYYY-MM-DD") : null;
+                rhyServiceConnections.connectionsrhy = this.handleValue(values.typeOfRHYService);
+                enrollmentRequestObject.RHYConnectionsRHY = values.counselling_values;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -312,6 +317,7 @@ class RunawayHomelessYouth extends Component {
                     <HealthInsurance healthInsurance={this.props}/>
                     <DisablingCondition disablingCondition={this.props}/>
                     <FamilyCriticalIssues familyCriticalIssues={this.props}/>
+                    <RHYServiceConnections rhyServiceConnections={this.props} />
                     <SexualExploitation sexualExploitation={this.props}/>
                     <LabourExploitation labourExploitation={this.props}/>
                     <GeneralHealthStatus generalHealthStatus={this.props}/>
