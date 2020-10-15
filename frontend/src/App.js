@@ -20,6 +20,7 @@ import ClientPersonalInfo from "./ClientPersonalInfo";
 import Transaction from "./Transaction"
 import SuccessfulRegistration from "./SuccessfulRegistration";
 import LoginError from "./LoginError";
+import Error from "./Error";
 import ForgotPasswordForm from "./ForgotPassword";
 import SuccessfulUpdate from "./SuccessfulUpdate";
 import TransactionComplete from "./TransactionComplete";
@@ -27,18 +28,15 @@ import AddProductSuccess from "./AddProductSuccess";
 import UpdateSocialWorkerInfoForm from "./UpdateSocialWorkerInfo";
 import SuccessfulSocialRegistration from "./SuccessfulSocialRegistration"
 
-const PrivateRoute = ({component: Component, loggedInStatus: loggedInStatus, ...rest}) => (
-    <Route render={(props) => (
-        loggedInStatus === "LOGGED_IN"
-            ? <Component
-                {...props}
-                {...rest}
-                loggedInStatus={loggedInStatus}
-            />
-            : <Redirect to='/login'/>
-
-    )}/>
-
+const PrivateRoute = ({
+    component: Component,
+    loggedInStatus: loggedInStatus,
+    ...rest
+}) => (
+    <Route
+        render={(props) => (loggedInStatus === "LOGGED_IN"
+        ? <Component {...props} {...rest} loggedInStatus={loggedInStatus}/>
+        : <Redirect to='/login'/>)}/>
 
 )
 export default class App extends React.Component {
@@ -46,7 +44,9 @@ export default class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            loggedInStatus: localStorage.getItem('token') ? "LOGGED_IN" : "NOT_LOGGED_IN",
+            loggedInStatus: localStorage.getItem('token')
+                ? "LOGGED_IN"
+                : "NOT_LOGGED_IN",
             username: '',
             homelessPersonId: 0,
             homelessData: {},
@@ -54,28 +54,51 @@ export default class App extends React.Component {
             pageComponent: 'registerClient'
         };
 
-        this.handleLogin = this.handleLogin.bind(this);
-        this.handleLogout = this.handleLogout.bind(this);
-        this.handleHomelessPersonId = this.handleHomelessPersonId.bind(this);
-        this.handleHomelessPersonData = this.handleHomelessPersonData.bind(this);
-        this.isEmpty = this.isEmpty.bind(this);
-        this.method = this.method.bind(this);
-        this.updateAppointmentId = this.updateAppointmentId.bind(this);
-        this.handleHomelessPersonJson = this.handleHomelessPersonJson.bind(this);
-        this.updatePageComponent = this.updatePageComponent.bind(this);
-        this.inputEnrollmentId = this.inputEnrollmentId.bind(this);
-        this.inputPersonalId = this.inputPersonalId.bind(this);
-        this.handleHomelessPersonInventoryJson = this.handleHomelessPersonInventoryJson.bind(this)
-        this.handleUpdateSocialWorkerInfoJSON = this.handleUpdateSocialWorkerInfoJSON.bind(this)
+        this.handleLogin = this
+            .handleLogin
+            .bind(this);
+        this.handleLogout = this
+            .handleLogout
+            .bind(this);
+        this.handleHomelessPersonId = this
+            .handleHomelessPersonId
+            .bind(this);
+        this.handleHomelessPersonData = this
+            .handleHomelessPersonData
+            .bind(this);
+        this.isEmpty = this
+            .isEmpty
+            .bind(this);
+        this.method = this
+            .method
+            .bind(this);
+        this.updateAppointmentId = this
+            .updateAppointmentId
+            .bind(this);
+        this.handleHomelessPersonJson = this
+            .handleHomelessPersonJson
+            .bind(this);
+        this.updatePageComponent = this
+            .updatePageComponent
+            .bind(this);
+        this.inputEnrollmentId = this
+            .inputEnrollmentId
+            .bind(this);
+        this.inputPersonalId = this
+            .inputPersonalId
+            .bind(this);
+        this.handleHomelessPersonInventoryJson = this
+            .handleHomelessPersonInventoryJson
+            .bind(this)
+        this.handleUpdateSocialWorkerInfoJSON = this
+            .handleUpdateSocialWorkerInfoJSON
+            .bind(this)
     }
-
 
     checkLoginStatus() {
         if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
 
-            this.setState({
-                loggedInStatus: "LOGGED_IN"
-            });
+            this.setState({loggedInStatus: "LOGGED_IN"});
         }
     }
 
@@ -86,30 +109,20 @@ export default class App extends React.Component {
 
     method(clearanceLevel, serviceProvider) {
 
-        this.setState({
-            clearanceLevel: clearanceLevel,
-            serviceProvider: serviceProvider
-        });
-
+        this.setState({clearanceLevel: clearanceLevel, serviceProvider: serviceProvider});
 
     }
-
 
     handleLogin(json, user_name) {
         localStorage.setItem('token', json.access);
         localStorage.setItem('refresh_token', json.refresh);
 
-        this.setState({
-            username: user_name,
-            loggedInStatus: "LOGGED_IN"
-        });
+        this.setState({username: user_name, loggedInStatus: "LOGGED_IN"});
 
     }
 
     handleHomelessPersonId(person_id) {
-        this.setState({
-            homelessPersonId: person_id
-        });
+        this.setState({homelessPersonId: person_id});
     }
 
     isEmpty(object) {
@@ -124,57 +137,39 @@ export default class App extends React.Component {
     handleHomelessPersonData(personId) {
         if (personId) {
 
-            this.setState({
-                homelessPersonId: personId
-            });
+            this.setState({homelessPersonId: personId});
         } else {
-            this.setState({
-                homelessPersonId: ''
-            });
+            this.setState({homelessPersonId: ''});
         }
     }
 
     handleHomelessPersonJson(json) {
-        this.setState({
-            homelessData: json
-        });
+        this.setState({homelessData: json});
     }
 
     handleHomelessPersonInventoryJson(json) {
-        this.setState({
-            homelessInventoryData: json
-        });
+        this.setState({homelessInventoryData: json});
     }
 
     updateAppointmentId(appointmentId) {
-        this.setState({
-            appointmentId: appointmentId
-        });
+        this.setState({appointmentId: appointmentId});
     }
 
     inputEnrollmentId(enrollmentId) {
-        this.setState({
-            enrollmentId: enrollmentId
-        });
+        this.setState({enrollmentId: enrollmentId});
     }
 
     updatePageComponent(pageComponent) {
-        this.setState({
-            pageComponent: pageComponent
-        });
+        this.setState({pageComponent: pageComponent});
     }
 
     inputPersonalId(personalId) {
-        this.setState({
-            homelessPersonId: personalId
-        })
+        this.setState({homelessPersonId: personalId})
     }
 
     handleUpdateSocialWorkerInfoJSON(json) {
 
-        this.setState({
-            socialWorkerInfoJSON: json
-        });
+        this.setState({socialWorkerInfoJSON: json});
     }
 
     render() {
@@ -185,24 +180,14 @@ export default class App extends React.Component {
                         <Route
                             exact
                             path={"/"}
-                            render={props => (
-                                <LandingPage
-                                    {...props}
-                                    loggedInStatus={this.state.loggedInStatus}
-                                />
-                            )}
-                        />
+                            render={props => (<LandingPage {...props} loggedInStatus={this.state.loggedInStatus}/>)}/>
                         <Route
                             exact
                             path={"/login"}
-                            render={props => (
-                                <Login
-                                    {...props}
-                                    handleLogin={this.handleLogin}
-                                    clearanceLevel={this.state.clearanceLevel}
-                                />
-                            )}
-                        />
+                            render={props => (<Login
+                            {...props}
+                            handleLogin={this.handleLogin}
+                            clearanceLevel={this.state.clearanceLevel}/>)}/>
                         <PrivateRoute
                             exact
                             path={"/socialWorkerRegister"}
@@ -216,8 +201,7 @@ export default class App extends React.Component {
                             handleHomelessPersonId={this.handleHomelessPersonId}
                             handleHomelessPersonJson={this.handleHomelessPersonJson}
                             pageComponent={this.state.pageComponent}
-                            handleUpdateSocialWorkerInfoJSON={this.handleUpdateSocialWorkerInfoJSON}
-                        />
+                            handleUpdateSocialWorkerInfoJSON={this.handleUpdateSocialWorkerInfoJSON}/>
                         <PrivateRoute
                             exact
                             path={"/updateSocialWorkerInfo"}
@@ -232,8 +216,7 @@ export default class App extends React.Component {
                             handleHomelessPersonId={this.handleHomelessPersonId}
                             handleHomelessPersonJson={this.handleHomelessPersonJson}
                             pageComponent={this.state.pageComponent}
-                            socialWorkerInfoJSON={this.state.socialWorkerInfoJSON}
-                        />
+                            socialWorkerInfoJSON={this.state.socialWorkerInfoJSON}/>
                         <PrivateRoute
                             exact
                             path={"/homelessRegistration"}
@@ -246,8 +229,7 @@ export default class App extends React.Component {
                             homelessPersonId={this.state.homelessPersonId}
                             handleLogin={this.handleLogin}
                             homelessData={this.state.homelessData}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/log"}
@@ -255,8 +237,7 @@ export default class App extends React.Component {
                             loggedInStatus={this.state.loggedInStatus}
                             handleHomelessPersonId={this.state.homelessPersonId}
                             handleLogout={this.handleLogout}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/greeter"}
@@ -267,8 +248,7 @@ export default class App extends React.Component {
                             clearanceLevel={this.state.clearanceLevel}
                             serviceProvider={this.state.serviceProvider}
                             inputPersonalId={this.inputPersonalId}
-                            handleLogout={this.handleLogout}
-                        />
+                            handleLogout={this.handleLogout}/>
                         <PrivateRoute
                             exact
                             path={"/serviceProvider"}
@@ -280,8 +260,7 @@ export default class App extends React.Component {
                             serviceProvider={this.state.serviceProvider}
                             handleLogout={this.handleLogout}
                             pageComponent={this.state.pageComponent}
-                            handleHomelessPersonInventoryJson={this.handleHomelessPersonInventoryJson}
-                        />
+                            handleHomelessPersonInventoryJson={this.handleHomelessPersonInventoryJson}/>
                         <PrivateRoute
                             exact
                             path={"/transactionPage"}
@@ -289,8 +268,7 @@ export default class App extends React.Component {
                             homelessPersonId={this.state.homelessPersonId}
                             loggedInStatus={this.state.loggedInStatus}
                             serviceProvider={this.state.serviceProvider}
-                            handleLogout={this.handleLogout}
-                        />
+                            handleLogout={this.handleLogout}/>
                         <PrivateRoute
                             exact
                             path={"/social"}
@@ -299,8 +277,7 @@ export default class App extends React.Component {
                             username={this.state.username}
                             loggedInStatus={this.state.loggedInStatus}
                             serviceProvider={this.state.serviceProvider}
-                            method={this.method}
-                        />
+                            method={this.method}/>
                         <PrivateRoute
                             exact
                             path={"/createAppointment"}
@@ -308,8 +285,7 @@ export default class App extends React.Component {
                             loggedInStatus={this.state.loggedInStatus}
                             homelessPersonId={this.state.homelessPersonId}
                             handleLogout={this.handleLogout}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/editAppointment"}
@@ -318,8 +294,7 @@ export default class App extends React.Component {
                             homelessPersonId={this.state.homelessPersonId}
                             handleLogout={this.handleLogout}
                             appointmentId={this.state.appointmentId}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/viewAppointment"}
@@ -328,8 +303,7 @@ export default class App extends React.Component {
                             homelessPersonId={this.state.homelessPersonId}
                             handleLogout={this.handleLogout}
                             updateAppointmentId={this.updateAppointmentId}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/enrollment"}
@@ -337,8 +311,7 @@ export default class App extends React.Component {
                             loggedInStatus={this.state.loggedInStatus}
                             homelessPersonId={this.state.homelessPersonId}
                             handleLogout={this.handleLogout}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/viewAllEnrollment"}
@@ -347,8 +320,7 @@ export default class App extends React.Component {
                             homelessPersonId={this.state.homelessPersonId}
                             inputEnrollmentId={this.inputEnrollmentId}
                             handleLogout={this.handleLogout}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/viewEnrollmentDetails"}
@@ -357,8 +329,7 @@ export default class App extends React.Component {
                             homelessPersonId={this.state.homelessPersonId}
                             enrollmentId={this.state.enrollmentId}
                             handleLogout={this.handleLogout}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/clientLanding"}
@@ -369,8 +340,7 @@ export default class App extends React.Component {
                             serviceProvider={this.state.serviceProvider}
                             handleLogout={this.handleLogout}
                             handleHomelessPersonJson={this.handleHomelessPersonJson}
-                            handleAppointmentJson={this.handleAppointmentJson}
-                        />
+                            handleAppointmentJson={this.handleAppointmentJson}/>
                         <PrivateRoute
                             exact
                             path={"/clientInfo"}
@@ -382,8 +352,7 @@ export default class App extends React.Component {
                             homelessPersonId={this.state.handleHomelessPersonId}
                             handleLogout={this.handleLogout}
                             homelessData={this.state.homelessData}
-                            appointmentData={this.state.xyz}
-                        />
+                            appointmentData={this.state.xyz}/>
                         <PrivateRoute
                             exact
                             path={"/success"}
@@ -391,8 +360,7 @@ export default class App extends React.Component {
                             loggedInStatus={this.state.loggedInStatus}
                             homelessPersonId={this.state.homelessPersonId}
                             handleLogout={this.handleLogout}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/successful"}
@@ -400,8 +368,7 @@ export default class App extends React.Component {
                             loggedInStatus={this.state.loggedInStatus}
                             homelessPersonId={this.state.homelessPersonId}
                             handleLogout={this.handleLogout}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
 
                         <PrivateRoute
                             exact
@@ -410,8 +377,7 @@ export default class App extends React.Component {
                             loggedInStatus={this.state.loggedInStatus}
                             homelessPersonId={this.state.homelessPersonId}
                             handleLogout={this.handleLogout}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/transactionComplete"}
@@ -419,8 +385,7 @@ export default class App extends React.Component {
                             loggedInStatus={this.state.loggedInStatus}
                             homelessPersonId={this.state.homelessPersonId}
                             handleLogout={this.handleLogout}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <PrivateRoute
                             exact
                             path={"/productAdditionComplete"}
@@ -428,22 +393,26 @@ export default class App extends React.Component {
                             loggedInStatus={this.state.loggedInStatus}
                             homelessPersonId={this.state.homelessPersonId}
                             handleLogout={this.handleLogout}
-                            updatePageComponent={this.updatePageComponent}
-                        />
+                            updatePageComponent={this.updatePageComponent}/>
                         <Route
                             exact
                             path={"/loginError"}
                             component={LoginError}
                             loggedInStatus={this.state.loggedInStatus}
-                            handleLogout={this.handleLogout}
-                        />
+                            handleLogout={this.handleLogout}/>
+
+                        <Route
+                            exact
+                            path={"/error"}
+                            component={Error}
+                            loggedInStatus={this.state.loggedInStatus}/>
+                            
                         <Route
                             exact
                             path={"/forgotPassword"}
                             component={ForgotPasswordForm}
                             loggedInStatus={this.state.loggedInStatus}
-                            handleLogout={this.handleLogout}
-                        />
+                            handleLogout={this.handleLogout}/>
                     </Switch>
                 </BrowserRouter>
             </div>
