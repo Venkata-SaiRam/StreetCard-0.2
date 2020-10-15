@@ -23,6 +23,7 @@ import ReferralSource from "./ReferralSource";
 import AfterCarePlans from "./AfterCarePlans";
 import FormerChildWelfare from "./FormerChildWelfare";
 import SexualOrientation from "./SexualOrientation";
+import Counselling from "./Counselling";
 
 
 const {Panel} = Collapse;
@@ -225,6 +226,13 @@ class RunawayHomelessYouth extends Component {
                 var last_grade = {}
                 last_grade.last_grade_completed = this.handleValue(values.last_grade_completed);
                 enrollmentRequestObject.last_grade = last_grade;
+                var counselling_values = {};
+                counselling_values.receivedbyclient = this.handleValue(values.counsellingReceivedResponse);
+                counselling_values.typeofCounseling = this.handleValue(values.typeOfCounselling);
+                counselling_values.noofsessions = values.noOfSessionsByExit;
+                counselling_values.noofsessionsplanned = values.noOfSessions;
+                counselling_values.continuecounseling = this.handleValue(values.planAfterExit);
+                enrollmentRequestObject.CounselingRHY = values.counselling_values;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -316,6 +324,7 @@ class RunawayHomelessYouth extends Component {
                     <ReferralSource referralSource={this.props}/>
                     <AfterCarePlans afterCarePlans={this.props}/>
                     <ProjectCompletionStatus project_completion ={this.props}/>
+                    <Counselling counselling={this.props}/>
                     <SafeandApproximateExit safeexit ={this.props}/>
                     <LastGradeCompleted lastgradecompleted ={this.props}/>
                     <PregnancyStatus pregnancy ={this.props}/>
