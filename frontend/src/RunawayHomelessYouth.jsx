@@ -237,7 +237,7 @@ class RunawayHomelessYouth extends Component {
                 var rhyServiceConnections = {};
                 rhyServiceConnections.InformationDate = values["dateOfRHYService"] != null ? values["dateOfRHYService"].format("YYYY-MM-DD") : null;
                 rhyServiceConnections.connectionsrhy = this.handleValue(values.typeOfRHYService);
-                enrollmentRequestObject.RHYConnectionsRHY = values.counselling_values;
+                enrollmentRequestObject.RHYConnectionsRHY = values.rhyServiceConnections;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
