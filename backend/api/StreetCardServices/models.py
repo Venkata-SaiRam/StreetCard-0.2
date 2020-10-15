@@ -1100,6 +1100,25 @@ class SchoolStatus(models.Model):
                                      default=None)
     schoolstatusfield = models.IntegerField(choices=SchoolstatusCategory.choices)
 
+class ProjectCompletionStatus(models.Model):
+    class ProjectCompletionCategory(models.IntegerChoices):
+        Completedproject = 1, _('Completed project')
+        Youthvountarily = 2, _('Youth voluntarily left early')
+        Youthexpelled = 3, _('Youth was expelled or otherwise involuntarily discharged from project')
+    class majorreasoncategory(models.IntegerChoices):
+        CriminalActivity = 1, _('Criminal activity/destruction of property/violence')
+        Noncompliance = 2, _('Noncompliance')
+        Nonpayment = 3, _('Non-payment of rent/occupancy charge')
+        MaximumTime = 4, _('Reached maximum time allowed by project')
+        projectterminated = 5, _('Project terminated')
+        unknown = 6, _('Unknown/disappeared')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='ProjectCompletion_EnrollmentID',
+                                     default=None)
+    projectcompletion = models.IntegerField(choices=ProjectCompletionCategory.choices)
+    majorreason = models.IntegerField(choices=majorreasoncategory.choices)
+
 class SexualOrientation(models.Model):
     class SexualOrientationCategory(models.IntegerChoices):
         Heterosexual = 1, _('Heterosexual')
@@ -1157,31 +1176,14 @@ class AftercarePlans(models.Model):
     aftercareprovided = models.IntegerField(choices=Yesnocategory.choices)
     primaryway = models.IntegerField(choices=AftercareplansCategory.choices)
 
-class ProjectCompletionStatus(models.Model):
-    class ProjectCompletionCategory(models.IntegerChoices):
-        Completedproject = 1, _('Completed project')
-        Youthvountarily = 2, _('Youth voluntarily left early')
-        Youthexpelled = 3, _('Youth was expelled or otherwise involuntarily discharged from project')
-    class majorreasoncategory(models.IntegerChoices):
-        CriminalActivity = 1, _('Criminal activity/destruction of property/violence')
-        Noncompliance = 2, _('Noncompliance')
-        Nonpayment = 3, _('Non-payment of rent/occupancy charge')
-        MaximumTime = 4, _('Reached maximum time allowed by project')
-        projectterminated = 5, _('Project terminated')
-        unknown = 6, _('Unknown/disappeared')
 
-    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
-                                     related_name='ProjectCompletion_EnrollmentID',
-                                     default=None)
-    projectcompletion = models.IntegerField(choices=ProjectCompletionCategory.choices)
-    majorreason = models.IntegerField(choices=majorreasoncategory.choices)
 
 class PregancyStatus(models.Model):
 
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='PregancyStatus_EnrollmentID',
                                      default=None)
-    pregancystatus = models.IntegerField(choices=ResponseCategory.choices)
+    pregancy_status = models.IntegerField(choices=ResponseCategory.choices)
     duedate = models.DateField()
 
 class RHYBCPStatus(models.Model):
@@ -1216,7 +1218,25 @@ class EmploymentStatus(models.Model):
     notemployed = models.IntegerField(choices=notemployedcategory.choices)
     InformationDate = models.DateField()
 
-
-
-
-
+class RHYConnections(models.Model):
+    class RHYConnectionscategory(models.IntegerChoices):
+        Community = 2, _('Community service/service learning(CSL)')
+        Criminal = 7, _('Criminal justice /legal services')
+        Education = 5, _('Education')
+        Employment = 6, _('Employment and/or training services')
+        Health = 14, _('Health/medical care')
+        Home = 26, _('Home-based Services')
+        Life_Skill = 8, _('Life skills training')
+        Parenting = 10, _('Parenting education for youth with children')
+        Postnatal = 27, _('Post-natal newborn care (wellness exams; immunizations)')
+        postnatalmother = 12, _('Post-natal care for mother')
+        prenatal = 13, _('Pre-natal care')
+        STDTesting = 28, _('STD Testing')
+        Streetbased = 29, _('Street-based Services')
+        Substanceabuse = 17, _('Substance abuse treatment')
+        Preventionservices = 18, _('Substance Abuse Ed/Prevention Services')
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='RHYConnections_EnrollmentID',
+                                     default=None)
+    connectionsrhy = models.IntegerField(choices=RHYConnectionscategory.choices)
+    InformationDate = models.DateField()
