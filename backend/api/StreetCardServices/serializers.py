@@ -10,7 +10,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
     ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit, \
     Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation, ReferralSource, AftercarePlans,ProjectCompletionStatus, \
-    PregancyStatus, RHYBCPStatus, RHYConnections
+    PregancyStatus, RHYBCPStatus, RHYConnections, JuvenileJusticeSystem
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -372,6 +372,12 @@ class RHYConnectionsSerializer(serializers.ModelSerializer):
         model =RHYConnections
         fields ='_all_'
 
+class JuvenileJusticeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JuvenileJusticeSystem
+        fields = '_all_'
+
+
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
     non_cash_benefits = NonCashBenefitsSerializer(required=False)
@@ -410,6 +416,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     ReferralSourceRHY = ReferralSerializer(required=False)
     LabourExploitationTraffickingRHY = LabourexplotationSerializer(required=False)
     RHYConnectionsRHY =RHYConnectionsSerializer(required=False)
+    JuvenileJusticeSystemRHY = JuvenileJusticeSerializer(required=False)
+
 
     class Meta:
         model = Enrollment
@@ -424,7 +432,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY', 'SexualExploitationRHY',
                   'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY','RHYBCPStatusRHY','SexualOrientationRHY',
                   'PregancyStatusRHY','AftercarePlansRHY','ProjectCompletionStatusRHY','ReferralSourceRHY','LabourExploitationTraffickingRHY',
-                  'RHYConnectionsRHY']
+                  'RHYConnectionsRHY','JuvenileJusticeSystemRHY']
 
     def create(self, validated_data):
 
@@ -465,6 +473,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         referral_rhy_data = check_and_assign('ReferralSourceRHY', validated_data)
         labour_trafficking_rhy_data = check_and_assign('LabourExploitationTraffickingRHY', validated_data)
         rhy_connections_rhy_data = check_and_assign('RHYConnectionsRHY', validated_data)
+        juvenile_justice_system_rhy_data = check_and_assign('JuvenileJusticeSystemRHY', validated_data)
 
 
         enroll = Enrollment.objects.create(**validated_data)
@@ -559,6 +568,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             LabourExploitationTrafficking.objects.create(EnrollmentID_id=enroll.EnrollmentID,**labour_trafficking_rhy_data)
         if rhy_connections_rhy_data is not None:
             RHYConnections.objects.create(EnrollmentID_id=enroll.EnrollmentID,**rhy_connections_rhy_data)
+        if juvenile_justice_system_rhy_data is not None:
+            JuvenileJusticeSystem.objects.create(EnrollmentID_id=enroll.EnrollmentID,**juvenile_justice_system_rhy_data)
 
 
         return enroll
@@ -695,5 +706,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if RHYConnections.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['rhyconnections_rhy'] = RHYConnectionsSerializer(
                 RHYConnections.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if JuvenileJusticeSystem.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['juvenilejusticesystem_rhy'] = JuvenileJusticeSerializer(
+                JuvenileJusticeSystem.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
 
         return response
