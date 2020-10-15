@@ -25,6 +25,7 @@ import FormerChildWelfare from "./FormerChildWelfare";
 import SexualOrientation from "./SexualOrientation";
 import Counselling from "./Counselling";
 import RHYServiceConnections from "./RHYServiceConnections";
+import FormerJuvenileJusticeSystem from "./FormerJuvenileJusticeSystem";
 
 
 const {Panel} = Collapse;
@@ -238,6 +239,11 @@ class RunawayHomelessYouth extends Component {
                 rhyServiceConnections.InformationDate = values["dateOfRHYService"] != null ? values["dateOfRHYService"].format("YYYY-MM-DD") : null;
                 rhyServiceConnections.connectionsrhy = this.handleValue(values.typeOfRHYService);
                 enrollmentRequestObject.RHYConnectionsRHY = values.rhyServiceConnections;
+                var formerJJS = {};
+                formerJJS.formerjuvenilejustice = this.handleValue(values.formerJJS);
+                formerJJS.noofyears = this.handleValue(values.noOfYearsJJS);
+                formerJJS.noofmonths = values.noOfMonthsJJS;
+                enrollmentRequestObject.JuvenileJusticeSystemRHY = formerJJS;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -323,6 +329,7 @@ class RunawayHomelessYouth extends Component {
                     <GeneralHealthStatus generalHealthStatus={this.props}/>
                     <DentalHealthStatus dentalHealthStatus={this.props}/>
                     <FormerChildWelfare formerChildWelfare={this.props}/>
+                    <FormerJuvenileJusticeSystem formerJuvenileJusticeSystem={this.props}/>
                     <RHY_Employment_Status rhy_employment_status={this.props}/>
                     <SchoolStatus schoolStatus={this.props}/>
                     <RhyBcpStatus rhy_bcp_status ={this.props}/>
