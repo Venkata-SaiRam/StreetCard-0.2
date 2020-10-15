@@ -10,7 +10,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
     ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit, \
     Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation, ReferralSource, AftercarePlans,ProjectCompletionStatus, \
-    PregancyStatus, RHYBCPStatus
+    PregancyStatus, RHYBCPStatus, RHYConnections
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -277,10 +277,7 @@ class EmploymentStatusSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class LabourExploitationTraffickingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = LabourExploitationTrafficking
-        fields = '_all_'
+
 
 
 class ChildWelfareFosterCareAgencySerializer(serializers.ModelSerializer):
@@ -330,19 +327,19 @@ class SchoolStatusSerializer(serializers.ModelSerializer):
         model = SchoolStatus
         fields = '_all_'
 
+class SchoolStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SchoolStatus
+        fields = '_all_'
+
+class RHYBCPStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RHYBCPStatus
+        fields = '_all_'
+
 class SexualOrientationSerializer(serializers.ModelSerializer):
     class Meta:
         model = SexualOrientation
-        fields = '_all_'
-
-class ReferralSourceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ReferralSource
-        fields = '_all_'
-
-class AfterCareSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AftercarePlans
         fields = '_all_'
 
 class ProjectCompletionSerializer(serializers.ModelSerializer):
@@ -350,15 +347,30 @@ class ProjectCompletionSerializer(serializers.ModelSerializer):
         model = ProjectCompletionStatus
         fields = '_all_'
 
+class ReferralSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReferralSource
+        fields = '_all_'
+
+class AfterCareplansSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AftercarePlans
+        fields = '_all_'
+
 class PregancyStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = PregancyStatus
         fields = '_all_'
 
-class RHYBCPSerializer(serializers.ModelSerializer):
+class LabourexplotationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RHYBCPStatus
+        model = LabourExploitationTrafficking
         fields = '_all_'
+
+class RHYConnectionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model =RHYConnections
+        fields ='_all_'
 
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
@@ -381,7 +393,6 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     tCellCD4AndViralLoadHOPWA = TCellCD4AndViralLoadHOPWASerializer(required=False)
     medicalAssistanceHOPWA = MedicalAssistanceHOPWASerializer(required=False)
     housingAssessmentAtExitHOPWA = HousingAssessmentAtExitHOPWASerializer(required=False)
-    LabourExploitationTraffickingRHY = LabourExploitationTraffickingSerializer(required=False)
     ChildWelfareFosterRHY = ChildWelfareFosterCareAgencySerializer(required=False)
     GeneralHealthStatusRHY = GeneralHealthStatusSerializer(required=False)
     DentalHealthStatusRHY = DentalHealthStatusSerializer(required=False)
@@ -391,12 +402,14 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     CounselingRHY = CounselingSerializer(required=False)
     MentalHealthStatusRHY = MentalHealthStatusSerializer(required=False)
     SchoolStatusRHY = SchoolStatusSerializer(required=False)
+    RHYBCPStatusRHY =  RHYBCPStatusSerializer(required=False)
     SexualOrientationRHY = SexualOrientationSerializer(required=False)
-    ReferralSourceRHY = ReferralSourceSerializer(required=False)
-    AftercareRHY = AfterCareSerializer(required=False)
-    ProjectCompletionRHY = ProjectCompletionSerializer(required=False)
-    PregancyStatusRHY = PregancyStatusSerializer(required=False)
-    RHYBCPStatusRHY = RHYBCPSerializer(required=False)
+    PregancyStatusRHY =PregancyStatusSerializer(required=False)
+    AftercarePlansRHY = AfterCareplansSerializer(required=False)
+    ProjectCompletionStatusRHY =ProjectCompletionSerializer(required=False)
+    ReferralSourceRHY = ReferralSerializer(required=False)
+    LabourExploitationTraffickingRHY = LabourexplotationSerializer(required=False)
+    RHYConnectionsRHY =RHYConnectionsSerializer(required=False)
 
     class Meta:
         model = Enrollment
@@ -407,11 +420,11 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'hUD_VASH_Exit_Information', 'connection_With_SOAR', 'last_Grade_Completed', 'employment_Status',
                   'w1ServicesProvidedHOPWA', 'tCellCD4AndViralLoadHOPWA', 'medicalAssistanceHOPWA',
                   'housingAssessmentAtExitHOPWA',
-                  'LabourExploitationTraffickingRHY', 'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY',
+                   'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY',
                   'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY', 'SexualExploitationRHY',
-                  'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY',
-                  'SexualOrientationRHY','ReferralSourceRHY','AftercareRHY' , 'ProjectCompletionRHY', 'PregancyStatusRHY',
-                  'RHYBCPStatusRHY']
+                  'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY','RHYBCPStatusRHY','SexualOrientationRHY',
+                  'PregancyStatusRHY','AftercarePlansRHY','ProjectCompletionStatusRHY','ReferralSourceRHY','LabourExploitationTraffickingRHY',
+                  'RHYConnectionsRHY']
 
     def create(self, validated_data):
 
@@ -435,7 +448,6 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         tcellcd4_and_viral_load_hopwa_data = check_and_assign('tCellCD4AndViralLoadHOPWA', validated_data)
         medical_assistance_hopwa_data = check_and_assign('medicalAssistanceHOPWA', validated_data)
         housing_assessment_at_exit_hopwa_data = check_and_assign('housingAssessmentAtExitHOPWA', validated_data)
-        labour_exploitation_trafficking_rhy_data = check_and_assign('LabourExploitationTraffickingRHY', validated_data)
         child_welfare_foster_rhy_data = check_and_assign('ChildWelfareFosterRHY', validated_data)
         general_health_status_rhy_data = check_and_assign('GeneralHealthStatusRHY', validated_data)
         dental_health_status_rhy_data = check_and_assign('DentalHealthStatusRHY', validated_data)
@@ -445,12 +457,15 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         counseling_rhy_data = check_and_assign('CounselingRHY', validated_data)
         mental_health_status_rhy_data = check_and_assign('MentalHealthStatusRHY', validated_data)
         school_status_rhy_data = check_and_assign('SchoolStatusRHY', validated_data)
-        sexual_orientation_rhy_data = check_and_assign('SexualOrientationRHY', validated_data)
-        referral_source_rhy_data = check_and_assign('ReferralSourceRHY', validated_data)
-        after_care_rhy_data = check_and_assign('AftercareRHY', validated_data)
-        project_completion_rhy_data = check_and_assign('ProjectCompletionRHY',validated_data)
-        pregancy_status_rhy_data = check_and_assign('PregancyStatusRHY', validated_data)
-        rhy_bcp_status_rhy_data = check_and_assign('RHYBCPStatusRHY', validated_data)
+        rhy_bcp_status_rhy_data = check_and_assign('RHYBCPStatusRHY',validated_data)
+        sexual_orientation_rhy_data = check_and_assign('SexualOrientationRHY',validated_data)
+        pregancy_rhy_data = check_and_assign('PregancyStatusRHY', validated_data)
+        after_care_rhy_data = check_and_assign('AftercarePlansRHY', validated_data)
+        project_completion_rhy_data = check_and_assign('ProjectCompletionStatusRHY', validated_data)
+        referral_rhy_data = check_and_assign('ReferralSourceRHY', validated_data)
+        labour_trafficking_rhy_data = check_and_assign('LabourExploitationTraffickingRHY', validated_data)
+        rhy_connections_rhy_data = check_and_assign('RHYConnectionsRHY', validated_data)
+
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -506,9 +521,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if housing_assessment_at_exit_hopwa_data is not None:
             HousingAssessmentAtExitHOPWA.objects.create(EnrollmentID_id=enroll.EnrollmentID,
                                                         **housing_assessment_at_exit_hopwa_data)
-        if labour_exploitation_trafficking_rhy_data is not None:
-            LabourExploitationTrafficking.objects.create(EnrollmentID_id=enroll.EnrollmentID,
-                                                         **labour_exploitation_trafficking_rhy_data)
+
         if child_welfare_foster_rhy_data is not None:
             ChildWelfareFoster.objects.create(EnrollmentID_id=enroll.EnrollmentID,
                                               **child_welfare_foster_rhy_data)
@@ -530,18 +543,23 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             MentalHealthStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**mental_health_status_rhy_data)
         if school_status_rhy_data is not None:
             SchoolStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**school_status_rhy_data)
+        if rhy_bcp_status_rhy_data is not None:
+            RHYBCPStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**rhy_bcp_status_rhy_data)
         if sexual_orientation_rhy_data is not None:
             SexualOrientation.objects.create(EnrollmentID_id=enroll.EnrollmentID,**sexual_orientation_rhy_data)
-        if referral_source_rhy_data is not None:
-            ReferralSource.objects.create(EnrollmentID_id=enroll.EnrollmentID,**referral_source_rhy_data)
+        if pregancy_rhy_data is not None:
+            PregancyStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**pregancy_rhy_data)
         if after_care_rhy_data is not None:
             AftercarePlans.objects.create(EnrollmentID_id=enroll.EnrollmentID,**after_care_rhy_data)
         if project_completion_rhy_data is not None:
             ProjectCompletionStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**project_completion_rhy_data)
-        if pregancy_status_rhy_data is not None:
-            PregancyStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**pregancy_status_rhy_data)
-        if rhy_bcp_status_rhy_data is not None:
-            RHYBCPStatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**rhy_bcp_status_rhy_data)
+        if referral_rhy_data is not None:
+            ReferralSource.objects.create(EnrollmentID_id=enroll.EnrollmentID,**referral_rhy_data)
+        if labour_trafficking_rhy_data is not None:
+            LabourExploitationTrafficking.objects.create(EnrollmentID_id=enroll.EnrollmentID,**labour_trafficking_rhy_data)
+        if rhy_connections_rhy_data is not None:
+            RHYConnections.objects.create(EnrollmentID_id=enroll.EnrollmentID,**rhy_connections_rhy_data)
+
 
         return enroll
 
@@ -626,9 +644,6 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if HousingAssessmentAtExitHOPWA.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['housing_assessment_at_exit_hopwa'] = HousingAssessmentAtExitHOPWASerializer(
                 HousingAssessmentAtExitHOPWA.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
-        if LabourExploitationTrafficking.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
-            response['labour_exploitation_trafficking_rhy'] = LabourExploitationTraffickingSerializer(
-                LabourExploitationTrafficking.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
         if ChildWelfareFoster.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['child_welfare_foster_rhy'] = ChildWelfareFosterCareAgencySerializer(
                 ChildWelfareFoster.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
@@ -643,37 +658,42 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                 FamilyCriticalIssues.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
         if SexualExploitation.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['sexual_exploitation_rhy'] = SexualExploitationSerializer(
-                SexualExploitation.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
+                SexualExploitation.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
         if SafeandAppropriateExit.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['safeappropriate_exit_rhy'] = SafeandApproriateExitSerializer(
-                SafeandAppropriateExit.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
+                SafeandAppropriateExit.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
         if Counseling.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['counseling_rhy'] = CounselingSerializer(
-                Counseling.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
+                Counseling.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
         if MentalHealthStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['mentalhelathstatus_rhy'] = MentalHealthStatusSerializer(
-                MentalHealthStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
+                MentalHealthStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
         if SchoolStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['schoolstatus_rhy'] = SchoolStatusSerializer(
-                SchoolStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
-        if SexualOrientation.objects.filter(EnrollmenrID_id=response['EnrollmentID']).exists:
+                SchoolStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if SexualOrientation.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['sexualorientation_rhy'] = SexualOrientationSerializer(
-                SexualOrientation.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
-        if ReferralSource.objects.filter(EnrollmenrID_id=response['EnrollmentID']).exists:
-            response['referralsource_rhy'] = ReferralSourceSerializer(
-                ReferralSource.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
-        if AftercarePlans.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists:
-            response['aftercareplans_rhy'] = AfterCareSerializer(
-                AftercarePlans.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
-        if ProjectCompletionStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists:
+                SexualOrientation.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if ReferralSource.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['referralsource_rhy'] = ReferralSerializer(
+                ReferralSource.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if AftercarePlans.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['aftercareplans_rhy'] = AfterCareplansSerializer(
+                AftercarePlans.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if ProjectCompletionStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['projectcompletion_rhy'] = ProjectCompletionSerializer(
-                ProjectCompletionStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
-        if PregancyStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists:
+                ProjectCompletionStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if PregancyStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['pregancystatus_rhy'] = PregancyStatusSerializer(
-                PregancyStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
-        if RHYBCPStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists:
-            response['rhybcpstatus_rhy'] = RHYBCPStatus(
-                RHYBCPStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data()
-
+                PregancyStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if RHYBCPStatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['rhybcpstatus_rhy'] = RHYBCPStatusSerializer(
+                RHYBCPStatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if LabourExploitationTrafficking.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['labour_exploitation_trafficking_rhy'] = LabourexplotationSerializer(
+                LabourExploitationTrafficking.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if RHYConnections.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['rhyconnections_rhy'] = RHYConnectionsSerializer(
+                RHYConnections.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
 
         return response
