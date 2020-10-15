@@ -1216,7 +1216,27 @@ class EmploymentStatus(models.Model):
     notemployed = models.IntegerField(choices=notemployedcategory.choices)
     InformationDate = models.DateField()
 
+class RHYConnections(models.Model):
+    class RHYConnectionscategory(models.IntegerChoices):
+        Community = 2, _('Community service/service learning(CSL)')
+        Criminal = 7, _('Criminal justice /legal services')
+        Education = 5, _('Education')
+        Employment = 6, _('Employment and/or training services')
+        Health = 14, _('Health/medical care')
+        Home = 26, _('Home-based Services')
+        Life_Skill = 8, _('Life skills training')
+        Parenting = 10, _('Parenting education for youth with children')
+        Postnatal = 27, _('Post-natal newborn care (wellness exams; immunizations)')
+        postnatalmother = 12, _('Post-natal care for mother')
+        prenatal = 13, _('Pre-natal care')
+        STDTesting = 28, _('STD Testing')
+        Streetbased = 29, _('Street-based Services')
+        Substanceabuse = 17, _('Substance abuse treatment')
+        Preventionservices = 18, _('Substance Abuse Ed/Prevention Services')
 
 
-
-
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='RHYConnections_EnrollmentID',
+                                     default=None)
+    connectionsrhy = models.IntegerField(choices=RHYConnectionscategory.choices)
+    InformationDate = models.DateField()

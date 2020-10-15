@@ -214,8 +214,8 @@ class RunawayHomelessYouth extends Component {
                 safe_exit_status.exit_status = this.handleValue(values.exit_status);
                 enrollmentRequestObject.safe_exit_status = safe_exit_status;
                 var sexual_orientation_values = {};
-                sexual_orientation_values.sexual_orientation = this.handleValue(values.sexual_orientation);
-                enrollmentRequestObject.sexual_orientation_values = sexual_orientation_values;
+                sexual_orientation_values.sexualorientation = this.handleValue(values.sexual_orientation);
+                enrollmentRequestObject.SexualOrientationRHY = sexual_orientation_values;
                 var pregnancy_status_values = {}
                 pregnancy_status_values.pregnancy_status = this.handleValue(values.pregnancy_status);
                 enrollmentRequestObject.pregnancy_status_values = pregnancy_status_values;
