@@ -40,7 +40,7 @@ def get_val_from_env(django_var):
 SECRET_KEY = os.urandom(24)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -100,7 +100,7 @@ DATABASES = {
         'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
         'PORT': '5432',
-        'NAME': 'streetcard',
+        'NAME': 'streetcard6',
     }
 }
 

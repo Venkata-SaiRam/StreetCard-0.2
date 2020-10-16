@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import "antd/dist/antd.css";
 import {Button, Cascader, Checkbox, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
 import EnrollmentDetails from "./EnrollmentDetails";
 import IncomeAndSource from "./IncomeAndSource";
 import NonCashBenefits from "./NonCashBenefits";
@@ -49,7 +50,7 @@ class HOPWA extends Component {
         if (e != null) {
             return e[0];
         } else
-            return null;
+            return 1;
     };
 
 
@@ -161,10 +162,10 @@ class HOPWA extends Component {
                 var tCellCD4AndViralLoadHOPWAObject = {};
                 tCellCD4AndViralLoadHOPWAObject.InformationDate = values['informationdateVL'] != null ? values['informationdateVL'].format('YYYY-MM-DD') : null;
                 tCellCD4AndViralLoadHOPWAObject.TCellCD4CountAvailable = this.handleValue(values.tCellCD4CountAvailable);
-                tCellCD4AndViralLoadHOPWAObject.IfYesTCellCount = values.ifYesTCellCount;
+                tCellCD4AndViralLoadHOPWAObject.IfYesTCellCount = values.ifYesTCellCount ?? "0";
                 tCellCD4AndViralLoadHOPWAObject.HowWasTheInformationObtained = this.handleValue(values.howWasTheInformationObtained);
                 tCellCD4AndViralLoadHOPWAObject.ViralLoadInformationAvailable = this.handleValue(values.viralLoadInformationAvailable);
-                tCellCD4AndViralLoadHOPWAObject.ViralLoadCount = values.viralLoadCount;
+                tCellCD4AndViralLoadHOPWAObject.ViralLoadCount = values.viralLoadCount ?? "0";
                 tCellCD4AndViralLoadHOPWAObject.HowWasTheViralInformationObtained = this.handleValue(values.howWasTheViralInformationObtained);
                 enrollmentRequestObject.tCellCD4AndViralLoadHOPWA = tCellCD4AndViralLoadHOPWAObject;
                 var housingAssessmentAtExitHOPWAObject = {};
@@ -184,10 +185,34 @@ class HOPWA extends Component {
                     },
                     body: JSON.stringify(enrollmentRequestObject)
                 })
-                    .then(res => res.json())
-                    .then(json => {
-                        this.props.history.push('/success');
-                    });
+                .then(res => {
+                    if (res.status === 200) {
+                        res
+                            .json()
+                            .then(json => {
+                                if (json === null) {
+                                    this
+                                        .props
+                                        .history
+                                        .push('/error');
+                                } else {
+                                    this
+                                        .props
+                                        .history
+                                        .push('/success');
+                                }
+                            });
+                    } else if(Math.round(res.status / 100) == 4 || Math.round(res.status / 100) == 5) {
+                        this
+                            .props
+                            .history
+                            .push({
+                                pathname: '/error',
+                                state: { errorCode: res.status }
+                            });
+                        return null;
+                    }
+                })
             }
         });
     }

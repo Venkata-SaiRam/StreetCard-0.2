@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
+
 
 const {Panel} = Collapse;
 const YesNoResponse = [
@@ -238,7 +240,7 @@ class DomesticViolence extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="DomesticViolenceVictim"
+                                    label="Domestic Violence Victim"
                                 >{getFieldDecorator("domesticviolencevictim", {
                                     rules: [
                                         {
@@ -256,7 +258,7 @@ class DomesticViolence extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="WhenOccurred"
+                                    label="When Occurred"
                                 >{getFieldDecorator("whenoccurred", {
                                     rules: [
                                         {
@@ -276,7 +278,7 @@ class DomesticViolence extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="CurrentlyFleeing"
+                                    label="Currently Fleeing"
                                 >{getFieldDecorator("currentlyfleeing", {
                                     rules: [
                                         {

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
 
 const {Panel} = Collapse;
 const TypeOfServiceCategory = [
@@ -77,7 +78,7 @@ class ServicesProvidedHOPWA extends Component {
         const message = "Mandatory field! Please provide a response."
         return(
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
-            <Panel header="ServicesProvidedHOPWA" key="7">
+            <Panel header="Services Provided - HOPWA" key="7">
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item

@@ -3,30 +3,6 @@ import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
 import './LabelWrap.css';
 
 const {Panel} = Collapse;
-const {TextArea} = Input;
-
-const ResponseCategory = [
-    {
-        value: 0,
-        label: "No"
-    },
-    {
-        value: 1,
-        label: "Yes"
-    },
-    {
-        value: 8,
-        label: "Client Doesn't Know"
-    },
-    {
-        value: 9,
-        label: "Client Refused"
-    },
-    {
-        value: 99,
-        label: "Data Not Collected"
-    }
-];
 const YesNoResponse = [
     {
         value: 0,
@@ -37,8 +13,7 @@ const YesNoResponse = [
         label: "Yes"
     },
 ];
-
-class NonCashBenefits extends Component {
+class FamilyCriticalIssues extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -48,73 +23,22 @@ class NonCashBenefits extends Component {
     }
 
     render(){
-        const { nonCash, onChangeValue } = this.props;
-        const {getFieldDecorator} = nonCash.form;
+        const { familyCriticalIssues } = this.props;
+        const {getFieldDecorator} = familyCriticalIssues.form;
         const message = "Mandatory field! Please provide a response."
         return(
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
-            <Panel header="Non-Cash Benefits" key="3">
-                        <Row gutter={8}>
-                            <Col span={8}>
-                                <Form.Item label="Information Date">
-                                    {getFieldDecorator("informationdateNonCash", {
-                                        rules: [
-                                            {
-                                                message: {message},
-                                                required: true
-                                            }
-                                        ]
-                                    })(
-                                        <DatePicker style={{width: "100%"}}/>)}
-                                </Form.Item>
-                            </Col>
-                            <Col span={8}>
-                                <Form.Item
-                                    label="Benefits Sources"
-                                >{getFieldDecorator("benefitsfromanysources", {
-                                    rules: [
-                                        {
-                                            message: {message},
-                                            required: true,
-                                            type: "array"
-                                        }
-                                    ]
-                                })(
-                                    <Cascader
-                                        placeholder="Select.."
-                                        options={ResponseCategory}
-                                    ></Cascader>)}
-                                </Form.Item>
-                            </Col>
-                            <Col span={8}>
-                                <Form.Item
-                                    label="SNAP"
-                                >{getFieldDecorator("snap", {
-                                    rules: [
-                                        {
-                                            message: {message},
-                                            type: "array",
-                                            required: true,
-                                        }
-                                    ]
-                                })(
-                                    <Cascader
-                                        placeholder="SNAP Info"
-                                        options={YesNoResponse}
-                                    ></Cascader>)}
-                                </Form.Item>
-                            </Col>
-                        </Row>
+            <Panel header="Family Critical Issues" key="15">
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="WIC"
-                                >{getFieldDecorator("wic", {
+                                    label="Family member unemployed?"
+                                >{getFieldDecorator("unemployedFamilyMember", {
                                     rules: [
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: true,
+                                            required: false
                                         }
                                     ]
                                 })(
@@ -126,13 +50,13 @@ class NonCashBenefits extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="TANF ChildCare"
-                                >{getFieldDecorator("tanfchildcare", {
+                                    label="Mental Health Issues"
+                                >{getFieldDecorator("mentalHealthIssues", {
                                     rules: [
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: true,
+                                            required: false
                                         }
                                     ]
                                 })(
@@ -144,13 +68,13 @@ class NonCashBenefits extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="TANF Transportation"
-                                >{getFieldDecorator("tanftransportation", {
+                                    label="Physical Disability"
+                                >{getFieldDecorator("physicalDisabilityFamily", {
                                     rules: [
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: true
+                                            required: false
                                         }
                                     ]
                                 })(
@@ -164,13 +88,13 @@ class NonCashBenefits extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="Other TANF"
-                                >{getFieldDecorator("othertanf", {
+                                    label="Alcohol or Substance Abuse"
+                                >{getFieldDecorator("alcoholOrSubstanceAbuse", {
                                     rules: [
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: true,
+                                            required: false
                                         }
                                     ]
                                 })(
@@ -182,27 +106,38 @@ class NonCashBenefits extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="Other Sources"
-                                >{getFieldDecorator("othersources", {
+                                    label="Insufficient Income to support Youth"
+                                >{getFieldDecorator("insufficientIncome", {
                                     rules: [
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: true,
+                                            required: false
                                         }
                                     ]
                                 })(
                                     <Cascader
-                                        placeholder="Select"
+                                        placeholder="Select.."
                                         options={YesNoResponse}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="Specify Source"
-                                >{getFieldDecorator("specifysource")(
-                                    <TextArea rows={2}/>)}
+                                    label="Incarcerated Parent of Youth"
+                                >{getFieldDecorator("incarceratedParent", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={YesNoResponse}
+                                    ></Cascader>)}
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -211,4 +146,4 @@ class NonCashBenefits extends Component {
         );
     }
 }
-export default NonCashBenefits;
+export default FamilyCriticalIssues;

@@ -1,33 +1,7 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
 const {Panel} = Collapse;
-const TypeOfEmploymentCategory = [
-        {
-            value: 1,
-            label: "Full-time"
-        },
-        {
-            value: 2,
-            label: "Part-time"
-        },
-        {
-            value: 3,
-            label: "Seasonal / sporadic (including day labor)"
-        }
-    ];
-const WhyNotEmployedCategory = [
-    {
-        value: 1,
-        label: "Looking for work"
-    },
-    {
-        value: 2,
-        label: "Unable to work"
-    },
-    {
-        value: 3,
-        label: "Not looking for work"
-    }];
+
 const ResponseCategory = [
     {
         value: 0,
@@ -50,26 +24,71 @@ const ResponseCategory = [
         label: "Data Not Collected"
     }
 ];
-class EmploymentStatus extends Component {
+
+const TypeOfEmploymentCategory = [
+        {
+            value: 1,
+            label: "Full-time"
+        },
+        {
+            value: 2,
+            label: "Part-time"
+        },
+        {
+            value: 3,
+            label: "Seasonal"
+        }
+
+    ];
+
+const WhyNotEmployedCategory = [
+    {
+        value: 1,
+        label: "Looking for work"
+    },
+    {
+        value: 2,
+        label: "Unable to work"
+    },
+    {
+        value: 3,
+        label: "Not looking for work"
+    }];
+
+
+const YesNoResponse = [
+    {
+        value: 0,
+        label: "No"
+    },
+    {
+        value: 1,
+        label: "Yes"
+    },
+];
+
+
+class RHY_Employment_Status extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isEnabled: true
         }
+        // this.handleOnSubmit = this.handleOnSubmit.bind(this);
     }
 
     render(){
-        const { employmentStatus } = this.props;
-        const {getFieldDecorator} = employmentStatus.form;
-        const message = "Mandatory field! Please provide a response."
+        const { rhy_employment_status } = this.props;
+        const {getFieldDecorator} = rhy_employment_status.form;
+        const message = "Mandatory field! Please provide a response.";
         return(
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
-            <Panel header="EmploymentStatus" key="7">
+            <Panel header="Employment Status" key="10">
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
                                     label="Information Date">
-                                    {getFieldDecorator("informationdate_ES", {
+                                    {getFieldDecorator("informationdate", {
                                         rules: [
                                             {
                                                 message: {message},
@@ -118,7 +137,7 @@ class EmploymentStatus extends Component {
                             </Col>
                         </Row>
                         <Row gutter={8}>
-                            <Col span={12}>
+                            <Col span={8}>
                                 <Form.Item
                                     label="Why Not Employed">
                                     {getFieldDecorator("whynotemployed", {
@@ -142,4 +161,4 @@ class EmploymentStatus extends Component {
         );
     }
 }
-export default EmploymentStatus;
+export default RHY_Employment_Status;

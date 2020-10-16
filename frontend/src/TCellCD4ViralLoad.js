@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
 
 const {Panel} = Collapse;
 const YesNoResponse = [
@@ -112,9 +113,52 @@ class TCellCD4ViralLoad extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: true
+            ifYesTCellCountDisabled: true,
+            howWasTheInformationObtainedDisabled: true,
+            viralLoadCountDisabled: true,
+            howWasTheViralInformationObtainedDisabled: true,
         }
         // this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    }
+
+    handleTCellCountDropDownChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifYesTCellCountDisabled: false});
+        }else {
+            this.setState({ifYesTCellCountDisabled: true});
+            this.setState({howWasTheInformationObtainedDisabled: true});
+            this.props.tCellCD4ViralLoad.form.resetFields(fieldName);
+            this.props.tCellCD4ViralLoad.form.resetFields("howWasTheInformationObtained");
+        }
+    }
+
+    handleViralLoadCountDropDownChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({viralLoadCountDisabled: false});
+        }else {
+            this.setState({viralLoadCountDisabled: true});
+            this.setState({howWasTheViralInformationObtainedDisabled: true});
+            this.props.tCellCD4ViralLoad.form.resetFields(fieldName);
+            this.props.tCellCD4ViralLoad.form.resetFields("howWasTheViralInformationObtained");
+        }
+    }
+
+    handleViralLoadCountInputChange(fieldName, event) {
+        if(event.target.value.length > 0){
+            this.setState({howWasTheViralInformationObtainedDisabled: false})
+        }else {
+            this.setState({howWasTheViralInformationObtainedDisabled: true})
+            this.props.tCellCD4ViralLoad.form.resetFields(fieldName);
+        }
+    }
+
+    handleTCellCountInputChange(fieldName, event) {
+        if(event.target.value.length > 0){
+            this.setState({howWasTheInformationObtainedDisabled: false})
+        }else {
+            this.setState({howWasTheInformationObtainedDisabled: true})
+            this.props.tCellCD4ViralLoad.form.resetFields(fieldName);
+        }
     }
 
     render(){
@@ -123,7 +167,7 @@ class TCellCD4ViralLoad extends Component {
         const message = "Mandatory field! Please provide a response."
         return(
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
-            <Panel header="TCellCD4ViralLoad" key="9">
+            <Panel header="T-cell (CD4) and Viral Load" key="9">
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
@@ -141,7 +185,7 @@ class TCellCD4ViralLoad extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="TCellCD4CountAvailable"
+                                    label="TCell (CD4) Count Available"
                                 >{getFieldDecorator("tCellCD4CountAvailable", {
                                     rules: [
                                         {
@@ -154,12 +198,15 @@ class TCellCD4ViralLoad extends Component {
                                     <Cascader
                                         placeholder="Select.."
                                         options={ResponseCategory}
+                                        onChange={this
+                                            .handleTCellCountDropDownChange
+                                            .bind(this, "ifYesTCellCount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="IfYesTCellCount"
+                                    label="If Yes, TCell Count"
                                 >{getFieldDecorator("ifYesTCellCount", {
                                     rules: [
                                         {
@@ -168,14 +215,17 @@ class TCellCD4ViralLoad extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifYesTCellCountDisabled}
+                                    onChange={this
+                                        .handleTCellCountInputChange
+                                        .bind(this, "howWasTheInformationObtained")}/>)}
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="HowWasTheInformationObtained"
+                                    label="How Was The Information Obtained"
                                 >{getFieldDecorator("howWasTheInformationObtained", {
                                     rules: [
                                         {
@@ -185,6 +235,7 @@ class TCellCD4ViralLoad extends Component {
                                         }
                                     ]
                                 })(<Cascader
+                                        disabled= {this.state.howWasTheInformationObtainedDisabled}
                                         placeholder="How was Information Obtained"
                                         options={InformationObtainedResponseCategory}
                                     ></Cascader>
@@ -193,7 +244,7 @@ class TCellCD4ViralLoad extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="ViralLoadInformationAvailable"
+                                    label="Viral Load Information Available"
                                 >{getFieldDecorator("viralLoadInformationAvailable", {
                                     rules: [
                                         {
@@ -205,13 +256,16 @@ class TCellCD4ViralLoad extends Component {
                                 })(<Cascader
                                         placeholder="Select.."
                                         options={ResponseCategory}
+                                        onChange={this
+                                            .handleViralLoadCountDropDownChange
+                                            .bind(this, "viralLoadCount")}
                                     ></Cascader>
                                 )}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="ViralLoadCount"
+                                    label="Viral Load Count"
                                 >{getFieldDecorator("viralLoadCount", {
                                     rules: [
                                         {
@@ -220,12 +274,18 @@ class TCellCD4ViralLoad extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.viralLoadCountDisabled}
+                                    onChange={this
+                                        .handleViralLoadCountInputChange
+                                        .bind(this, "howWasTheViralInformationObtained")}
+                                    />)}
                                 </Form.Item>
                             </Col>
+                        </Row>
+                        <Row>
                             <Col span={8}>
                                 <Form.Item
-                                    label="HowWasTheViralInformationObtained"
+                                    label="How Was Viral Information Obtained"
                                 >{getFieldDecorator("howWasTheViralInformationObtained", {
                                     rules: [
                                         {
@@ -237,6 +297,7 @@ class TCellCD4ViralLoad extends Component {
                                 })(<Cascader
                                         placeholder="How was Information Obtained"
                                         options={InformationObtainedResponseCategory}
+                                        disabled={this.state.howWasTheViralInformationObtainedDisabled}
                                     ></Cascader>
                                 )}
                                 </Form.Item>

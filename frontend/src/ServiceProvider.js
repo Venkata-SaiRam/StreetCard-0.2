@@ -7,6 +7,7 @@ import StreetCardFooter from './StreetCardFooter'
 import SiderComponentServiceProvider from './SiderComponentServiceProvider'
 import {Chart} from "react-google-charts";
 import WrappedAddProduct from './AddProduct';
+import './LabelWrap.css';
 
 const {Content} = Layout;
 

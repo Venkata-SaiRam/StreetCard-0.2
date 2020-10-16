@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Cascader, Col, Collapse, DatePicker, Form, Input, Row} from "antd";
+import './LabelWrap.css';
+
 
 const {Panel} = Collapse;
 const YesNoResponse = [
@@ -105,9 +107,29 @@ class HousingAssessment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: true
+            subsidyInformationDisabled: true,
+            anotherSubsidyInformationDisabled: true
         }
-        // this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    }
+
+    handleDropDownChange(values){
+        console.log(values);
+        if(values[0] === 1){
+            this.setState({subsidyInformationDisabled: false,
+                           anotherSubsidyInformationDisabled: true
+                        });
+        }else if(values[0] === 2){
+            this.setState({anotherSubsidyInformationDisabled: false,
+                           subsidyInformationDisabled: true
+                        });
+        }else {
+            this.setState({
+                subsidyInformationDisabled: true,
+                anotherSubsidyInformationDisabled: true
+            });
+            this.props.housingAssessment.form.resetFields("subsidyInformation");
+            this.props.housingAssessment.form.resetFields("anotherSubsidyInformation");
+        }
     }
 
     render(){
@@ -116,11 +138,11 @@ class HousingAssessment extends Component {
         const message = "Mandatory field! Please provide a response."
         return(
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
-            <Panel header="HousingAssessment" key="10">
+            <Panel header="Housing Assessment at Exit" key="10">
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="HousingAssessmentAtExit"
+                                    label="Housing Assessment At Exit"
                                 >{getFieldDecorator("housingAssessmentAtExit", {
                                     rules: [
                                         {
@@ -131,6 +153,9 @@ class HousingAssessment extends Component {
                                     ]
                                 })(
                                     <Cascader
+                                        onChange={this
+                                        .handleDropDownChange
+                                        .bind(this)}
                                         placeholder="Select.."
                                         options={HousingAssessmentAtExitResponseCategory}
                                     ></Cascader>)}
@@ -138,7 +163,7 @@ class HousingAssessment extends Component {
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="SubsidyInformation"
+                                    label="Subsidy Information"
                                 >{getFieldDecorator("subsidyInformation", {
                                     rules: [
                                         {
@@ -149,16 +174,15 @@ class HousingAssessment extends Component {
                                     ]
                                 })(
                                     <Cascader
-                                        placeholder="SubsidyInformation"
+                                        disabled={this.state.subsidyInformationDisabled}
+                                        placeholder="Subsidy Information"
                                         options={SubsidyInformationResponseCategory}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
-                        </Row>
-                        <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="AnotherSubsidyInformation"
+                                    label="Another Subsidy Information"
                                 >{getFieldDecorator("anotherSubsidyInformation", {
                                     rules: [
                                         {
@@ -168,7 +192,8 @@ class HousingAssessment extends Component {
                                         }
                                     ]
                                 })(<Cascader
-                                        placeholder="AnotherSubsidyInformation"
+                                        disabled={this.state.anotherSubsidyInformationDisabled}
+                                        placeholder="Another Subsidy Information"
                                         options={AnotherSubsidyInformationResponseCategory}
                                     ></Cascader>
                                 )}
