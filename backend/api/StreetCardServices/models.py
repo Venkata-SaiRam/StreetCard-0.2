@@ -1024,12 +1024,13 @@ class FamilyCriticalIssues(models.Model):
 
 class SexualExploitation(models.Model):
 
+
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='SexualExploitation_EnrollmentID',
                                      default=None)
     receivedanything=models.IntegerField(choices=ResponseCategory.choices)
     receivedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices)
-    howmanytimes=models.IntegerField(choices=YesNoResponse.choices)
+    howmanytimes=models.IntegerField(choices=NoofTimesResponse.choices)
     forcedanything=models.IntegerField(choices=ResponseCategory.choices)
     forcedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices)
 
@@ -1175,6 +1176,7 @@ class AftercarePlans(models.Model):
                                      default=None)
     aftercareprovided = models.IntegerField(choices=Yesnocategory.choices)
     primaryway = models.IntegerField(choices=AftercareplansCategory.choices)
+    InformationDate = models.DateField()
 
 
 
@@ -1199,6 +1201,7 @@ class RHYBCPStatus(models.Model):
     runawayyouth = models.IntegerField(choices=ResponseCategory.choices)
     notfundedreason = models.IntegerField(choices=notfundedcategory.choices)
     dateofstatus = models.DateField()
+    youtheligible = models.IntegerField(choices=YesNoResponse.choices)
 
 class EmploymentStatus(models.Model):
     class employmentstatuscategory(models.IntegerChoices):
@@ -1219,6 +1222,7 @@ class EmploymentStatus(models.Model):
     InformationDate = models.DateField()
 
 class RHYConnections(models.Model):
+
     class RHYConnectionscategory(models.IntegerChoices):
         Community = 2, _('Community service/service learning(CSL)')
         Criminal = 7, _('Criminal justice /legal services')

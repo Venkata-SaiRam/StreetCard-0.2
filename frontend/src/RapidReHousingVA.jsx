@@ -214,10 +214,10 @@ class RapidReHousingVA extends Component {
                 connectionWithSOARObject.ConnectionWithSOAR = this.handleValue(values.connectionwithsoar);
                 enrollmentRequestObject.connection_With_SOAR = connectionWithSOARObject;
                 var employmentStatusObject = {};
-                employmentStatusObject.InformationDate = values['informationdate'] != null ? values['informationdate'].format('YYYY-MM-DD') : null;
-                employmentStatusObject.Employed = this.handleValue(values.employed)
-                employmentStatusObject.TypeOfEmployment = this.handleValue(values.typeofemployment)
-                employmentStatusObject.WhyNotEmployed = this.handleValue(values.whynotemployed)
+                employmentStatusObject.InformationDate = values['informationdate_ES'] != null ? values['informationdate_ES'].format('YYYY-MM-DD') : null;
+                employmentStatusObject.employed = this.handleValue(values.employed)
+                employmentStatusObject.employmentstatus = this.handleValue(values.typeofemployment)
+                employmentStatusObject.notemployed = this.handleValue(values.whynotemployed)
                 enrollmentRequestObject.employment_Status = employmentStatusObject;
                 this.handleEmptyObject(enrollmentRequestObject);
 

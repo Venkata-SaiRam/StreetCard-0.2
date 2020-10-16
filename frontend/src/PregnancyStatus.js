@@ -4,7 +4,7 @@ import './LabelWrap.css';
 
 const {Panel} = Collapse;
 
-const pregnancy_values = [
+const ResponseCategory = [
     {
         value: 0,
         label: "No"
@@ -45,6 +45,20 @@ class PregnancyStatus extends Component {
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
+                                    label="Information Date">
+                                    {getFieldDecorator("informationdate_PS", {
+                                        rules: [
+                                            {
+                                                message: {message},
+                                                required: false
+                                            }
+                                        ]
+                                    })(
+                                        <DatePicker style={{width: "100%"}}/>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
                                     label="Pregnancy Status"
                                 >{getFieldDecorator("pregnancy_status", {
                                     rules: [
@@ -57,7 +71,7 @@ class PregnancyStatus extends Component {
                                 })(
                                     <Cascader
                                         placeholder="Select.."
-                                        options={pregnancy_values}
+                                        options={ResponseCategory}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>

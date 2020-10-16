@@ -277,9 +277,6 @@ class EmploymentStatusSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-
-
-
 class ChildWelfareFosterCareAgencySerializer(serializers.ModelSerializer):
     class Meta:
         model = ChildWelfareFoster
@@ -327,15 +324,12 @@ class SchoolStatusSerializer(serializers.ModelSerializer):
         model = SchoolStatus
         fields = '_all_'
 
-class SchoolStatusSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SchoolStatus
-        fields = '_all_'
 
 class RHYBCPStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = RHYBCPStatus
         fields = '_all_'
+
 
 class SexualOrientationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -369,8 +363,8 @@ class LabourexplotationSerializer(serializers.ModelSerializer):
 
 class RHYConnectionsSerializer(serializers.ModelSerializer):
     class Meta:
-        model =RHYConnections
-        fields ='_all_'
+        model = RHYConnections
+        fields = '__all__'
 
 class JuvenileJusticeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -408,14 +402,14 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     CounselingRHY = CounselingSerializer(required=False)
     MentalHealthStatusRHY = MentalHealthStatusSerializer(required=False)
     SchoolStatusRHY = SchoolStatusSerializer(required=False)
-    RHYBCPStatusRHY =  RHYBCPStatusSerializer(required=False)
+    RHYBCPStatusRHY = RHYBCPStatusSerializer(required=False)
     SexualOrientationRHY = SexualOrientationSerializer(required=False)
-    PregancyStatusRHY =PregancyStatusSerializer(required=False)
+    PregancyStatusRHY = PregancyStatusSerializer(required=False)
     AftercarePlansRHY = AfterCareplansSerializer(required=False)
     ProjectCompletionStatusRHY =ProjectCompletionSerializer(required=False)
     ReferralSourceRHY = ReferralSerializer(required=False)
     LabourExploitationTraffickingRHY = LabourexplotationSerializer(required=False)
-    RHYConnectionsRHY =RHYConnectionsSerializer(required=False)
+    RHYConnectionsRHY = RHYConnectionsSerializer(required=False)
     JuvenileJusticeSystemRHY = JuvenileJusticeSerializer(required=False)
 
 

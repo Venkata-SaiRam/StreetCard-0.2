@@ -6,25 +6,36 @@ const {Panel} = Collapse;
 
 const exitStatus = [
         {
+            value: 0,
+            label: "No"
+        },
+        {
             value: 1,
-            label: "Exit-destination safe as determined by the client"
+            label: "Yes"
         },
         {
             value: 2,
-            label: "Exit-destination safe as determined by the project/caseworker"
+            label: "Worker Doesn't Know"
         },
-        {
-            value: 3,
-            label: "Client has permanent postive peer connections outside project"
-        },
-        {
-            value: 4,
-            label: "Client has permanent postive community connections outside project"
-        },
-        {
-            value: 5,
-            label: "Client has permanent postive adult connections outside project"
-        },]
+]
+const ResponseCategory = [
+    {
+        value: 0,
+        label: "No"
+    }, {
+        value: 1,
+        label: "Yes"
+    }, {
+        value: 8,
+        label: "Client Doesn't Know"
+    }, {
+        value: 9,
+        label: "Client Refused"
+    }, {
+        value: 99,
+        label: "Data Not Collected"
+    }
+];
 
 class SafeandApproximateExit extends Component {
     constructor(props) {
@@ -40,12 +51,87 @@ class SafeandApproximateExit extends Component {
         const message = "Mandatory field! Please provide a response.";
         return(
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
+
             <Panel header="Safe and Approximate Exit" key="15">
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="Exit Status"
-                                >{getFieldDecorator("exit_status", {
+                                    label="Exit Status by Client"
+                                >{getFieldDecorator("exit_status_client", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={ResponseCategory}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Exit Status by caseworker"
+                                >{getFieldDecorator("exit_status_caseworker", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={exitStatus}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Positive Peer Connections"
+                                >{getFieldDecorator("positivePeer", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={exitStatus}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row gutter={8}>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Positive Community Connections"
+                                >{getFieldDecorator("positiveCommunityConnections", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={exitStatus}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Positive Adult Connections"
+                                >{getFieldDecorator("positiveAdultConnections", {
                                     rules: [
                                         {
                                             message: {message},
