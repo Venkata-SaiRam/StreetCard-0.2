@@ -18,6 +18,32 @@ const project_status = [
         label: "Youth was expelled or otherwise involuntarily discharged from project"
     }
 ];
+const MajorResponseCategory = [
+    {
+        value: 1,
+        label: "Criminal activity/destruction of property/violence"
+    },
+    {
+        value: 2,
+        label: "Noncompliance"
+    },
+    {
+        value: 3,
+        label: "Non-payment of rent/occupancy charge"
+    },
+    {
+        value: 4,
+        label: "Reached maximum time allowed by project"
+    },
+    {
+        value: 5,
+        label: "Project terminated"
+    },
+    {
+        value: 6,
+        label: "Unknown/disappeared"
+    }
+];
 
 class ProjectCompletionStatus extends Component {
     constructor(props) {
@@ -50,6 +76,24 @@ class ProjectCompletionStatus extends Component {
                                     <Cascader
                                         placeholder="Select.."
                                         options={project_status}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Major Reason"
+                                >{getFieldDecorator("majorReason", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            type: "array",
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={MajorResponseCategory}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>

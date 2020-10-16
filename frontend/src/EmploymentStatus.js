@@ -9,6 +9,10 @@ const TypeOfEmploymentCategory = [
         {
             value: 2,
             label: "Part-time"
+        },
+        {
+            value: 3,
+            label: "Seasonal / sporadic (including day labor)"
         }
     ];
 const WhyNotEmployedCategory = [
@@ -24,7 +28,7 @@ const WhyNotEmployedCategory = [
         value: 3,
         label: "Not looking for work"
     }];
-const YesNoResponse = [
+const ResponseCategory = [
     {
         value: 0,
         label: "No"
@@ -33,6 +37,18 @@ const YesNoResponse = [
         value: 1,
         label: "Yes"
     },
+    {
+        value: 8,
+        label: "Client Doesn't Know"
+    },
+    {
+        value: 9,
+        label: "Client Refused"
+    },
+    {
+        value: 99,
+        label: "Data Not Collected"
+    }
 ];
 class EmploymentStatus extends Component {
     constructor(props) {
@@ -53,7 +69,7 @@ class EmploymentStatus extends Component {
                             <Col span={8}>
                                 <Form.Item
                                     label="Information Date">
-                                    {getFieldDecorator("informationdate", {
+                                    {getFieldDecorator("informationdate_ES", {
                                         rules: [
                                             {
                                                 message: {message},
@@ -78,7 +94,7 @@ class EmploymentStatus extends Component {
                                     })(
                                         <Cascader
                                             placeholder="Employed"
-                                            options={YesNoResponse}
+                                            options={ResponseCategory}
                                         ></Cascader>)}
                                 </Form.Item>
                             </Col>

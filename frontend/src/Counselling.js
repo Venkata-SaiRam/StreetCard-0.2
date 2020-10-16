@@ -23,6 +23,17 @@ const PlanAfterExitResponse = [
     label: "Yes"
   }
 ];
+const YesNoResponse = [
+    {
+        value: 0,
+        label: "No"
+    },
+    {
+        value: 1,
+        label: "Yes"
+    },
+];
+
 const TypeOfCounsellingResponse = [
   {
     value: 1,
@@ -85,7 +96,7 @@ class Counselling extends Component {
                 })(
                   <Cascader
                     placeholder="Select.."
-                    options={CounsellingReceivedResponse}
+                    options={YesNoResponse}
                     onChange={this.handleTypeofCounselling.bind(
                       this,
                       "typeOfCounselling"
@@ -156,7 +167,7 @@ class Counselling extends Component {
                 })(
                   <Cascader
                     placeholder="Select.."
-                    options={PlanAfterExitResponse}
+                    options={YesNoResponse}
                   ></Cascader>
                 )}
               </Form.Item>

@@ -14,7 +14,28 @@ const YesNoResponse = [
         label: "Yes"
     },
 ];
-
+const ResponseCategory = [
+    {
+        value: 0,
+        label: "No"
+    },
+    {
+        value: 1,
+        label: "Yes"
+    },
+    {
+        value: 8,
+        label: "Client Doesn't Know"
+    },
+    {
+        value: 9,
+        label: "Client Refused"
+    },
+    {
+        value: 99,
+        label: "Data Not Collected"
+    }
+];
 const ServiceFundingResponse = [
     {
         value: 0,
@@ -77,7 +98,7 @@ class RhyBcpStatus extends Component {
                             <Col span={8}>
                                 <Form.Item
                                     label="Information Date">
-                                    {getFieldDecorator("information_date", {
+                                    {getFieldDecorator("information_date_bcp", {
                                         rules: [
                                             {
                                                 message: {message},
@@ -140,7 +161,7 @@ class RhyBcpStatus extends Component {
                                     })(
                                         <Cascader
                                         placeholder="Select.."
-                                        options={RunawayYouthResponse}
+                                        options={ResponseCategory}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>

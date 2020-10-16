@@ -369,7 +369,6 @@ class HomelessPreventionHUD extends Component {
                     <HealthInsurance healthInsurance={this.props}/>
                     <DisablingCondition disablingCondition={this.props}/>
                     <DomesticViolence domesticViolence={this.props}/>
-                    <DisablingCondition disablingCondition={this.props}/>
                     <Panel
                         style={{
                         backgroundColor: "lightseagreen"
