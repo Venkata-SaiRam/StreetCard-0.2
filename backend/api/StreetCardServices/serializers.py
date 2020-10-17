@@ -280,86 +280,86 @@ class EmploymentStatusSerializer(serializers.ModelSerializer):
 class ChildWelfareFosterCareAgencySerializer(serializers.ModelSerializer):
     class Meta:
         model = ChildWelfareFoster
-        fields = '_all_'
+        fields = '__all__'
 
 
 class GeneralHealthStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = GeneralHealthStatus
-        fields = '_all_'
+        fields = '__all__'
 
 
 class DentalHealthStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = DentalHealthStatus
-        fields = '_all_'
+        fields = '__all__'
 
 class FamilyCriticalIssuesSerializer(serializers.ModelSerializer):
     class Meta:
         model = FamilyCriticalIssues
-        fields = '_all_'
+        fields = '__all__'
 
 class SexualExploitationSerializer(serializers.ModelSerializer):
     class Meta:
         model = SexualExploitation
-        fields = '_all_'
+        fields = '__all__'
 
 class SafeandApproriateExitSerializer(serializers.ModelSerializer):
     class Meta:
         model = SafeandAppropriateExit
-        fields = '_all_'
+        fields = '__all__'
 
 class CounselingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Counseling
-        fields = '_all_'
+        fields = '__all__'
 
 class MentalHealthStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = MentalHealthStatus
-        fields = '_all_'
+        fields = '__all__'
 
 class SchoolStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = SchoolStatus
-        fields = '_all_'
+        fields = '__all__'
 
 
 class RHYBCPStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = RHYBCPStatus
-        fields = '_all_'
+        fields = '__all__'
 
 
 class SexualOrientationSerializer(serializers.ModelSerializer):
     class Meta:
         model = SexualOrientation
-        fields = '_all_'
+        fields = '__all__'
 
 class ProjectCompletionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectCompletionStatus
-        fields = '_all_'
+        fields = '__all__'
 
 class ReferralSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReferralSource
-        fields = '_all_'
+        fields = '__all__'
 
 class AfterCareplansSerializer(serializers.ModelSerializer):
     class Meta:
         model = AftercarePlans
-        fields = '_all_'
+        fields = '__all__'
 
 class PregancyStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = PregancyStatus
-        fields = '_all_'
+        fields = '__all__'
 
 class LabourexplotationSerializer(serializers.ModelSerializer):
     class Meta:
         model = LabourExploitationTrafficking
-        fields = '_all_'
+        fields = '__all__'
 
 class RHYConnectionsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -369,7 +369,7 @@ class RHYConnectionsSerializer(serializers.ModelSerializer):
 class JuvenileJusticeSerializer(serializers.ModelSerializer):
     class Meta:
         model = JuvenileJusticeSystem
-        fields = '_all_'
+        fields = '__all__'
 
 
 class EnrollmentSerializer(serializers.ModelSerializer):
