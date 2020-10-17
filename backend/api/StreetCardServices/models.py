@@ -315,6 +315,7 @@ class ProjectCategory(models.TextChoices):
     VA_SSVF_HOMELESSNESS_PREVENTION = 'VA: SSVF - Homelessness Prevention', _('VA: SSVF - Homelessness Prevention')
     VA_SSVF_RAPID_RE_HOUSING = 'VA: SSVF - Rapid Re-Housing', _('VA: SSVF - Rapid Re-Housing')
     HOPWA_AIDS_Housing = 'HOPWA:Housing for people with AIDS', _('HOPWA:Housing for people with AIDS')
+    RHY_Runaway_Homeless_Youth = 'RHY:Runaway and Homeless Youth', _('RHY:Runaway and Homeless Youth')
 
 
 class SubstanceAbuseCategory(models.IntegerChoices):
