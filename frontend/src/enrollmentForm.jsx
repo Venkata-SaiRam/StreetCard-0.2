@@ -27,6 +27,10 @@ const ProjectCategory = [
     {
         value: "RHY:Runaway and Homeless Youth",
         label: "RHY:Runaway and Homeless Youth"
+    },
+    {
+        value: "PATH:Projects for Assistance in Transition from Homelessness",
+        label: "PATH:Projects for Assistance in Transition from Homelessness"
     }
 ];
 const message = "Mandatory field! Please provide a response."
