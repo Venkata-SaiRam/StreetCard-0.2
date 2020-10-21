@@ -10,7 +10,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
     ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit, \
     Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation, ReferralSource, AftercarePlans,ProjectCompletionStatus, \
-    PregancyStatus, RHYBCPStatus, RHYConnections, JuvenileJusticeSystem, DateofEngagement
+    PregancyStatus, RHYBCPStatus, RHYConnections, JuvenileJusticeSystem, DateofEngagement, PathFundedServices
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -376,6 +376,11 @@ class DateofEngagementSerializer(serializers.ModelSerializer):
         model = DateofEngagement
         fields = '__all__'
 
+class PathFundedServicesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PathFundedServices
+        fields = '__all__'
+
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
     non_cash_benefits = NonCashBenefitsSerializer(required=False)
@@ -416,6 +421,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     RHYConnectionsRHY = RHYConnectionsSerializer(required=False)
     JuvenileJusticeSystemRHY = JuvenileJusticeSerializer(required=False)
     DateofEngagementPath = DateofEngagementSerializer(required=False)
+    PathFundedServicesPath = PathFundedServicesSerializer(required=False)
 
 
     class Meta:
@@ -430,7 +436,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY', 'SexualExploitationRHY',
                   'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY','RHYBCPStatusRHY','SexualOrientationRHY',
                   'PregancyStatusRHY','AftercarePlansRHY','ProjectCompletionStatusRHY','ReferralSourceRHY','LabourExploitationTraffickingRHY',
-                  'RHYConnectionsRHY','JuvenileJusticeSystemRHY', 'DateofEngagementPath']
+                  'RHYConnectionsRHY','JuvenileJusticeSystemRHY', 'DateofEngagementPath','PathFundedServicesPath']
 
     def create(self, validated_data):
 
@@ -473,7 +479,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         rhy_connections_rhy_data = check_and_assign('RHYConnectionsRHY', validated_data)
         juvenile_justice_system_rhy_data = check_and_assign('JuvenileJusticeSystemRHY', validated_data)
         date_of_engagement_path = check_and_assign('DateofEngagementPath',validated_data)
-
+        path_funded_service_path = check_and_assign('PathFundedServicesPath',validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -571,6 +577,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             JuvenileJusticeSystem.objects.create(EnrollmentID_id=enroll.EnrollmentID,**juvenile_justice_system_rhy_data)
         if date_of_engagement_path is not None:
             DateofEngagement.objects.create(EnrollmentID_id=enroll.EnrollmentID,**date_of_engagement_path)
+        if path_funded_service_path is not None:
+            PathFundedServices.objects.create(EnrollmentID_id=enroll.EnrollmentID,**path_funded_service_path)
 
 
         return enroll
@@ -713,5 +721,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if DateofEngagement.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['dateengagment_path'] = DateofEngagementSerializer(
                 DateofEngagement.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if PathFundedServices.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['pathfundedservice_path'] = PathFundedServicesSerializer(
+                PathFundedServices.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
 
         return response

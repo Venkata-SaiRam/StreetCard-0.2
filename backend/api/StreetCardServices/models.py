@@ -1269,3 +1269,24 @@ class DateofEngagement(models.Model):
                                      related_name='dateengagement_EnrollmentID',
                                      default=None)
     EngagementDate = models.DateField()
+
+class PathFundedServices(models.Model):
+    class PathFundedcategory(models.IntegerChoices):
+        Reengagement = 1, _('Re-engagement')
+        Screening = 2, _('Screening')
+        Clinicalassessment = 14, _('Clinical assessment')
+        Habilitationrehabilitation = 3, _('Habilitation/rehabilitation')
+        Communitymentalhealth = 4, _('Community mental health')
+        Substanceusetreatment = 5, _('Substance use treatment')
+        Casemanagement = 6, _('Case management')
+        Residentialsupportiveservices = 7, _('Residential supportive services')
+        Housingminorrenovation = 8, _('Housing minor renovation')
+        Housingmovingassistance = 9, _('Housing moving assistance')
+        Housingeligibilitydetermination = 10, _('Housing eligibility determination')
+        Securitydeposits = 11, _('Security deposits')
+        Onetimerent  = 12, _('One-time rent for eviction prevention')
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='pathfundedservices_EnrollmentID',
+                                     default=None)
+    InformationDate = models.DateField()
+    typeofpathservice = models.IntegerField(choices=PathFundedcategory.choices)
