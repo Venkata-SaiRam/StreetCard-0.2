@@ -10,7 +10,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     TCellCD4AndViralLoadHOPWA, MedicalAssistanceHOPWA, HousingAssessmentAtExitHOPWA, LabourExploitationTrafficking, \
     ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit, \
     Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation, ReferralSource, AftercarePlans,ProjectCompletionStatus, \
-    PregancyStatus, RHYBCPStatus, RHYConnections, JuvenileJusticeSystem
+    PregancyStatus, RHYBCPStatus, RHYConnections, JuvenileJusticeSystem, DateofEngagement
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -371,6 +371,10 @@ class JuvenileJusticeSerializer(serializers.ModelSerializer):
         model = JuvenileJusticeSystem
         fields = '__all__'
 
+class DateofEngagementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DateofEngagement
+        fields = '__all__'
 
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
@@ -411,6 +415,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     LabourExploitationTraffickingRHY = LabourexplotationSerializer(required=False)
     RHYConnectionsRHY = RHYConnectionsSerializer(required=False)
     JuvenileJusticeSystemRHY = JuvenileJusticeSerializer(required=False)
+    DateofEngagementPath = DateofEngagementSerializer(required=False)
 
 
     class Meta:
@@ -421,12 +426,11 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'percent_Of_AMI', 'last_Permanent_Address', 'sSVFHP_Targeting_Criteria', 'hUD_VASH_Voucher_Tracking',
                   'hUD_VASH_Exit_Information', 'connection_With_SOAR', 'last_Grade_Completed', 'employment_Status',
                   'w1ServicesProvidedHOPWA', 'tCellCD4AndViralLoadHOPWA', 'medicalAssistanceHOPWA',
-                  'housingAssessmentAtExitHOPWA',
-                   'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY',
+                  'housingAssessmentAtExitHOPWA', 'ChildWelfareFosterRHY', 'GeneralHealthStatusRHY',
                   'DentalHealthStatusRHY', 'FamilyCriticalIssuesRHY', 'SexualExploitationRHY',
                   'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY','RHYBCPStatusRHY','SexualOrientationRHY',
                   'PregancyStatusRHY','AftercarePlansRHY','ProjectCompletionStatusRHY','ReferralSourceRHY','LabourExploitationTraffickingRHY',
-                  'RHYConnectionsRHY','JuvenileJusticeSystemRHY']
+                  'RHYConnectionsRHY','JuvenileJusticeSystemRHY', 'DateofEngagementPath']
 
     def create(self, validated_data):
 
@@ -468,6 +472,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         labour_trafficking_rhy_data = check_and_assign('LabourExploitationTraffickingRHY', validated_data)
         rhy_connections_rhy_data = check_and_assign('RHYConnectionsRHY', validated_data)
         juvenile_justice_system_rhy_data = check_and_assign('JuvenileJusticeSystemRHY', validated_data)
+        date_of_engagement_path = check_and_assign('DateofEngagementPath',validated_data)
 
 
         enroll = Enrollment.objects.create(**validated_data)
@@ -564,6 +569,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             RHYConnections.objects.create(EnrollmentID_id=enroll.EnrollmentID,**rhy_connections_rhy_data)
         if juvenile_justice_system_rhy_data is not None:
             JuvenileJusticeSystem.objects.create(EnrollmentID_id=enroll.EnrollmentID,**juvenile_justice_system_rhy_data)
+        if date_of_engagement_path is not None:
+            DateofEngagement.objects.create(EnrollmentID_id=enroll.EnrollmentID,**date_of_engagement_path)
 
 
         return enroll
@@ -703,5 +710,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if JuvenileJusticeSystem.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['juvenilejusticesystem_rhy'] = JuvenileJusticeSerializer(
                 JuvenileJusticeSystem.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if DateofEngagement.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['dateengagment_path'] = DateofEngagementSerializer(
+                DateofEngagement.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
 
         return response
