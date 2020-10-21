@@ -1262,3 +1262,10 @@ class JuvenileJusticeSystem(models.Model):
     formerjuvenilejustice = models.IntegerField(choices=ResponseCategory.choices)
     noofyears = models.IntegerField(choices=NoofYearsCategory.choices)
     noofmonths = models.IntegerField()
+
+class DateofEngagement(models.Model):
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='dateengagement_EnrollmentID',
+                                     default=None)
+    EngagementDate = models.DateField()
