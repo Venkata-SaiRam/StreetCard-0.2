@@ -7,7 +7,9 @@ import SiderComponent from './SiderComponent'
 import HomelessPreventionHUD from "./HomelessPreventionHUD";
 import RapidReHousingVA from "./RapidReHousingVA";
 import HOPWA from "./HOPWA";
-import RunawayHomelessYouth from "./RunawayHomelessYouth"
+import RunawayHomelessYouth from "./RunawayHomelessYouth";
+import ProjectsForAssistancePATH from "./ProjectsForAssistancePATH"
+
 
 const {Content} = Layout;
 const {Panel} = Collapse;
@@ -115,6 +117,11 @@ class EnrollmentForm extends Component {
             case "RHY:Runaway and Homeless Youth":
                 changingPanel.pop();
                 changingPanel.push(<RunawayHomelessYouth data={e[0]} personalId={this.state.items.PersonalId}
+                                                     history={this.props.history}/>)
+                break;
+            case "PATH:Projects for Assistance in Transition from Homelessness":
+                changingPanel.pop();
+                changingPanel.push(<ProjectsForAssistancePATH data={e[0]} personalId={this.state.items.PersonalId}
                                                      history={this.props.history}/>)
                 break;
         }
