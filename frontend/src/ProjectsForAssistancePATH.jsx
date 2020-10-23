@@ -13,7 +13,6 @@ import MedicalAssistance from "./MedicalAssistance";
 import TCellCD4ViralLoad from "./TCellCD4ViralLoad";
 import HousingAssessment from "./HousingAssessment";
 import CurrentLivingSituation from "./CurrentLivingSituation";
-
 const {Panel} = Collapse;
 
 const formItemLayout = {
@@ -37,8 +36,6 @@ const formItemLayout = {
         }
     }
 };
-
-
 class ProjectsForAssistancePATH extends Component {
     constructor(props) {
         super(props);
@@ -53,7 +50,7 @@ class ProjectsForAssistancePATH extends Component {
         if (e != null) {
             return e[0];
         } else
-            return 1;
+            return 100;
     };
 
 
@@ -151,10 +148,16 @@ class ProjectsForAssistancePATH extends Component {
                 disablingCondition.substance_abuse = this.handleValue(values.substance_abuse);
                 disablingCondition.substance_abuse_impairing = this.handleValue(values.substance_abuse_impairing);
                 enrollmentRequestObject.disabling_condition = disablingCondition;
-                var currentLiving = {};
-                currentLiving.living_situation = this.handleValue(values.living_situation);
-                currentLiving.residence_value = this.handleValue(values.residence_value);
-                enrollmentRequestObject.current_living_situation = currentLiving;
+                var currentLivingSituation = {};
+                currentLivingSituation.LivingSituation = this.handleValue(values.living_situation);
+                currentLivingSituation.ResidenceValue = this.handleValue(values.residence_value);
+                currentLivingSituation.InformationDate = values['InformationDate'].format('YYYY-MM-DD');
+                currentLivingSituation.HomeLessSituations = this.handleValue(values.HomelessSituations);
+                currentLivingSituation.InstitutionalSituations = this.handleValue(values.InstitutionalSituations);
+                currentLivingSituation.TemporaryandPermanentHousingSituations = this.handleValue(values.TemporaryandPermanentHousingSituations);
+                currentLivingSituation.Other = this.handleValue(values.Other);
+                enrollmentRequestObject.current_living_situation = currentLivingSituation;
+
                 this.handleEmptyObject(enrollmentRequestObject);
 
                 fetch(process.env.REACT_APP_IP + 'homeless/' + this.props.personalId + '/enrollment/', {
@@ -232,7 +235,7 @@ class ProjectsForAssistancePATH extends Component {
                     <HealthInsurance healthInsurance={this.props}/>
                     <DisablingCondition disablingCondition={this.props}/>
                     <DomesticViolence domesticViolence={this.props}/>
-                    <CurrentLivingSituation current_living={this.props}/>
+                    <CurrentLivingSituation currentLivingSituation={this.props} />
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="17">
