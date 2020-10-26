@@ -1354,5 +1354,7 @@ class currentlivingsituation(models.Model):
     other = models.IntegerField(choices=Othercategory.choices)
     livingsituationin14days = models.IntegerField(choices=ResponseCategory.choices)
     subsequentresidence = models.IntegerField(choices=ResponseCategory.choices)
+    supportnetworks = models.IntegerField(choices=ResponseCategory.choices)
+    ownershipinterest = models.IntegerField(choices=ResponseCategory.choices)
 
 
