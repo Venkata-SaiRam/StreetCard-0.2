@@ -1356,5 +1356,7 @@ class currentlivingsituation(models.Model):
     subsequentresidence = models.IntegerField(choices=ResponseCategory.choices)
     supportnetworks = models.IntegerField(choices=ResponseCategory.choices)
     ownershipinterest = models.IntegerField(choices=ResponseCategory.choices)
+    clientmoved = models.IntegerField(choices=ResponseCategory.choices)
+    locationdetails = models.TextField()
 
 
