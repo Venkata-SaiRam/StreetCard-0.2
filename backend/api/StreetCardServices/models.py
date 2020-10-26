@@ -1292,5 +1292,28 @@ class PathFundedServices(models.Model):
     typeofpathservice = models.IntegerField(choices=PathFundedcategory.choices)
 
 class currentlivingsituation(models.Model):
+    class currentlivingcategory(models.IntegerChoices):
+        HomelessSituations = 1, _('Homeless Situations')
+        InstitutionalSituations = 2, _('Institutional Situations')
+        TemporaryPermanentHousing  = 3, _('Temporary and Permanent Housing Situations')
+        Other = 4, _('Other')
+
+    class homelesssituationcategory(models.IntegerChoices):
+        Habitation = 16, _('Place not meant for habitation (e.g., a vehicle, an abandoned building,bus/train/subway station/airport or anywhere outside)')
+        EmergencyShelter = 1, _('Emergency shelter, including hotel or motel paid for with emergency shelter voucher, or RHY-funded Host Home shelter')
+        SafeHaven  = 18, _('Safe Haven')
+
+    class Institutionalsituationcategory(models.IntegerChoices):
+        fostercare = 15, _('Foster care home or foster care group home')
+        hospital = 6, _('Hospital or other residential non-psychiatric medical facility')
+        Jail = 7, _('Jail, prison, or juvenile detention facility')
+        nursing = 25, _('Long-term care facility or nursing home')
+        psychiatric = 4, _('Psychiatric hospital or other psychiatric facility')
+        Substanceabuse = 5, _('Substance abuse treatment facility or detox center')
+
+
     Informationdate = models.DateField()
+    currentliving = models.IntegerField(choices=currentlivingcategory.choices)
+    homelesssituation = models.IntegerField(choices=homelesssituationcategory.choices)
+    institutionalsituation = models.IntegerField(choices=Institutionalsituationcategory.choices)
 
