@@ -1290,3 +1290,7 @@ class PathFundedServices(models.Model):
                                      default=None)
     InformationDate = models.DateField()
     typeofpathservice = models.IntegerField(choices=PathFundedcategory.choices)
+
+class currentlivingsituation(models.Model):
+    Informationdate = models.DateField()
+
