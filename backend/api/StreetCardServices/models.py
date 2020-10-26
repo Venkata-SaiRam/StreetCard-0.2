@@ -1292,6 +1292,7 @@ class PathFundedServices(models.Model):
     typeofpathservice = models.IntegerField(choices=PathFundedcategory.choices)
 
 class currentlivingsituation(models.Model):
+
     class currentlivingcategory(models.IntegerChoices):
         HomelessSituations = 1, _('Homeless Situations')
         InstitutionalSituations = 2, _('Institutional Situations')
@@ -1311,9 +1312,44 @@ class currentlivingsituation(models.Model):
         psychiatric = 4, _('Psychiatric hospital or other psychiatric facility')
         Substanceabuse = 5, _('Substance abuse treatment facility or detox center')
 
+    class TemporaryPermanentHousingSituationscategory(models.IntegerChoices):
+        residentalproject = 29, _('Residential project or halfway house with no homeless criteria')
+        hotel = 14, _('Hotel or motel paid for without emergency shelter voucher')
+        transitionalhouse = 2, _('Transitional housing for homeless persons (including homeless youth)')
+        hosthome = 32, _('Host Home (non-crisis)')
+        temporarytenure = 13, _('Staying or living with friends, temporary tenure (e.g. room, apartment, or house)')
+        friendsroom = 36, _('Staying or living in a friend’s room, apartment, or house')
+        familyroom = 12, _('Staying or living with family, temporary tenure (e.g. room, apartment, or house)')
+        permanenttenure = 22, _('Staying or living with family, permanent tenure')
+        familymember = 35, _('Staying or living in a family member’s room, apartment, or house')
+        friendspermanent = 23, _('Staying or living with friends, permanent tenure')
+        hopwaph = 26, _('Moved from one HOPWA funded project to HOPWA PH')
+        hopwath = 27, _('Moved from one HOPWA funded project to HOPWA TH')
+        gpdtip = 28, _('Rental by client, with GPD TIP housing subsidy')
+        vash = 19, _('Rental by client, with VASH housing subsidy')
+        permanenthousing = 3, _('Permanent housing (other than RRH) for formerly homeless persons')
+        rentalhousing = 31, _('Rental by client, with RRH or equivalent subsidy')
+        rentalhcvvoucher = 33, _('Rental by client, with HCV voucher (tenant or project based)')
+        publichousing = 34, _('Rental by client in a public housing unit')
+        nohousingsubsidy = 10, _('Rental by client, no ongoing housing subsidy')
+        housingsubsidy = 20, _('Rental by client, with other ongoing housing subsidy')
+        ownedbyclientwithsubsidy = 21, _('Owned by client, with ongoing housing subsidy')
+        ownedbyclientwithnosubsidy = 11, _('Owned by client, no ongoing housing subsidy')
+
+    class Othercategory(models.IntegerChoices):
+        noexitinterview = 30, _('No exit interview completed')
+        Other = 17, _('Other')
+        Deceased = 24, _('Deceased')
+        Workerunable = 37, _('Worker unable to determine')
+        Client_doesnt_know = 8, _('Client doesn’t know')
+        Client_refused = 9, _('Client refused')
+        Data_not_collected = 99, _('Data not collected')
+
 
     Informationdate = models.DateField()
     currentliving = models.IntegerField(choices=currentlivingcategory.choices)
     homelesssituation = models.IntegerField(choices=homelesssituationcategory.choices)
     institutionalsituation = models.IntegerField(choices=Institutionalsituationcategory.choices)
+    temporaryhousingsituations = models.IntegerField(choices=TemporaryPermanentHousingSituationscategory.choices)
+    other = models.IntegerField(choices=Othercategory.choices)
 
