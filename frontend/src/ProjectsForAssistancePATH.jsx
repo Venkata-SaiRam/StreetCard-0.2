@@ -157,6 +157,9 @@ class ProjectsForAssistancePATH extends Component {
                 currentLivingSituation.TemporaryandPermanentHousingSituations = this.handleValue(values.TemporaryandPermanentHousingSituations);
                 currentLivingSituation.Other = this.handleValue(values.Other);
                 enrollmentRequestObject.current_living_situation = currentLivingSituation;
+                var dateOfEngagement = {};
+                dateOfEngagement.EngagementDate = values['informationdateDOE'] != null ? values['informationdateDOE'].format('YYYY-MM-DD') : null;
+                enrollmentRequestObject.DateofEngagementPath = dateOfEngagement;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
