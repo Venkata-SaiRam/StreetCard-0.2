@@ -15,12 +15,12 @@ class DateOfEngagement extends Component {
     }
 
     render(){
-        const { afterCarePlans } = this.props;
-        const {getFieldDecorator} = afterCarePlans.form;
+        const { dateOfEngagement } = this.props;
+        const {getFieldDecorator} = dateOfEngagement.form;
         const message = "Mandatory field! Please provide a response."
         return(
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
-            <Panel header="Aftercare Plans" key="6">
+            <Panel header="Date Of Engagement" key="6">
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item

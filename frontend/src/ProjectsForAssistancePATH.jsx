@@ -8,11 +8,10 @@ import NonCashBenefits from "./NonCashBenefits";
 import HealthInsurance from "./HealthInsurance";
 import DisablingCondition from "./DisablingCondition";
 import DomesticViolence from "./DomesticViolence";
-import ServicesProvidedHOPWA from "./ServicesProvidedHOPWA";
-import MedicalAssistance from "./MedicalAssistance";
-import TCellCD4ViralLoad from "./TCellCD4ViralLoad";
-import HousingAssessment from "./HousingAssessment";
 import CurrentLivingSituation from "./CurrentLivingSituation";
+import DateOfEngagement from "./DateOfEngagement";
+import ServicesProvidedPATH from "./ServicesProvidedPATH";
+
 const {Panel} = Collapse;
 
 const formItemLayout = {
@@ -160,6 +159,10 @@ class ProjectsForAssistancePATH extends Component {
                 var dateOfEngagement = {};
                 dateOfEngagement.EngagementDate = values['informationdateDOE'] != null ? values['informationdateDOE'].format('YYYY-MM-DD') : null;
                 enrollmentRequestObject.DateofEngagementPath = dateOfEngagement;
+                var servicesProvidedPATH = {};
+                servicesProvidedPATH.InformationDate = values['dateofservicePATH'] != null ? values['dateofservicePATH'].format('YYYY-MM-DD') : null;
+                servicesProvidedPATH.typeofpathservice = this.handleValue(values.typeofservicePATH);
+                enrollmentRequestObject.PathFundedServicesPath = servicesProvidedPATH;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -239,6 +242,8 @@ class ProjectsForAssistancePATH extends Component {
                     <DisablingCondition disablingCondition={this.props}/>
                     <DomesticViolence domesticViolence={this.props}/>
                     <CurrentLivingSituation currentLivingSituation={this.props} />
+                    <DateOfEngagement dateOfEngagement={this.props}/>
+                    <ServicesProvidedPATH servicesProvidedPATH={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="17">
