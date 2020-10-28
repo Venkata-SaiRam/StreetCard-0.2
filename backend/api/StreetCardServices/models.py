@@ -1262,3 +1262,125 @@ class JuvenileJusticeSystem(models.Model):
     formerjuvenilejustice = models.IntegerField(choices=ResponseCategory.choices)
     noofyears = models.IntegerField(choices=NoofYearsCategory.choices)
     noofmonths = models.IntegerField()
+
+class DateofEngagement(models.Model):
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='dateengagement_EnrollmentID',
+                                     default=None)
+    EngagementDate = models.DateField()
+
+class PathFundedServices(models.Model):
+    class PathFundedcategory(models.IntegerChoices):
+        Reengagement = 1, _('Re-engagement')
+        Screening = 2, _('Screening')
+        Clinicalassessment = 14, _('Clinical assessment')
+        Habilitationrehabilitation = 3, _('Habilitation/rehabilitation')
+        Communitymentalhealth = 4, _('Community mental health')
+        Substanceusetreatment = 5, _('Substance use treatment')
+        Casemanagement = 6, _('Case management')
+        Residentialsupportiveservices = 7, _('Residential supportive services')
+        Housingminorrenovation = 8, _('Housing minor renovation')
+        Housingmovingassistance = 9, _('Housing moving assistance')
+        Housingeligibilitydetermination = 10, _('Housing eligibility determination')
+        Securitydeposits = 11, _('Security deposits')
+        Onetimerent  = 12, _('One-time rent for eviction prevention')
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='pathfundedservices_EnrollmentID',
+                                     default=None)
+    InformationDate = models.DateField()
+    typeofpathservice = models.IntegerField(choices=PathFundedcategory.choices)
+
+class currentlivingsituation(models.Model):
+
+    class currentlivingcategory(models.IntegerChoices):
+        HomelessSituations = 1, _('Homeless Situations')
+        InstitutionalSituations = 2, _('Institutional Situations')
+        TemporaryPermanentHousing  = 3, _('Temporary and Permanent Housing Situations')
+        Other = 4, _('Other')
+
+    class homelesssituationcategory(models.IntegerChoices):
+        Habitation = 16, _('Place not meant for habitation (e.g., a vehicle, an abandoned building,bus/train/subway station/airport or anywhere outside)')
+        EmergencyShelter = 1, _('Emergency shelter, including hotel or motel paid for with emergency shelter voucher, or RHY-funded Host Home shelter')
+        SafeHaven  = 18, _('Safe Haven')
+
+    class Institutionalsituationcategory(models.IntegerChoices):
+        fostercare = 15, _('Foster care home or foster care group home')
+        hospital = 6, _('Hospital or other residential non-psychiatric medical facility')
+        Jail = 7, _('Jail, prison, or juvenile detention facility')
+        nursing = 25, _('Long-term care facility or nursing home')
+        psychiatric = 4, _('Psychiatric hospital or other psychiatric facility')
+        Substanceabuse = 5, _('Substance abuse treatment facility or detox center')
+
+    class TemporaryPermanentHousingSituationscategory(models.IntegerChoices):
+        residentalproject = 29, _('Residential project or halfway house with no homeless criteria')
+        hotel = 14, _('Hotel or motel paid for without emergency shelter voucher')
+        transitionalhouse = 2, _('Transitional housing for homeless persons (including homeless youth)')
+        hosthome = 32, _('Host Home (non-crisis)')
+        temporarytenure = 13, _('Staying or living with friends, temporary tenure (e.g. room, apartment, or house)')
+        friendsroom = 36, _('Staying or living in a friend’s room, apartment, or house')
+        familyroom = 12, _('Staying or living with family, temporary tenure (e.g. room, apartment, or house)')
+        permanenttenure = 22, _('Staying or living with family, permanent tenure')
+        familymember = 35, _('Staying or living in a family member’s room, apartment, or house')
+        friendspermanent = 23, _('Staying or living with friends, permanent tenure')
+        hopwaph = 26, _('Moved from one HOPWA funded project to HOPWA PH')
+        hopwath = 27, _('Moved from one HOPWA funded project to HOPWA TH')
+        gpdtip = 28, _('Rental by client, with GPD TIP housing subsidy')
+        vash = 19, _('Rental by client, with VASH housing subsidy')
+        permanenthousing = 3, _('Permanent housing (other than RRH) for formerly homeless persons')
+        rentalhousing = 31, _('Rental by client, with RRH or equivalent subsidy')
+        rentalhcvvoucher = 33, _('Rental by client, with HCV voucher (tenant or project based)')
+        publichousing = 34, _('Rental by client in a public housing unit')
+        nohousingsubsidy = 10, _('Rental by client, no ongoing housing subsidy')
+        housingsubsidy = 20, _('Rental by client, with other ongoing housing subsidy')
+        ownedbyclientwithsubsidy = 21, _('Owned by client, with ongoing housing subsidy')
+        ownedbyclientwithnosubsidy = 11, _('Owned by client, no ongoing housing subsidy')
+
+    class Othercategory(models.IntegerChoices):
+        noexitinterview = 30, _('No exit interview completed')
+        Other = 17, _('Other')
+        Deceased = 24, _('Deceased')
+        Workerunable = 37, _('Worker unable to determine')
+        Client_doesnt_know = 8, _('Client doesn’t know')
+        Client_refused = 9, _('Client refused')
+        Data_not_collected = 99, _('Data not collected')
+
+
+    Informationdate = models.DateField()
+    currentliving = models.IntegerField(choices=currentlivingcategory.choices)
+    homelesssituation = models.IntegerField(choices=homelesssituationcategory.choices)
+    institutionalsituation = models.IntegerField(choices=Institutionalsituationcategory.choices)
+    temporaryhousingsituations = models.IntegerField(choices=TemporaryPermanentHousingSituationscategory.choices)
+    other = models.IntegerField(choices=Othercategory.choices)
+    livingsituationin14days = models.IntegerField(choices=ResponseCategory.choices)
+    subsequentresidence = models.IntegerField(choices=ResponseCategory.choices)
+    supportnetworks = models.IntegerField(choices=ResponseCategory.choices)
+    ownershipinterest = models.IntegerField(choices=ResponseCategory.choices)
+    clientmoved = models.IntegerField(choices=ResponseCategory.choices)
+    locationdetails = models.TextField()
+
+class referralsprovidedpath(models.Model):
+
+    class typeofreferralcategory(models.IntegerChoices):
+        Community_Mental_Health = 1, _('Community Mental Health')
+        Substance_Use_Treatment = 2, _('Substance Use Treatment')
+        Primary_HealthDental_Care = 3, _('Primary Health/ Dental Care')
+        Job_Training = 4, _('Job Training')
+        Educational_Services = 5, _('Educational Services')
+        Housing_Services = 6, _('Housing Services')
+        Permanent_Housing = 7, _('Permanent Housing')
+        Income_Assistance = 8, _('Income Assistance')
+        Employment_Assistance = 9, _('Employment Assistance')
+        Medical_Insurance = 10, _('Medical Insurance')
+        Temporary_Housing = 11, _('Temporary Housing')
+    class outcomeforeachcategory(models.IntegerChoices):
+        Attained = 1, _('Attained')
+        Not_attained = 2, _('Not attained')
+        Unknown = 3, _('Unknown')
+
+    Informationdate =models.DateField()
+    typeofreferral = models.IntegerField(choices=typeofreferralcategory.choices)
+    outcome = models.IntegerField(choices=outcomeforeachcategory.choices)
+
+
+
