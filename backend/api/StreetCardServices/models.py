@@ -1382,5 +1382,17 @@ class referralsprovidedpath(models.Model):
     typeofreferral = models.IntegerField(choices=typeofreferralcategory.choices)
     outcome = models.IntegerField(choices=outcomeforeachcategory.choices)
 
+class pathstatus(models.Model):
+    class reasonnotenrolledcategory(models.IntegerChoices):
+        ineligible = 1, _('Client was found ineligible for PATH')
+        notenrolled = 2, _('Client was not enrolled for other reason(s)')
+        uanble = 3, _('Unable to locate client')
+
+    Informationdate = models.DateField()
+    clientenrolled = models.IntegerField(choices=YesNoResponse.choices)
+    reason = models.IntegerField(choices=reasonnotenrolledcategory.choices)
+
+
+
 
 

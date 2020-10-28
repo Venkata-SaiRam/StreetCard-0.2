@@ -11,7 +11,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit, \
     Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation, ReferralSource, AftercarePlans,ProjectCompletionStatus, \
     PregancyStatus, RHYBCPStatus, RHYConnections, JuvenileJusticeSystem, DateofEngagement, PathFundedServices, currentlivingsituation, \
-    referralsprovidedpath
+    referralsprovidedpath, pathstatus
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -392,6 +392,11 @@ class referralprovidedpathSerializer(serializers.ModelSerializer):
         model = referralsprovidedpath
         fields = '__all__'
 
+class pathstatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = pathstatus
+        fields = '__all__'
+
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
     non_cash_benefits = NonCashBenefitsSerializer(required=False)
@@ -435,6 +440,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     PathFundedServicesPath = PathFundedServicesSerializer(required=False)
     currentlivingsituationpath = CurrentLivingSituationSerializer(required=False)
     referralpath = referralprovidedpathSerializer(required=False)
+    pathstatuspath =  pathstatusSerializer(required=False)
 
 
     class Meta:
@@ -450,7 +456,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY','RHYBCPStatusRHY','SexualOrientationRHY',
                   'PregancyStatusRHY','AftercarePlansRHY','ProjectCompletionStatusRHY','ReferralSourceRHY','LabourExploitationTraffickingRHY',
                   'RHYConnectionsRHY','JuvenileJusticeSystemRHY', 'DateofEngagementPath','PathFundedServicesPath' , 'currentlivingsituationpath' ,
-                  'referralpath']
+                  'referralpath','pathstatuspath']
 
     def create(self, validated_data):
 
@@ -496,6 +502,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         path_funded_service_path = check_and_assign('PathFundedServicesPath',validated_data)
         current_living_situation_path = check_and_assign('currentlivingsituationpath',validated_data)
         referral_provided_path = check_and_assign('referralpath',validated_data)
+        path_status_path = check_and_assign('pathstatuspath',**validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -599,6 +606,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             currentlivingsituation.objects.create(EnrollmentID_id=enroll.EnrollmentID,**current_living_situation_path)
         if referral_provided_path is not None:
             referralsprovidedpath.objects.create(EnrollmentID_id=enroll.EnrollmentID,**referral_provided_path)
+        if path_status_path is not None:
+            pathstatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**path_status_path)
 
 
         return enroll
@@ -750,5 +759,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if referralsprovidedpath.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['referralprovided_path'] = referralprovidedpathSerializer(
                 referralsprovidedpath.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if pathstatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['pathstatus_path'] = pathstatusSerializer(
+                pathstatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
 
         return response
