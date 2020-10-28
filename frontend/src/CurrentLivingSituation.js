@@ -299,48 +299,7 @@ class CurrentLivingSituation extends Component {
             }}>
                 <Panel header="Current Living Situation" key="13">
                     <Row gutter={4}>
-                        <Col span={8}>
-                            <Form.Item
-                                label="Is the client going to have to leave their current living situation within 14 days?">
-                                {
-                                    getFieldDecorator("living_situation", {
-                                        rules: [
-                                            {
-                                                message: { message },
-                                                type: "array",
-                                                required: false
-                                            }
-                                        ]
-                                    })
-                                        (<Cascader
-                                            placeholder="Select.."
-                                            options={ResponseCategory}
-                                        >
-                                        </Cascader>)
-                                }
-                            </Form.Item>
-                        </Col>
-                        <Col span={8}>
-
-                            <Form.Item
-                                label="Has a subsequent residence been identified?"
-                            >{getFieldDecorator("residence_value", {
-                                rules: [
-                                    {
-                                        message: { message },
-                                        type: "array",
-                                        required: false
-                                    }
-                                ]
-                            })(
-                                <Cascader
-                                    placeholder="Select.."
-                                    options={ResponseCategory}
-                                ></Cascader>)}
-                            </Form.Item>
-                        </Col>
-
-                        <Col span={8}>
+                    <Col span={8}>
                             <Form.Item label="Information Date (date of contact)">
                                 {getFieldDecorator("InformationDate", {
                                     rules: [
@@ -356,8 +315,7 @@ class CurrentLivingSituation extends Component {
                                 )}
                             </Form.Item>
                         </Col>
-                        </Row>
-                        <Row gutter={4} >
+
                         <Col span={8}>
                             <Form.Item label="Current Living Situation">
                                 {getFieldDecorator("CurrentLivingSituation", {
@@ -451,7 +409,120 @@ class CurrentLivingSituation extends Component {
                             </Form.Item>
                         </Col>
 
+                        <Col span={8}>
+                            <Form.Item
+                                label="Is the client going to have to leave their current living situation within 14 days?">
+                                {
+                                    getFieldDecorator("living_situation", {
+                                        rules: [
+                                            {
+                                                message: { message },
+                                                type: "array",
+                                                required: false
+                                            }
+                                        ]
+                                    })
+                                        (<Cascader
+                                            placeholder="Select.."
+                                            options={ResponseCategory}
+                                        >
+                                        </Cascader>)
+                                }
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
 
+                            <Form.Item
+                                label="Has a subsequent residence been identified?"
+                            >{getFieldDecorator("residence_value", {
+                                rules: [
+                                    {
+                                        message: { message },
+                                        type: "array",
+                                        required: false
+                                    }
+                                ]
+                            })(
+                                <Cascader
+                                    placeholder="Select.."
+                                    options={ResponseCategory}
+                                ></Cascader>)}
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+
+                            <Form.Item
+                                label="Does individual or family have resources or support networks to obtain other permanent housing?"
+                            >{getFieldDecorator("support_network", {
+                                rules: [
+                                    {
+                                        message: { message },
+                                        type: "array",
+                                        required: false
+                                    }
+                                ]
+                            })(
+                                <Cascader
+                                    placeholder="Select.."
+                                    options={ResponseCategory}
+                                ></Cascader>)}
+                            </Form.Item>
+                        </Col>
+                        <Col span={8}>
+
+                            <Form.Item
+                                label="Has the client had a lease or ownership interest in a permanent housing unit in the last 60 days"
+                            >{getFieldDecorator("housing_unit", {
+                                rules: [
+                                    {
+                                        message: { message },
+                                        type: "array",
+                                        required: false
+                                    }
+                                ]
+                            })(
+                                <Cascader
+                                    placeholder="Select.."
+                                    options={ResponseCategory}
+                                ></Cascader>)}
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={8}>
+
+                            <Form.Item
+                                label="Has the client moved two or more times in the last 60 days?"
+                            >{getFieldDecorator("client_relocation", {
+                                rules: [
+                                    {
+                                        message: { message },
+                                        type: "array",
+                                        required: false
+                                    }
+                                ]
+                            })(
+                                <Cascader
+                                    placeholder="Select.."
+                                    options={ResponseCategory}
+                                ></Cascader>)}
+                            </Form.Item>
+                        </Col>
+
+                        <Col span={8}>
+
+                            <Form.Item
+                                label="Location Details"
+                            >{getFieldDecorator("location_details", {
+                                rules: [
+                                    {
+                                        message: { message },
+                                        required: false
+                                    }
+                                ]
+                            })(<Input/>
+                                )}
+                                </Form.Item>
+                        </Col>
                     </Row>
                 </Panel>
             </Collapse>
