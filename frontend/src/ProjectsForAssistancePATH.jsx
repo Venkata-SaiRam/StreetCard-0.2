@@ -155,6 +155,10 @@ class ProjectsForAssistancePATH extends Component {
                 currentLivingSituation.InstitutionalSituations = this.handleValue(values.InstitutionalSituations);
                 currentLivingSituation.TemporaryandPermanentHousingSituations = this.handleValue(values.TemporaryandPermanentHousingSituations);
                 currentLivingSituation.Other = this.handleValue(values.Other);
+                currentLivingSituation.SupportNetwork = this.handleValue(values.support_network);
+                currentLivingSituation.HousingUnit = this.handleValue(values.housing_unit);
+                currentLivingSituation.ClientRelocation = this.handleValue(values.client_relocation);
+                currentLivingSituation.LocationDetails = values.location_details;
                 enrollmentRequestObject.current_living_situation = currentLivingSituation;
                 var dateOfEngagement = {};
                 dateOfEngagement.EngagementDate = values['informationdateDOE'] != null ? values['informationdateDOE'].format('YYYY-MM-DD') : null;
