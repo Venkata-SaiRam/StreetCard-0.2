@@ -175,6 +175,10 @@ class Product(models.Model):
         PetFoods = "PetFood", _("Pet Food")
         PersonalHygieneItems = "PersonalHygieneItems", _("Personal Hygiene Items")
         RainGear = "RainGear", _("Rain Gear")
+        Medications = "Medications", _("Medications")
+        Boots = "Boots", _("Boots")
+        Blankets = "Blankets", _("Blankets")
+        SleepingBags = "SleepingBags", _("Sleeping Bags")
 
     productName = models.CharField(max_length=100)
     productId = models.CharField(primary_key=True, default=None, max_length=32, blank=True)
