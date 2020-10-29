@@ -94,7 +94,7 @@ export default class SiderComponent extends React.Component {
                                         <CalendarOutlined/>
                                         Schedule Appointment</span>
                         </Menu.Item>
-                        <Menu.Item className="menuKey" key="4">s
+                        <Menu.Item className="menuKey" key="4">
                             <span className="nav-text">
                                         <CalendarOutlined/>
                                         View Appointment</span>
