@@ -135,7 +135,23 @@ class Transaction extends React.Component {
         });
     }
 
+    waitComponent(registerRequestObject) {
+        console.log("reg" , registerRequestObject);
+        //should only run after get request has successfully
+        fetch(process.env.REACT_APP_IP + 'homeless/' + registerRequestObject.personalID + '/logs/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(registerRequestObject)
+        })
+            .then(res => res.json())
+            .then(
+                json => {
 
+                });
+    }
 
     takeIntput = (e, index) => {
 
