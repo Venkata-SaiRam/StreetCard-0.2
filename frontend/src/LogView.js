@@ -37,6 +37,14 @@ class LogView extends React.Component {
                     title: 'Service Provider',
                     dataIndex: 'serviceProvider',
                 },
+                {
+                    title: 'Total Amount',
+                    dataIndex: 'totalAmount',
+                },
+                {
+                    title: 'Units Purchased',
+                    dataIndex: 'unitPurchased',
+                },
 
             ],
             dataSource: [
@@ -46,6 +54,8 @@ class LogView extends React.Component {
                     clientName: '',
                     serviceProvider: '',
                     personalId: '',
+                    totalAmount: '',
+                    unitPurchased: '',
 
                 }
             ]
@@ -73,7 +83,7 @@ class LogView extends React.Component {
                     )
                 })
             } else if (Math.round(res.status / 100) == 4) {
-                if (window.confirm("Error, invalid personal id: " + (res.status).toString())) {
+                if (window.confirm("Error, No record found for this personal ID" )) {
                     this.props.history.push('/socialWorkerRegister');
                 } else {
                     this.props.history.push('/socialWorkerRegister');
