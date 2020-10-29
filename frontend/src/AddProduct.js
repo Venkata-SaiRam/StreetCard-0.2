@@ -34,6 +34,22 @@ const category = [
     {
         value: "PetFood",
         label: "Pet Food"
+    },
+    {
+        value: "Medications",
+        label: "Medications"
+    },
+    {
+        value: "Boots",
+        label: "Boots"
+    },
+    {
+        value: "Blankets",
+        label: "Blankets"
+    },
+    {
+        value: "SleepingBags",
+        label: "Sleeping Bags"
     }
 ];
 
