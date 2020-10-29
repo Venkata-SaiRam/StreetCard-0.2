@@ -7,7 +7,7 @@ import './transaction.css'
 import StreetCardFooter from './StreetCardFooter'
 
 const {Content} = Layout;
-const header = ["Product Id", "Product Name", "Cost Per Item", "Units Available", "Given Units", "Amount"];
+const header = ["Product Id", "Product Name", "Cost Per Item", "Units Available", "Given Units", "Amount", "Service Provider", "Client ID", "Client Name"];
 const category = [
     {
         value: "Shoes",
@@ -43,10 +43,12 @@ const category = [
 class Transaction extends React.Component {
     constructor(props) {
         super(props);
+        console.log("props client", props);
         this.state = {
             isLoaded: false,
             totalAmount: 0,
             selectedCategory: "",
+            personalID: props.homelessPersonId,
             productData: [
                 {
                     productId: '',
@@ -70,14 +72,21 @@ class Transaction extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err) => {
             if (!err) {
-
+                var registerRequestObject = {};
                 var prodData = [];
                 this.state.productData.forEach((key, index) => {
                     if (key.quantity > 0) {
+                        console.log("keys", key);
                         prodData.push({
                             productId: key.productId,
+                            serviceProvider: key.serviceProvider,
                             unitPurchased: Number(key.quantity)
                         })
+                        registerRequestObject.serviceProvider = key.serviceProvider;
+                        registerRequestObject.personalID = this.state.personalID;
+                        registerRequestObject.unitPurchased = Number(key.quantity) ;
+                        registerRequestObject.totalAmount = this.state.totalAmount;
+                        registerRequestObject.clientName = this.props.location.state.clientName;
                     }
                 })
 
@@ -104,7 +113,7 @@ class Transaction extends React.Component {
                             productName: key.productName,
                             unitsAvailable: key.unitsAvailable - key.quantity,
                             serviceProvider: key.serviceProvider,
-                            category: key.category
+                            category: key.category,
                         };
 
 
@@ -121,9 +130,12 @@ class Transaction extends React.Component {
                         });
                     }
                 })
+                setTimeout(this.waitComponent(registerRequestObject), 1000);
             }
         });
     }
+
+
 
     takeIntput = (e, index) => {
 
@@ -200,7 +212,8 @@ class Transaction extends React.Component {
             return false;
         })
         return newData.map((product, index) => {
-            const {productId, productName, costPerItem, unitsAvailable, amount, index1} = product//destructuring
+            console.log("product ", product);
+            const {productId, productName, costPerItem, unitsAvailable, amount, index1, serviceProvider} = product//destructuring
             return (
                 <tr key={productId}>
                     <td align={"center"}>{productId}</td>
@@ -210,6 +223,9 @@ class Transaction extends React.Component {
                     <td><InputNumber min={0} max={unitsAvailable} defaultValue={0}
                                      onBlur={(e) => this.takeIntput(e, index1)}/></td>
                     <td>{amount}</td>
+                    <td>{serviceProvider}</td>
+                    <td>{this.state.personalID}</td>
+                    <td>{this.props.location.state.clientName}</td>
                 </tr>
             )
         })
@@ -217,7 +233,6 @@ class Transaction extends React.Component {
 
 
     render() {
-
         const formItemLayout = {
             labelCol: {
                 xs: {span: 24},
