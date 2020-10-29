@@ -1,13 +1,15 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import {Form, Layout, Table} from "antd";
+import {Button, Form, Icon, Input, Layout, Table} from "antd";
 import Header from './Header'
 import StreetCardFooter from './StreetCardFooter'
 import SiderComponentServiceProvider from './SiderComponentServiceProvider'
 import {Chart} from "react-google-charts";
 import WrappedAddProduct from './AddProduct';
+import WrappedGreeterForm from './GreeterView';
 import './LabelWrap.css';
+import SiderComponent from "./SiderComponent";
 
 const {Content} = Layout;
 
@@ -16,7 +18,7 @@ class ServiceProviderView extends React.Component {
     state = {
         productUnitData: [],
         productCostData: [],
-        productData: []
+        productData: [],
     };
 
     constructor(props) {
@@ -24,6 +26,7 @@ class ServiceProviderView extends React.Component {
         this.state = {
             pageComponent: this.props.pageComponent,
             isLoaded: false,
+
             columns: [
                 {
                     title: 'DateTime',
@@ -101,6 +104,25 @@ class ServiceProviderView extends React.Component {
         this.handleSuccessfulLogoutAction = this.handleSuccessfulLogoutAction.bind(this);
         this.setPagecomponent = this.setPagecomponent.bind(this);
     }
+
+        viewLongs = e => {
+        e.preventDefault();
+        this
+            .props
+            .form
+            .validateFieldsAndScroll((err, values) => {
+
+                if (!err) {
+                    this
+                        .props
+                        .handleHomelessPersonData(values.personId);
+                    this
+                        .props
+                        .history
+                        .push('/log');
+                }
+            });
+    };
 
     componentDidMount() {
         fetch(process.env.REACT_APP_IP + 'product/', {
@@ -389,6 +411,67 @@ class ServiceProviderView extends React.Component {
                                     }}
                                     rootProps={{'data-testid': '1'}}
                                 />
+                            </Content>
+                        </Layout>
+                        <StreetCardFooter/>
+                    </Layout>
+                </div>
+            );
+        }else if (this.state.pageComponent === 'loginfo') {
+                console.log("in log");
+                return (
+                    <Layout className="layout">
+                        <Header
+                            handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                            loggedInStatus={this.state.loggedInStatus}/>
+                        <Layout>
+                            <SiderComponentServiceProvider setPagecomponent={this.setPagecomponent}/>
+                            <Content className="content-login">
+                                <div className="site-layout-content-login">
+                                    <Form
+                                        onSubmit={this
+                                        .viewLongs
+                                        .bind(this)}>
+                                        <Form.Item>
+                                            {getFieldDecorator('personId', {
+                                                rules: [
+                                                    {
+                                                        required: true,
+                                                        message: " Please input Client's Personal Identification !"
+                                                    }
+                                                ]
+                                            })(
+                                                <Input
+                                                prefix={< Icon type = "user" style = {{ color: 'rgba(0,0,0,.25)', fontSize: "12px" }}/>}
+                                                placeholder="Client's Personal Identification"/>,)}
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <Button type="primary" htmlType="submit" className="login-form-button">
+                                                Continue
+                                            </Button>
+                                        </Form.Item>
+                                    </Form>
+                                </div>
+                            </Content>
+                        </Layout>
+                        <StreetCardFooter/>
+                    </Layout>
+                );
+            }else if (this.state.pageComponent == 'greeter') {
+            console.log("history", this.props);
+            return (
+                <div>
+                    <Layout className="layout">
+                        <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                                loggedInStatus={this.state.loggedInStatus}
+                        />
+                        <Layout>
+                            <SiderComponentServiceProvider
+                                setPagecomponent={this.setPagecomponent}
+                            />
+                            <Content className="content-login">
+                                    <WrappedGreeterForm history={this.props.history} inputPersonalId={this.props.inputPersonalId} serviceProvider={this.props.serviceProvider}
+                                    />
                             </Content>
                         </Layout>
                         <StreetCardFooter/>
