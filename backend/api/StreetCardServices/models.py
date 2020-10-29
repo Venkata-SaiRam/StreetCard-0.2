@@ -218,6 +218,8 @@ class Log(models.Model):
     personalId = models.ForeignKey(Homeless, on_delete=models.CASCADE, default=None, related_name='Log_PersonalId')
     serviceProvider = models.TextField(choices=ServiceProvider.choices)
     clientName = models.CharField(max_length=500, blank=True, default="")
+    totalAmount = models.IntegerField()
+    unitPurchased = models.IntegerField()
 
 
 class UserNameAndIdMapping(models.Model):
@@ -1391,8 +1393,6 @@ class pathstatus(models.Model):
     Informationdate = models.DateField()
     clientenrolled = models.IntegerField(choices=YesNoResponse.choices)
     reason = models.IntegerField(choices=reasonnotenrolledcategory.choices)
-
-
 
 
 
