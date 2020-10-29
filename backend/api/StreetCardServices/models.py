@@ -218,6 +218,8 @@ class Log(models.Model):
     personalId = models.ForeignKey(Homeless, on_delete=models.CASCADE, default=None, related_name='Log_PersonalId')
     serviceProvider = models.TextField(choices=ServiceProvider.choices)
     clientName = models.CharField(max_length=500, blank=True, default="")
+    totalAmount = models.IntegerField()
+    unitPurchased = models.IntegerField()
 
 
 class UserNameAndIdMapping(models.Model):
@@ -1358,41 +1360,5 @@ class currentlivingsituation(models.Model):
     ownershipinterest = models.IntegerField(choices=ResponseCategory.choices)
     clientmoved = models.IntegerField(choices=ResponseCategory.choices)
     locationdetails = models.TextField()
-
-class referralsprovidedpath(models.Model):
-
-    class typeofreferralcategory(models.IntegerChoices):
-        Community_Mental_Health = 1, _('Community Mental Health')
-        Substance_Use_Treatment = 2, _('Substance Use Treatment')
-        Primary_HealthDental_Care = 3, _('Primary Health/ Dental Care')
-        Job_Training = 4, _('Job Training')
-        Educational_Services = 5, _('Educational Services')
-        Housing_Services = 6, _('Housing Services')
-        Permanent_Housing = 7, _('Permanent Housing')
-        Income_Assistance = 8, _('Income Assistance')
-        Employment_Assistance = 9, _('Employment Assistance')
-        Medical_Insurance = 10, _('Medical Insurance')
-        Temporary_Housing = 11, _('Temporary Housing')
-    class outcomeforeachcategory(models.IntegerChoices):
-        Attained = 1, _('Attained')
-        Not_attained = 2, _('Not attained')
-        Unknown = 3, _('Unknown')
-
-    Informationdate =models.DateField()
-    typeofreferral = models.IntegerField(choices=typeofreferralcategory.choices)
-    outcome = models.IntegerField(choices=outcomeforeachcategory.choices)
-
-class pathstatus(models.Model):
-    class reasonnotenrolledcategory(models.IntegerChoices):
-        ineligible = 1, _('Client was found ineligible for PATH')
-        notenrolled = 2, _('Client was not enrolled for other reason(s)')
-        uanble = 3, _('Unable to locate client')
-
-    Informationdate = models.DateField()
-    clientenrolled = models.IntegerField(choices=YesNoResponse.choices)
-    reason = models.IntegerField(choices=reasonnotenrolledcategory.choices)
-
-
-
 
 
