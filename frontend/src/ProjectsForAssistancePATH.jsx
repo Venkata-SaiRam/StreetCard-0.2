@@ -11,6 +11,8 @@ import DomesticViolence from "./DomesticViolence";
 import CurrentLivingSituation from "./CurrentLivingSituation";
 import DateOfEngagement from "./DateOfEngagement";
 import ServicesProvidedPATH from "./ServicesProvidedPATH";
+import PATHStatus from "./PATHStatus";
+import ReferralsPATH from "./ReferralsPATH";
 
 const {Panel} = Collapse;
 
@@ -167,6 +169,17 @@ class ProjectsForAssistancePATH extends Component {
                 servicesProvidedPATH.InformationDate = values['dateofservicePATH'] != null ? values['dateofservicePATH'].format('YYYY-MM-DD') : null;
                 servicesProvidedPATH.typeofpathservice = this.handleValue(values.typeofservicePATH);
                 enrollmentRequestObject.PathFundedServicesPath = servicesProvidedPATH;
+                var pathStatus = {};
+                pathStatus.Informationdate =
+                values["datePATHStatus"] != null ? values["datePATHStatus"].format("YYYY-MM-DD") : null;
+                pathStatus.clientenrolled = this.handleValue(values.pathStatusField);
+                pathStatus.reason = this.handleValue(values.notInPathReason);
+                enrollmentRequestObject.pathstatuspath = pathStatus;
+                var referralsPATH = {};
+                referralsPATH.Informationdate = values["referralDate"] != null ? values["referralDate"].format("YYYY-MM-DD") : null;
+                referralsPATH.typeofreferral = this.handleValue(values.referralType);
+                referralsPATH.outcome = this.handleValue(values.outcome);
+                enrollmentRequestObject.referralpath = referralsPATH;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -248,6 +261,8 @@ class ProjectsForAssistancePATH extends Component {
                     <CurrentLivingSituation currentLivingSituation={this.props} />
                     <DateOfEngagement dateOfEngagement={this.props}/>
                     <ServicesProvidedPATH servicesProvidedPATH={this.props}/>
+                    <PATHStatus pathStatus={this.props} />
+                    <ReferralsPATH referralsPATH={this.props} />
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="17">
