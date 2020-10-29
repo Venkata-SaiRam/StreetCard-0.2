@@ -258,7 +258,9 @@ export default class App extends React.Component {
                             loggedInStatus={this.state.loggedInStatus}
                             clearanceLevel={this.state.clearanceLevel}
                             serviceProvider={this.state.serviceProvider}
+                            handleHomelessPersonData={this.handleHomelessPersonData}
                             handleLogout={this.handleLogout}
+                            inputPersonalId={this.inputPersonalId}
                             pageComponent={this.state.pageComponent}
                             handleHomelessPersonInventoryJson={this.handleHomelessPersonInventoryJson}/>
                         <PrivateRoute
@@ -268,6 +270,7 @@ export default class App extends React.Component {
                             homelessPersonId={this.state.homelessPersonId}
                             loggedInStatus={this.state.loggedInStatus}
                             serviceProvider={this.state.serviceProvider}
+                            // clientName={this.state.clientName}
                             handleLogout={this.handleLogout}/>
                         <PrivateRoute
                             exact
