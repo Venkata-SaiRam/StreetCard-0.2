@@ -116,10 +116,10 @@ class ServiceProviderView extends React.Component {
                     this
                         .props
                         .handleHomelessPersonData(values.personId);
-                    this
-                        .props
-                        .history
-                        .push('/log');
+                    this.props.history.push({
+                        pathname: '/log',
+                        state: { serviceProviderId: "1" }
+        })
                 }
             });
     };
@@ -418,7 +418,6 @@ class ServiceProviderView extends React.Component {
                 </div>
             );
         }else if (this.state.pageComponent === 'loginfo') {
-                console.log("in log");
                 return (
                     <Layout className="layout">
                         <Header
@@ -470,7 +469,7 @@ class ServiceProviderView extends React.Component {
                                 setPagecomponent={this.setPagecomponent}
                             />
                             <Content className="content-login">
-                                    <WrappedGreeterForm history={this.props.history} inputPersonalId={this.props.inputPersonalId} serviceProvider={this.props.serviceProvider}
+                                    <WrappedGreeterForm history={this.props.history} inputPersonalId={this.props.inputPersonalId} serviceProvider={this.props.serviceProvider} headerID="1"
                                     />
                             </Content>
                         </Layout>

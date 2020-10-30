@@ -426,7 +426,7 @@ class ProductViewSet(viewsets.ViewSet):
             queryset = Product.objects.filter(pk=pk)
             enroll = get_object_or_404(queryset, pk=pk)
             serializer = ProductSerializer(enroll, data=request.data)
-            if serializer.is_valid() and is_greeter(request.user):
+            if serializer.is_valid() and (is_greeter(request.user) or is_service_provider(request.user)):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
@@ -466,7 +466,7 @@ class TransactionViewSet(viewsets.ViewSet):
             transaction['personalId'] = homeless_pk
             transaction['transactionId'] = primary_key_generator()
             serializer = TransactionSerializer(data=transaction)
-            if serializer.is_valid() and is_greeter(request.user):
+            if serializer.is_valid() and (is_greeter(request.user) or is_service_provider(request.user)):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:

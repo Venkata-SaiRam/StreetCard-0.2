@@ -301,7 +301,7 @@ class CurrentLivingSituation extends Component {
                     <Row gutter={4}>
                     <Col span={8}>
                             <Form.Item label="Information Date (date of contact)">
-                                {getFieldDecorator("InformationDate", {
+                                {getFieldDecorator("InformationDateCurrentLiving", {
                                     rules: [
                                         {
                                             message: {
