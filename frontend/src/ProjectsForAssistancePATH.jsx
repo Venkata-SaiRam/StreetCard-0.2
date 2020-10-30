@@ -13,6 +13,7 @@ import DateOfEngagement from "./DateOfEngagement";
 import ServicesProvidedPATH from "./ServicesProvidedPATH";
 import PATHStatus from "./PATHStatus";
 import ReferralsPATH from "./ReferralsPATH";
+import ConnectionWithSOAR from "./ConnectionWithSOAR";
 
 const {Panel} = Collapse;
 
@@ -51,7 +52,7 @@ class ProjectsForAssistancePATH extends Component {
         if (e != null) {
             return e[0];
         } else
-            return 100;
+            return 1;
     };
 
 
@@ -150,17 +151,18 @@ class ProjectsForAssistancePATH extends Component {
                 disablingCondition.substance_abuse_impairing = this.handleValue(values.substance_abuse_impairing);
                 enrollmentRequestObject.disabling_condition = disablingCondition;
                 var currentLivingSituation = {};
-                currentLivingSituation.LivingSituation = this.handleValue(values.living_situation);
-                currentLivingSituation.ResidenceValue = this.handleValue(values.residence_value);
-                currentLivingSituation.InformationDate = values['InformationDate'].format('YYYY-MM-DD');
-                currentLivingSituation.HomeLessSituations = this.handleValue(values.HomelessSituations);
-                currentLivingSituation.InstitutionalSituations = this.handleValue(values.InstitutionalSituations);
-                currentLivingSituation.TemporaryandPermanentHousingSituations = this.handleValue(values.TemporaryandPermanentHousingSituations);
-                currentLivingSituation.Other = this.handleValue(values.Other);
-                currentLivingSituation.SupportNetwork = this.handleValue(values.support_network);
-                currentLivingSituation.HousingUnit = this.handleValue(values.housing_unit);
-                currentLivingSituation.ClientRelocation = this.handleValue(values.client_relocation);
-                currentLivingSituation.LocationDetails = values.location_details;
+                currentLivingSituation.currentliving = this.handleValue(values.CurrentLivingSituation);
+                currentLivingSituation.livingsituationin14days = this.handleValue(values.living_situation);
+                currentLivingSituation.subsequentresidence = this.handleValue(values.residence_value);
+                currentLivingSituation.Informationdate = values['InformationDateCurrentLiving'] != null ? values['InformationDateCurrentLiving'].format('YYYY-MM-DD') : null;
+                currentLivingSituation.homelesssituation = this.handleValue(values.HomelessSituations);
+                currentLivingSituation.institutionalsituation = this.handleValue(values.InstitutionalSituations);
+                currentLivingSituation.temporaryhousingsituations = this.handleValue(values.TemporaryandPermanentHousingSituations);
+                currentLivingSituation.other = this.handleValue(values.Other);
+                currentLivingSituation.supportnetworks = this.handleValue(values.support_network);
+                currentLivingSituation.ownershipinterest = this.handleValue(values.housing_unit);
+                currentLivingSituation.clientmoved = this.handleValue(values.client_relocation);
+                currentLivingSituation.locationdetails = values.location_details;
                 enrollmentRequestObject.current_living_situation = currentLivingSituation;
                 var dateOfEngagement = {};
                 dateOfEngagement.EngagementDate = values['informationdateDOE'] != null ? values['informationdateDOE'].format('YYYY-MM-DD') : null;
@@ -172,7 +174,7 @@ class ProjectsForAssistancePATH extends Component {
                 var pathStatus = {};
                 pathStatus.Informationdate =
                 values["datePATHStatus"] != null ? values["datePATHStatus"].format("YYYY-MM-DD") : null;
-                pathStatus.clientenrolled = this.handleValue(values.pathStatusField);
+                pathStatus.clientenrolled = this.handleValue(values.pathStatus);
                 pathStatus.reason = this.handleValue(values.notInPathReason);
                 enrollmentRequestObject.pathstatuspath = pathStatus;
                 var referralsPATH = {};
@@ -180,6 +182,9 @@ class ProjectsForAssistancePATH extends Component {
                 referralsPATH.typeofreferral = this.handleValue(values.referralType);
                 referralsPATH.outcome = this.handleValue(values.outcome);
                 enrollmentRequestObject.referralpath = referralsPATH;
+                var connectionWithSOARObject = {};
+                connectionWithSOARObject.ConnectionWithSOAR = this.handleValue(values.connectionwithsoar);
+                enrollmentRequestObject.connection_With_SOAR = connectionWithSOARObject;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -263,6 +268,7 @@ class ProjectsForAssistancePATH extends Component {
                     <ServicesProvidedPATH servicesProvidedPATH={this.props}/>
                     <PATHStatus pathStatus={this.props} />
                     <ReferralsPATH referralsPATH={this.props} />
+                    <ConnectionWithSOAR connectionWithSOAR={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="17">

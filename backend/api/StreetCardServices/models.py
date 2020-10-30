@@ -322,6 +322,7 @@ class ProjectCategory(models.TextChoices):
     VA_SSVF_RAPID_RE_HOUSING = 'VA: SSVF - Rapid Re-Housing', _('VA: SSVF - Rapid Re-Housing')
     HOPWA_AIDS_Housing = 'HOPWA:Housing for people with AIDS', _('HOPWA:Housing for people with AIDS')
     RHY_Runaway_Homeless_Youth = 'RHY:Runaway and Homeless Youth', _('RHY:Runaway and Homeless Youth')
+    PATH_Projects_for_Assistance = 'PATH:Projects for Assistance in Transition from Homelessness', _('PATH:Projects for Assistance in Transition from Homelessness')
 
 
 class SubstanceAbuseCategory(models.IntegerChoices):
@@ -1351,13 +1352,16 @@ class currentlivingsituation(models.Model):
         Client_refused = 9, _('Client refused')
         Data_not_collected = 99, _('Data not collected')
 
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='currentlivingsituation_EnrollmentID',
+                                     default=None)
 
     Informationdate = models.DateField()
     currentliving = models.IntegerField(choices=currentlivingcategory.choices)
-    homelesssituation = models.IntegerField(choices=homelesssituationcategory.choices)
-    institutionalsituation = models.IntegerField(choices=Institutionalsituationcategory.choices)
-    temporaryhousingsituations = models.IntegerField(choices=TemporaryPermanentHousingSituationscategory.choices)
-    other = models.IntegerField(choices=Othercategory.choices)
+    homelesssituation = models.IntegerField(choices=homelesssituationcategory.choices, default=homelesssituationcategory.EmergencyShelter)
+    institutionalsituation = models.IntegerField(choices=Institutionalsituationcategory.choices, default=Institutionalsituationcategory.fostercare)
+    temporaryhousingsituations = models.IntegerField(choices=TemporaryPermanentHousingSituationscategory.choices, default=TemporaryPermanentHousingSituationscategory.transitionalhouse)
+    other = models.IntegerField(choices=Othercategory.choices, default=Othercategory.Client_doesnt_know)
     livingsituationin14days = models.IntegerField(choices=ResponseCategory.choices)
     subsequentresidence = models.IntegerField(choices=ResponseCategory.choices)
     supportnetworks = models.IntegerField(choices=ResponseCategory.choices)
@@ -1384,6 +1388,10 @@ class referralsprovidedpath(models.Model):
         Not_attained = 2, _('Not attained')
         Unknown = 3, _('Unknown')
 
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='referralsprovidedpath_EnrollmentID',
+                                     default=None)
+
     Informationdate =models.DateField()
     typeofreferral = models.IntegerField(choices=typeofreferralcategory.choices)
     outcome = models.IntegerField(choices=outcomeforeachcategory.choices)
@@ -1393,6 +1401,10 @@ class pathstatus(models.Model):
         ineligible = 1, _('Client was found ineligible for PATH')
         notenrolled = 2, _('Client was not enrolled for other reason(s)')
         uanble = 3, _('Unable to locate client')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='pathstatus_EnrollmentID',
+                                     default=None)
 
     Informationdate = models.DateField()
     clientenrolled = models.IntegerField(choices=YesNoResponse.choices)
