@@ -354,10 +354,10 @@ class RegistrationForm extends React.Component {
                     this
                         .props
                         .handleHomelessPersonData(values.personId);
-                    this
-                        .props
-                        .history
-                        .push('/log');
+                    this.props.history.push({
+                        pathname: '/log',
+                        state: { serviceProviderId: "2" }
+        })
                 }
             });
     };

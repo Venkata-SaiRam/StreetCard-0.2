@@ -50,7 +50,7 @@ class SocialWorkerDetails(viewsets.ModelViewSet):
 class LogEntry(viewsets.ModelViewSet):
 
     def list(self, request, homeless_pk=None):
-        if is_caseworker(request.user):
+        if is_caseworker(request.user) or is_service_provider(request.user):
             cache_key = homeless_pk + 'log'
             data = cache.get(cache_key)
             if data is None:
@@ -77,7 +77,7 @@ class LogEntry(viewsets.ModelViewSet):
             return Response(data, status=status.HTTP_200_OK)
 
     def create(self, request, homeless_pk=None):
-        if is_greeter(request.user):
+        if is_greeter(request.user) or is_caseworker(request.user) or is_service_provider(request.user):
             cache_key = homeless_pk + 'log'
             enroll = request.data
             enroll['personalId'] = homeless_pk
@@ -109,7 +109,7 @@ class UserMapping(viewsets.ModelViewSet):
 class HomelessViewSet(viewsets.ViewSet):
 
     def list(self, request):
-        if is_greeter(request.user) or is_caseworker(request.user):
+        if is_greeter(request.user) or is_caseworker(request.user) or is_service_provider(request.user):
             cache_key = 'homeless'
             data = cache.get(cache_key)
             if data is None:
@@ -126,7 +126,7 @@ class HomelessViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def retrieve(self, request, pk=None):
-        if is_greeter(request.user) or is_client(request.user) or is_caseworker(request.user):
+        if is_greeter(request.user) or is_client(request.user) or is_caseworker(request.user) or is_service_provider(request.user):
             cache_key = 'homeless' + pk
             data = cache.get(cache_key)
             if data is None:
@@ -144,7 +144,7 @@ class HomelessViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def create(self, request):
-        if is_caseworker(request.user):
+        if is_caseworker(request.user) or is_service_provider(request.user):
             cache_key1 = 'homeless'
             homeless = request.data
             homeless['PersonalId'] = primary_key_generator()
@@ -159,7 +159,7 @@ class HomelessViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def update(self, request, pk=None):
-        if is_caseworker(request.user):
+        if is_caseworker(request.user) or is_service_provider(request.user):
             cache_key1 = 'homeless' + pk
             cache_key2 = 'homeless'
             queryset = Homeless.objects.filter(pk=pk)
@@ -176,7 +176,7 @@ class HomelessViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def partial_update(self, request, pk=None):
-        if is_caseworker(request.user):
+        if is_caseworker(request.user) or is_service_provider(request.user):
             cache_key = 'homeless' + pk
             queryset = Homeless.objects.filter(pk=pk)
             enroll = get_object_or_404(queryset, pk=pk)
@@ -197,7 +197,7 @@ class HomelessViewSet(viewsets.ViewSet):
 class EnrollmentViewSet(viewsets.ViewSet):
 
     def list(self, request, homeless_pk=None):
-        if is_caseworker(request.user):
+        if is_caseworker(request.user) or is_service_provider(request.user):
             cache_key = homeless_pk + 'enrollment'
             data = cache.get(cache_key)
             if data is None:
@@ -214,7 +214,7 @@ class EnrollmentViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def retrieve(self, request, pk=None, homeless_pk=None):
-        if is_caseworker(request.user):
+        if is_caseworker(request.user) or is_service_provider(request.user):
             cache_key = homeless_pk + 'enrollment' + pk
             data = cache.get(cache_key)
             if data is None:
@@ -229,7 +229,7 @@ class EnrollmentViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def create(self, request, homeless_pk=None):
-        if is_caseworker(request.user):
+        if is_caseworker(request.user) or is_service_provider(request.user):
             cache_key = homeless_pk + 'enrollment'
             enroll = request.data
             enroll['PersonalId'] = homeless_pk
@@ -245,7 +245,7 @@ class EnrollmentViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def update(self, request, pk=None, homeless_pk=None):
-        if is_caseworker(request.user):
+        if is_caseworker(request.user) or is_service_provider(request.user):
             cache_key1 = homeless_pk + 'enrollment'
             cache_key2 = homeless_pk + 'enrollment' + pk
             queryset = Enrollment.objects.filter(pk=pk, PersonalId_id=homeless_pk)
@@ -271,7 +271,7 @@ class EnrollmentViewSet(viewsets.ViewSet):
 class AppointmentViewSet(viewsets.ViewSet):
 
     def list(self, request, homeless_pk=None):
-        if is_caseworker(request.user) or is_client(request.user):
+        if is_caseworker(request.user) or is_client(request.user) or is_service_provider(request.user):
             cache_key = homeless_pk + 'appointment'
             data = cache.get(cache_key)
             if data is None:
@@ -288,7 +288,7 @@ class AppointmentViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def retrieve(self, request, pk=None, homeless_pk=None):
-        if is_client(request.user) or is_caseworker(request.user):
+        if is_client(request.user) or is_caseworker(request.user) or is_service_provider(request.user):
             cache_key = homeless_pk + 'appointment' + pk
             data = cache.get(cache_key)
             if data is None:
@@ -302,7 +302,7 @@ class AppointmentViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def create(self, request, homeless_pk=None):
-        if is_caseworker(request.user):
+        if is_caseworker(request.user) or is_service_provider(request.user):
             enroll = request.data
             if enroll["alert"]:
                 # generate random id for Celery.
@@ -341,7 +341,7 @@ class AppointmentViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def update(self, request, pk=None, homeless_pk=None):
-        if is_caseworker(request.user):
+        if is_caseworker(request.user) or is_service_provider(request.user):
             cache_key1 = homeless_pk + 'appointment'
             cache_key2 = homeless_pk + 'appointment' + pk
             queryset = Appointments.objects.filter(personalId_id=homeless_pk)
@@ -426,7 +426,7 @@ class ProductViewSet(viewsets.ViewSet):
             queryset = Product.objects.filter(pk=pk)
             enroll = get_object_or_404(queryset, pk=pk)
             serializer = ProductSerializer(enroll, data=request.data)
-            if serializer.is_valid() and is_greeter(request.user):
+            if serializer.is_valid() and (is_greeter(request.user) or is_service_provider(request.user)):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
@@ -461,12 +461,12 @@ class TransactionViewSet(viewsets.ViewSet):
             return Response(status=status.HTTP_403_FORBIDDEN)
 
     def create(self, request, homeless_pk=None):
-        if is_greeter(request.user):
+        if is_greeter(request.user) or is_service_provider(request.user):
             transaction = request.data
             transaction['personalId'] = homeless_pk
             transaction['transactionId'] = primary_key_generator()
             serializer = TransactionSerializer(data=transaction)
-            if serializer.is_valid() and is_greeter(request.user):
+            if serializer.is_valid() and (is_greeter(request.user) or is_service_provider(request.user)):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:

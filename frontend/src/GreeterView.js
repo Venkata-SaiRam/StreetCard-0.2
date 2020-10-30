@@ -29,22 +29,22 @@ class GreeterView extends React.Component {
 
     }
 
-    waitComponent(values, registerRequestObject) {
-        //should only run after get request has successfully
-        fetch(process.env.REACT_APP_IP + 'homeless/' + values.personalId + '/logs/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify(registerRequestObject)
-        })
-            .then(res => res.json())
-            .then(
-                json => {
-
-                });
-    }
+    // waitComponent(values, registerRequestObject) {
+    //     //should only run after get request has successfully
+    //     fetch(process.env.REACT_APP_IP + 'homeless/' + values.personalId + '/logs/', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: `Bearer ${localStorage.getItem('token')}`
+    //         },
+    //         body: JSON.stringify(registerRequestObject)
+    //     })
+    //         .then(res => res.json())
+    //         .then(
+    //             json => {
+    //
+    //             });
+    // }
 
     handleSubmit = e => {
         this.state.clicked = true
@@ -72,7 +72,7 @@ class GreeterView extends React.Component {
                                     name: registerRequestObject.clientName,
                                     id: values.personalId
                                 })
-                                setTimeout(this.waitComponent(values, registerRequestObject), 1000);
+                                // setTimeout(this.waitComponent(values, registerRequestObject), 1000);
                             })
                         } else if (Math.round(res.status / 100) == 4) {
                             if (window.confirm("Error, invalid personal id: " + (res.status).toString())) {
@@ -109,7 +109,10 @@ class GreeterView extends React.Component {
 
     processTransaction(personalId) {
         this.props.inputPersonalId(personalId)
-        this.props.history.push('/transactionPage');
+        this.props.history.push({
+              pathname: '/transactionPage',
+              state: { clientName: this.state.name }
+        })
     }
 
     render() {
@@ -143,9 +146,14 @@ class GreeterView extends React.Component {
 
             let form;
             form = <Layout className="layout">
-                <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                {!this.props.headerID ? (
+                             <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
                         loggedInStatus={this.state.loggedInStatus}
                 />
+                            ) : (
+                                ""
+                            )}
+
                 <Layout>
                     <Content className="content-login">
                         <div className="site-layout-content-login">
@@ -200,9 +208,13 @@ class GreeterView extends React.Component {
         } else if (this.state.isLoaded == false && this.state.clicked == true) {
             let form;
             form = <Layout className="layout">
-                <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                {!this.props.headerID ? (
+                             <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
                         loggedInStatus={this.state.loggedInStatus}
                 />
+                            ) : (
+                                ""
+                            )}
                 <Layout>
                     <Content className="content-login">
                         <div className="site-layout-content-login">
@@ -239,9 +251,13 @@ class GreeterView extends React.Component {
         } else {
             let form;
             form = <Layout className="layout">
-                <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                 {!this.props.headerID ? (
+                             <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
                         loggedInStatus={this.state.loggedInStatus}
                 />
+                            ) : (
+                                ""
+                            )}
                 <Layout>
                     <Content className="content-login">
                         <div className="site-layout-content-login">

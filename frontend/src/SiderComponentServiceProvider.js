@@ -61,6 +61,18 @@ export default class SiderComponentServiceProvider extends React.Component {
                     selectedKey: 7
                 })
                 break;
+             case '8':
+                this.props.setPagecomponent('greeter')
+                this.setState({
+                    selectedKey: 8
+                })
+                break;
+             case '9':
+                this.props.setPagecomponent('loginfo')
+                this.setState({
+                    selectedKey: 9
+                })
+                break;
         }
     };
 
@@ -103,6 +115,16 @@ export default class SiderComponentServiceProvider extends React.Component {
                                     <span className="nav-text">
                                         <SettingOutlined/>
                                         Add Product</span>
+                        </Menu.Item>
+                        <Menu.Item className="menuKey" key="8">
+                                    <span className="nav-text">
+                                        <SettingOutlined/>
+                                        Place Order</span>
+                        </Menu.Item>
+                        <Menu.Item className="menuKey" key="9">
+                                    <span className="nav-text">
+                                        <ClockCircleOutlined/>
+                                        View Logs</span>
                         </Menu.Item>
                     </Menu>
                 </div>

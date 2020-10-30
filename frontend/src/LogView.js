@@ -4,7 +4,9 @@ import './index.css';
 import {Form, Layout, Spin, Table} from 'antd';
 import Header from './Header.js'
 import StreetCardFooter from './StreetCardFooter'
-import SiderComponent from './SiderComponent'
+import SiderComponent from './SiderComponent';
+import SiderComponentServiceProvider from './SiderComponentServiceProvider';
+
 
 /**
  * Creating a table for rendering the timestamp logo.
@@ -37,6 +39,14 @@ class LogView extends React.Component {
                     title: 'Service Provider',
                     dataIndex: 'serviceProvider',
                 },
+                {
+                    title: 'Total Amount',
+                    dataIndex: 'totalAmount',
+                },
+                {
+                    title: 'Units Purchased',
+                    dataIndex: 'unitPurchased',
+                },
 
             ],
             dataSource: [
@@ -46,6 +56,8 @@ class LogView extends React.Component {
                     clientName: '',
                     serviceProvider: '',
                     personalId: '',
+                    totalAmount: '',
+                    unitPurchased: '',
 
                 }
             ]
@@ -73,7 +85,7 @@ class LogView extends React.Component {
                     )
                 })
             } else if (Math.round(res.status / 100) == 4) {
-                if (window.confirm("Error, invalid personal id: " + (res.status).toString())) {
+                if (window.confirm("Error, No record found for this personal ID" )) {
                     this.props.history.push('/socialWorkerRegister');
                 } else {
                     this.props.history.push('/socialWorkerRegister');
@@ -101,6 +113,14 @@ class LogView extends React.Component {
     };
 
     render() {
+        //const {spID=''} = this.props.location.state.serviceProviderId || {};
+        // var spID = "";
+        // console.log("und ", this.props.serviceProviderId);
+        // if(!this.props.location.state.serviceProviderId){
+        //     spID = "";
+        // }else{
+        //     spID = "1";
+        // }
         const formItemLayout = {
             labelCol: {
                 xs: {span: 24},
@@ -135,9 +155,16 @@ class LogView extends React.Component {
                     />
 
                     <Layout>
-                        <SiderComponent
+
+                        {this.props.location.state.serviceProviderId === "2" ? (
+                             <SiderComponent
                             setPagecomponent={this.setPagecomponent}
                         />
+                            ) : (
+                              <SiderComponentServiceProvider
+                            setPagecomponent={this.setPagecomponent}
+                        />
+                            )}
                         <Content className="content-enroll">
                             <div>
                                 <Table className="site-layout-content-viewappointment"
@@ -158,9 +185,16 @@ class LogView extends React.Component {
                     />
 
                     <Layout>
-                        <SiderComponent
+                        {this.props.location.state.serviceProviderId === "2" ? (
+                             <SiderComponent
                             setPagecomponent={this.setPagecomponent}
                         />
+                            ) : (
+                              <SiderComponentServiceProvider
+                            setPagecomponent={this.setPagecomponent}
+                        />
+                            )}
+
                         <Content className="content-login">
                             <div className="site-layout-content-login">
                                 <span>Loading . . .<Spin size="small"/></span>
