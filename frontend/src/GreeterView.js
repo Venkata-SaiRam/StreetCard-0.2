@@ -146,9 +146,14 @@ class GreeterView extends React.Component {
 
             let form;
             form = <Layout className="layout">
-                <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                {!this.props.headerID ? (
+                             <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
                         loggedInStatus={this.state.loggedInStatus}
                 />
+                            ) : (
+                                ""
+                            )}
+
                 <Layout>
                     <Content className="content-login">
                         <div className="site-layout-content-login">
@@ -203,9 +208,13 @@ class GreeterView extends React.Component {
         } else if (this.state.isLoaded == false && this.state.clicked == true) {
             let form;
             form = <Layout className="layout">
-                <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                {!this.props.headerID ? (
+                             <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
                         loggedInStatus={this.state.loggedInStatus}
                 />
+                            ) : (
+                                ""
+                            )}
                 <Layout>
                     <Content className="content-login">
                         <div className="site-layout-content-login">
@@ -242,9 +251,13 @@ class GreeterView extends React.Component {
         } else {
             let form;
             form = <Layout className="layout">
-                <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                 {!this.props.headerID ? (
+                             <Header handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
                         loggedInStatus={this.state.loggedInStatus}
                 />
+                            ) : (
+                                ""
+                            )}
                 <Layout>
                     <Content className="content-login">
                         <div className="site-layout-content-login">

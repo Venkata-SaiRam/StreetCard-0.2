@@ -502,7 +502,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         path_funded_service_path = check_and_assign('PathFundedServicesPath',validated_data)
         current_living_situation_path = check_and_assign('currentlivingsituationpath',validated_data)
         referral_provided_path = check_and_assign('referralpath',validated_data)
-        path_status_path = check_and_assign('pathstatuspath',**validated_data)
+        path_status_path = check_and_assign('pathstatuspath',validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 

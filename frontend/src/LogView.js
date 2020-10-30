@@ -4,7 +4,9 @@ import './index.css';
 import {Form, Layout, Spin, Table} from 'antd';
 import Header from './Header.js'
 import StreetCardFooter from './StreetCardFooter'
-import SiderComponent from './SiderComponent'
+import SiderComponent from './SiderComponent';
+import SiderComponentServiceProvider from './SiderComponentServiceProvider';
+
 
 /**
  * Creating a table for rendering the timestamp logo.
@@ -111,6 +113,14 @@ class LogView extends React.Component {
     };
 
     render() {
+        //const {spID=''} = this.props.location.state.serviceProviderId || {};
+        // var spID = "";
+        // console.log("und ", this.props.serviceProviderId);
+        // if(!this.props.location.state.serviceProviderId){
+        //     spID = "";
+        // }else{
+        //     spID = "1";
+        // }
         const formItemLayout = {
             labelCol: {
                 xs: {span: 24},
@@ -145,9 +155,16 @@ class LogView extends React.Component {
                     />
 
                     <Layout>
-                        <SiderComponent
+
+                        {this.props.location.state.serviceProviderId === "2" ? (
+                             <SiderComponent
                             setPagecomponent={this.setPagecomponent}
                         />
+                            ) : (
+                              <SiderComponentServiceProvider
+                            setPagecomponent={this.setPagecomponent}
+                        />
+                            )}
                         <Content className="content-enroll">
                             <div>
                                 <Table className="site-layout-content-viewappointment"
@@ -168,9 +185,16 @@ class LogView extends React.Component {
                     />
 
                     <Layout>
-                        <SiderComponent
+                        {this.props.location.state.serviceProviderId === "2" ? (
+                             <SiderComponent
                             setPagecomponent={this.setPagecomponent}
                         />
+                            ) : (
+                              <SiderComponentServiceProvider
+                            setPagecomponent={this.setPagecomponent}
+                        />
+                            )}
+
                         <Content className="content-login">
                             <div className="site-layout-content-login">
                                 <span>Loading . . .<Spin size="small"/></span>
