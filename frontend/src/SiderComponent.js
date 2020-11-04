@@ -12,7 +12,7 @@ export default class SiderComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedKey: 0,
+            selectedKey: 1,
         }
     }
 
@@ -75,7 +75,7 @@ export default class SiderComponent extends React.Component {
                    onCollapse={(collapsed, type) => {
 
                    }}>
-                <div className="menu">s
+                <div className="menu">
                     <Menu mode="inline" theme="dark"
                           defaultSelectedKeys={"'" + this.state.selectedKey + "'"}
                           onClick={this.handleClick}>
