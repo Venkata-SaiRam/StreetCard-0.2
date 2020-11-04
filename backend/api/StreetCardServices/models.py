@@ -1410,5 +1410,28 @@ class pathstatus(models.Model):
     clientenrolled = models.IntegerField(choices=YesNoResponse.choices)
     reason = models.IntegerField(choices=reasonnotenrolledcategory.choices)
 
+class CoordinatedEntryAssessment(models.Model):
+    class AssessmentTypeCategory(models.IntegerChoices):
+        Phone = 1, _('Phone')
+        Virtual = 2, _('Virtual')
+        Inperson = 3, _('In person')
+    class AssessmentLevelCategory(models.IntegerChoices):
+        Crisis_needs_assessment = 1, _('Crisis Needs Assessment')
+        Housing_needs_assessment =2, _('Housing Needs Assessment')
+    class Prioritizationstatuscategory(models.IntegerChoices):
+        Placed_on_prioritization = 1, _('Placed on prioritization list')
+        Not_placed_on_prioritization = 2, _('Not placed on prioritization list')
+    Informationdate=models.DateField()
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='coordinatedEntry_EnrollmentID',
+                                     default=None)
+    assessmentlocation = models.TextField()
+    assessmenttype = models.IntegerField(choices=AssessmentTypeCategory.choices)
+    assessmentlevel = models.IntegerField(choices=AssessmentLevelCategory.choices)
+    prioritizationstatus = models.IntegerField(choices=Prioritizationstatuscategory.choices)
+
+
+
+
 
 
