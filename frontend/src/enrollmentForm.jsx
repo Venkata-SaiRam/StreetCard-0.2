@@ -8,7 +8,8 @@ import HomelessPreventionHUD from "./HomelessPreventionHUD";
 import RapidReHousingVA from "./RapidReHousingVA";
 import HOPWA from "./HOPWA";
 import RunawayHomelessYouth from "./RunawayHomelessYouth";
-import ProjectsForAssistancePATH from "./ProjectsForAssistancePATH"
+import ProjectsForAssistancePATH from "./ProjectsForAssistancePATH";
+import EmergencySolutionGrantsESG from "./EmergencySolutionGrantsESG";
 
 
 const {Content} = Layout;
@@ -130,7 +131,7 @@ class EnrollmentForm extends Component {
                 break;
             case "ESG:Emergency Solutions Grants":
                 changingPanel.pop();
-                changingPanel.push(<ProjectsForAssistancePATH data={e[0]} personalId={this.state.items.PersonalId}
+                changingPanel.push(<EmergencySolutionGrantsESG data={e[0]} personalId={this.state.items.PersonalId}
                                                      history={this.props.history}/>)
                 break;
         }
