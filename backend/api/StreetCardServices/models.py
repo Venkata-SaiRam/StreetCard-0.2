@@ -323,6 +323,7 @@ class ProjectCategory(models.TextChoices):
     HOPWA_AIDS_Housing = 'HOPWA:Housing for people with AIDS', _('HOPWA:Housing for people with AIDS')
     RHY_Runaway_Homeless_Youth = 'RHY:Runaway and Homeless Youth', _('RHY:Runaway and Homeless Youth')
     PATH_Projects_for_Assistance = 'PATH:Projects for Assistance in Transition from Homelessness', _('PATH:Projects for Assistance in Transition from Homelessness')
+    ESG_Emergency_Solutions_Grants = 'ESG:Emergency Solutions Grants', _('ESG:Emergency Solutions Grants')
 
 
 class SubstanceAbuseCategory(models.IntegerChoices):
