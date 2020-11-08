@@ -30,6 +30,17 @@ const AssessmentLevelResponse = [
     }
 ]
 
+const PrioritizationStatusResponse = [
+    {
+        value: 1,
+        label: "Placed on Prioritization List"
+    },
+    {
+        value: 2,
+        label: "Not placed on Prioritization List"
+    }
+]
+
 
 class CoordinatedEntryAssessment extends Component {
     constructor(props) {
@@ -106,6 +117,23 @@ class CoordinatedEntryAssessment extends Component {
                                     <Cascader
                                         placeholder="Select.."
                                         options={AssessmentLevelResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Prioritization Status"
+                                >   {getFieldDecorator("prioritization_status", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={PrioritizationStatusResponse}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>

@@ -150,6 +150,7 @@ class EmergencySolutionGrantsESG extends Component {
                 coordinatedEntryAssessment.assessment_location = values.assessment_location;
                 coordinatedEntryAssessment.assessment_type = this.handleValue(values.assessment_type);
                 coordinatedEntryAssessment.assessment_level = this.handleValue(values.assessment_level);
+                coordinatedEntryAssessment.prioritization_status = this.handleValue(values.prioritization_status);
                 enrollmentRequestObject.coordinated_entry_assessment = coordinatedEntryAssessment;
 
                 this.handleEmptyObject(enrollmentRequestObject);
