@@ -8,6 +8,7 @@ import NonCashBenefits from "./NonCashBenefits";
 import HealthInsurance from "./HealthInsurance";
 import DisablingCondition from "./DisablingCondition";
 import DomesticViolence from "./DomesticViolence";
+import CoordinatedEntryAssessment from "./CoordinatedEntryAssessment";
 
 const {Panel} = Collapse;
 
@@ -144,6 +145,11 @@ class EmergencySolutionGrantsESG extends Component {
                 disablingCondition.substance_abuse = this.handleValue(values.substance_abuse);
                 disablingCondition.substance_abuse_impairing = this.handleValue(values.substance_abuse_impairing);
                 enrollmentRequestObject.disabling_condition = disablingCondition;
+                var coordinatedEntryAssessment = {};
+                coordinatedEntryAssessment.InformationDate = values['assessment_date'] != null ? values['assessment_date'].format('YYYY-MM-DD') : null;
+                coordinatedEntryAssessment.assessment_location = values.assessment_location;
+                enrollmentRequestObject.coordinated_entry_assessment = coordinatedEntryAssessment;
+
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -222,6 +228,7 @@ class EmergencySolutionGrantsESG extends Component {
                     <HealthInsurance healthInsurance={this.props}/>
                     <DisablingCondition disablingCondition={this.props}/>
                     <DomesticViolence domesticViolence={this.props}/>
+                    <CoordinatedEntryAssessment coordinatedEntryAssessment={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="17">
