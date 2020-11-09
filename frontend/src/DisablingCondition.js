@@ -231,7 +231,7 @@ class DisablingCondition extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -245,7 +245,7 @@ class DisablingCondition extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false,
+                                            required: true,
                                             type: "array"
                                         }
                                     ]
@@ -269,7 +269,7 @@ class DisablingCondition extends Component {
                                     ]
                                 })(
                                     <Cascader
-                                        placeholder="Medicaid"
+                                        placeholder="Select.."
                                         options={ResponseCategory}
                                     ></Cascader>)}
                                 </Form.Item>
@@ -283,11 +283,11 @@ class DisablingCondition extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(<Cascader
-                                        placeholder="Medicaid"
+                                        placeholder="Select.."
                                         options={ResponseCategory}
                                     ></Cascader>
                                 )}
