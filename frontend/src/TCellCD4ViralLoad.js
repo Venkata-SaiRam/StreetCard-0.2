@@ -176,7 +176,7 @@ class TCellCD4ViralLoad extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -190,7 +190,7 @@ class TCellCD4ViralLoad extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false,
+                                            required: true,
                                             type: "array"
                                         }
                                     ]
@@ -250,7 +250,7 @@ class TCellCD4ViralLoad extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(<Cascader
