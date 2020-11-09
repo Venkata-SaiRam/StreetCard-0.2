@@ -199,7 +199,7 @@ class MedicalAssistance extends Component {
                                             message: {
                                                 message
                                             },
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(<DatePicker
@@ -215,7 +215,7 @@ class MedicalAssistance extends Component {
                                         message: {
                                             message
                                         },
-                                        required: false,
+                                        required: true,
                                         type: "array"
                                     }
                                 ]
@@ -257,7 +257,7 @@ class MedicalAssistance extends Component {
                                             message
                                         },
                                         type: "array",
-                                        required: false
+                                        required: true
                                     }
                                 ]
                             })(
