@@ -874,11 +874,11 @@ class TCellCD4AndViralLoadHOPWA(models.Model):
         CLIENT_REPORT = 2, _('Client Report')
         OTHER = 3, _('Other')
     InformationDate = models.DateField()
-    IfYesTCellCount = models.IntegerField(validators=[MaxValueValidator(1500), MinValueValidator(0)])
-    HowWasTheInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices)
+    IfYesTCellCount = models.IntegerField(validators=[MaxValueValidator(1500), MinValueValidator(0)],blank=True)
+    HowWasTheInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices,blank=True)
     ViralLoadInformationAvailable = models.IntegerField(choices=ResponseCategory.choices)
-    ViralLoadCount = models.IntegerField(validators=[MaxValueValidator(999999), MinValueValidator(0)])
-    HowWasTheViralInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices)
+    ViralLoadCount = models.IntegerField(validators=[MaxValueValidator(999999), MinValueValidator(0)],blank=True)
+    HowWasTheViralInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices,blank=True)
     TCellCD4CountAvailable = models.IntegerField(choices=ResponseCategory.choices)
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='TCellCD4AndViralLoadHOPWA_EnrollmentID',
@@ -904,9 +904,9 @@ class MedicalAssistanceHOPWA(models.Model):
 
     InformationDate = models.DateField()
     ReceivingPublicHIVAIDSMedicalAssistance = models.IntegerField(choices=ResponseCategory.choices)
-    IfNoReason = models.IntegerField(choices=IfNoReasonTypeCategory.choices)
+    IfNoReason = models.IntegerField(choices=IfNoReasonTypeCategory.choices,blank=True)
     ReceivingAIDSDrugAssistanceProgram = models.IntegerField(choices=ResponseCategory.choices)
-    IfNoReasonADAP = models.IntegerField(choices=IfNoReasonTypeCategory.choices)
+    IfNoReasonADAP = models.IntegerField(choices=IfNoReasonTypeCategory.choices,blank=True)
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='MedicalAssistanceHOPWA_EnrollmentID',
                                      default=None)
@@ -956,8 +956,8 @@ class HousingAssessmentAtExitHOPWA(models.Model):
                                      related_name='HousingAssessmentAtExitHOPWA_EnrollmentID',
                                      default=None)
     HousingAssessmentAtExit = models.IntegerField(choices=HousingAssessmentAtExitResponseCategory.choices)
-    SubsidyInformation = models.IntegerField(choices=SubsidyInformationResponseCategory.choices)
-    AnotherSubsidyInformation = models.IntegerField(choices=AnotherSubsidyInformationResponseCategory.choices)
+    SubsidyInformation = models.IntegerField(choices=SubsidyInformationResponseCategory.choices,blank=True)
+    AnotherSubsidyInformation = models.IntegerField(choices=AnotherSubsidyInformationResponseCategory.choices,blank=True)
 
 class LabourExploitationTrafficking(models.Model):
 
