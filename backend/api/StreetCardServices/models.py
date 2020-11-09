@@ -966,8 +966,8 @@ class LabourExploitationTrafficking(models.Model):
                                      default=None)
     leavejob = models.IntegerField(choices=ResponseCategory.choices)
     paymentdifference = models.IntegerField(choices=ResponseCategory.choices)
-    forcedintojob = models.IntegerField(choices=ResponseCategory.choices)
-    last3months = models.IntegerField(choices=ResponseCategory.choices)
+    forcedintojob = models.IntegerField(choices=ResponseCategory.choices,blank=True)
+    last3months = models.IntegerField(choices=ResponseCategory.choices, blank=True)
 
 class ChildWelfareFoster(models.Model):
 
@@ -982,8 +982,8 @@ class ChildWelfareFoster(models.Model):
                                      related_name='ChildWelfareFoster_EnrollmentID',
                                      default=None)
     formerChildWelfare = models.IntegerField(choices=ResponseCategory.choices)
-    noofyears = models.IntegerField(choices=NoofYearsCategory.choices)
-    noofmonths = models.IntegerField()
+    noofyears = models.IntegerField(choices=NoofYearsCategory.choices,blank=True)
+    noofmonths = models.IntegerField(blank=True)
 
 class GeneralHealthStatus(models.Model):
 
@@ -1038,10 +1038,10 @@ class SexualExploitation(models.Model):
                                      related_name='SexualExploitation_EnrollmentID',
                                      default=None)
     receivedanything=models.IntegerField(choices=ResponseCategory.choices)
-    receivedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices)
-    howmanytimes=models.IntegerField(choices=NoofTimesResponse.choices)
-    forcedanything=models.IntegerField(choices=ResponseCategory.choices)
-    forcedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices)
+    receivedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices,blank=True)
+    howmanytimes=models.IntegerField(choices=NoofTimesResponse.choices,blank=True)
+    forcedanything=models.IntegerField(choices=ResponseCategory.choices,blank=True)
+    forcedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices,blank=True)
 
 class SafeandAppropriateExit(models.Model):
 
@@ -1070,8 +1070,8 @@ class Counseling(models.Model):
                                      related_name='Counseling_EnrollmentID',
                                      default=None)
     receivedbyclient = models.IntegerField(choices=YesNoResponse.choices)
-    typeofCounseling = models.IntegerField(choices=TypeofCounselingCategory.choices)
-    noofsessions = models.IntegerField()
+    typeofCounseling = models.IntegerField(choices=TypeofCounselingCategory.choices,blank=True)
+    noofsessions = models.IntegerField(blank=True)
     noofsessionsplanned = models.IntegerField()
     continuecounseling = models.IntegerField(choices=YesNoResponse.choices)
 
@@ -1127,7 +1127,7 @@ class ProjectCompletionStatus(models.Model):
                                      related_name='ProjectCompletion_EnrollmentID',
                                      default=None)
     projectcompletion = models.IntegerField(choices=ProjectCompletionCategory.choices)
-    majorreason = models.IntegerField(choices=majorreasoncategory.choices)
+    majorreason = models.IntegerField(choices=majorreasoncategory.choices,blank=True)
 
 class SexualOrientation(models.Model):
     class SexualOrientationCategory(models.IntegerChoices):
@@ -1167,7 +1167,7 @@ class ReferralSource(models.Model):
                                      related_name='Referral_EnrollmentID',
                                      default=None)
     referralsource = models.IntegerField(choices=ReferralCategory.choices)
-    nooftimes = models.IntegerField()
+    nooftimes = models.IntegerField(blank=True)
 
 class AftercarePlans(models.Model):
     class AftercareplansCategory(models.IntegerChoices):
@@ -1184,7 +1184,7 @@ class AftercarePlans(models.Model):
                                      related_name='Aftercareplans_EnrollmentID',
                                      default=None)
     aftercareprovided = models.IntegerField(choices=Yesnocategory.choices)
-    primaryway = models.IntegerField(choices=AftercareplansCategory.choices)
+    primaryway = models.IntegerField(choices=AftercareplansCategory.choices,blank=True)
     InformationDate = models.DateField()
 
 
@@ -1207,8 +1207,8 @@ class RHYBCPStatus(models.Model):
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='RHYBCPStatus_EnrollmentID',
                                      default=None)
-    runawayyouth = models.IntegerField(choices=ResponseCategory.choices)
-    notfundedreason = models.IntegerField(choices=notfundedcategory.choices)
+    runawayyouth = models.IntegerField(choices=ResponseCategory.choices,blank=True)
+    notfundedreason = models.IntegerField(choices=notfundedcategory.choices,blank=True)
     dateofstatus = models.DateField()
     youtheligible = models.IntegerField(choices=YesNoResponse.choices)
 
@@ -1226,8 +1226,8 @@ class EmploymentStatus(models.Model):
                                      related_name='EmploymentStatus_EnrollmentID',
                                      default=None)
     employed = models.IntegerField(choices=ResponseCategory.choices)
-    employmentstatus = models.IntegerField(choices=employmentstatuscategory.choices)
-    notemployed = models.IntegerField(choices=notemployedcategory.choices)
+    employmentstatus = models.IntegerField(choices=employmentstatuscategory.choices,blank=True)
+    notemployed = models.IntegerField(choices=notemployedcategory.choices,blank=True)
     InformationDate = models.DateField()
 
 class RHYConnections(models.Model):
@@ -1268,8 +1268,8 @@ class JuvenileJusticeSystem(models.Model):
                                      related_name='JuvenileJustice_EnrollmentID',
                                      default=None)
     formerjuvenilejustice = models.IntegerField(choices=ResponseCategory.choices)
-    noofyears = models.IntegerField(choices=NoofYearsCategory.choices)
-    noofmonths = models.IntegerField()
+    noofyears = models.IntegerField(choices=NoofYearsCategory.choices,blank=True)
+    noofmonths = models.IntegerField(blank=True)
 
 class DateofEngagement(models.Model):
 
