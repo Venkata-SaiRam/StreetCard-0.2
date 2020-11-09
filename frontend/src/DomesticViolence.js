@@ -211,9 +211,22 @@ class DomesticViolence extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: true
+            isEnabled: true,
+            ifOccurred: true,
+            ifFleeing: true
         }
         // this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    }
+
+    handleDomesticViolenceChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifOccurred: false});
+             this.setState({ifFleeing: false});
+        }else {
+            this.setState({ifOccurred: true});
+            this.setState({ifFleeing: true});
+            this.props.domesticViolence.form.resetFields(fieldName);
+        }
     }
 
     render(){
@@ -231,7 +244,7 @@ class DomesticViolence extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -245,7 +258,7 @@ class DomesticViolence extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false,
+                                            required: true,
                                             type: "array"
                                         }
                                     ]
@@ -253,6 +266,9 @@ class DomesticViolence extends Component {
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleDomesticViolenceChange
+                                            .bind(this, "whenoccurred")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -271,6 +287,7 @@ class DomesticViolence extends Component {
                                     <Cascader
                                         placeholder="When Occurred"
                                         options={DomesticViolenceOccurrence}
+                                        disabled={this.state.ifOccurred}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -290,6 +307,7 @@ class DomesticViolence extends Component {
                                 })(<Cascader
                                         placeholder="Currently Fleeing"
                                         options={ResponseCategory}
+                                        disabled={this.state.ifFleeing}
                                     ></Cascader>
                                 )}
                                 </Form.Item>

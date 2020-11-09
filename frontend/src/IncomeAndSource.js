@@ -43,7 +43,161 @@ class IncomeAndSource extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: true
+            isEnabled: true,
+            ifEarned: true,
+            ifUnEmployed: true,
+            ifSSI: true,
+            ifSSDI: true,
+            ifVADisabilityService: true,
+            ifVADisabilityNonService: true,
+            ifPrivateDisability: true,
+            ifWorkersComp: true,
+            ifTANF: true,
+            ifGA: true,
+            ifRetire: true,
+            ifPension: true,
+            ifChildSupport: true,
+            ifAlimony: true,
+            ifOtherIncome: true,
+            otherIncomeSources: true
+        }
+    }
+    handleEarnedIncomeChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifEarned: false});
+        }else {
+            this.setState({ifEarned: true});
+            // this.setState({howWasTheInformationObtainedDisabled: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+            // this.props.incomeSource.form.resetFields("howWasTheInformationObtained");
+        }
+    }
+
+    handleUnEmploymentChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifUnEmployed: false});
+        }else {
+            this.setState({ifUnEmployed: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleSSIChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifSSI: false});
+        }else {
+            this.setState({ifSSI: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleSSDIChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifSSDI: false});
+        }else {
+            this.setState({ifSSDI: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleDisabilityServiceChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifVADisabilityService: false});
+        }else {
+            this.setState({ifVADisabilityService: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleDisabilityNonServiceChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifVADisabilityNonService: false});
+        }else {
+            this.setState({ifVADisabilityNonService: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handlePrivateDisabilityChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifPrivateDisability: false});
+        }else {
+            this.setState({ifPrivateDisability: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleWorkersCompChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifWorkersComp: false});
+        }else {
+            this.setState({ifWorkersComp: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleTANFChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifTANF: false});
+        }else {
+            this.setState({ifTANF: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleGAChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifGA: false});
+        }else {
+            this.setState({ifGA: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleRetirementChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifRetire: false});
+        }else {
+            this.setState({ifRetire: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handlePensionChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifPension: false});
+        }else {
+            this.setState({ifPension: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleChildSupportChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifChildSupport: false});
+        }else {
+            this.setState({ifChildSupport: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleAlimonyChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifAlimony: false});
+        }else {
+            this.setState({ifAlimony: true});
+            this.props.incomeSource.form.resetFields(fieldName);
+        }
+    }
+
+    handleOtherIncomeChange(fieldName, values) {
+        if(values[0] === 1) {
+             this.setState({ifOtherIncome: false});
+             this.setState({otherIncomeSources: false});
+        }else {
+            this.setState({ifOtherIncome: true});
+            this.setState({otherIncomeSources: true});
+            this.props.incomeSource.form.resetFields(fieldName);
         }
     }
 
@@ -62,7 +216,7 @@ class IncomeAndSource extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -76,7 +230,7 @@ class IncomeAndSource extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false,
+                                            required: true,
                                             type: "array"
                                         }
                                     ]
@@ -95,13 +249,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Earned"
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleEarnedIncomeChange
+                                            .bind(this, "earnedincome")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -117,7 +274,7 @@ class IncomeAndSource extends Component {
                                             required: false
                                         }
                                     ]
-                                })(<Input/>
+                                })(<Input disabled={this.state.ifEarned}/>
                                 )}
                                 </Form.Item>
                             </Col>
@@ -129,13 +286,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleUnEmploymentChange
+                                            .bind(this, "unemploymentamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -150,7 +310,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifUnEmployed}/>)}
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -163,13 +323,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleSSIChange
+                                            .bind(this, "ssiamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -184,7 +347,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifSSI}/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
@@ -195,13 +358,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleSSDIChange
+                                            .bind(this, "ssdiamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -218,7 +384,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifSSDI}/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
@@ -229,13 +395,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleDisabilityServiceChange
+                                            .bind(this, "vadisabilityserviceamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -250,7 +419,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifVADisabilityService}/>)}
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -263,13 +432,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleDisabilityNonServiceChange
+                                            .bind(this, "vadisabilitynonservicenonamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -284,7 +456,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifVADisabilityNonService}/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
@@ -295,13 +467,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handlePrivateDisabilityChange
+                                            .bind(this, "privatedisabilityamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -318,7 +493,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifPrivateDisability}/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
@@ -329,13 +504,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleWorkersCompChange
+                                            .bind(this, "workerscompamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -350,7 +528,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifWorkersComp}/>)}
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -363,13 +541,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleTANFChange
+                                            .bind(this, "tanfamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -384,7 +565,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifTANF}/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
@@ -395,13 +576,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleGAChange
+                                            .bind(this, "gaamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -418,7 +602,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifGA}/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
@@ -429,13 +613,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleRetirementChange
+                                            .bind(this, "socsecretirementamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -450,7 +637,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifRetire}/>)}
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -463,13 +650,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handlePensionChange
+                                            .bind(this, "pensionamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -480,12 +670,11 @@ class IncomeAndSource extends Component {
                                     rules: [
                                         {
                                             message: {message},
-
                                             required: false,
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifPension}/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
@@ -496,13 +685,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleChildSupportChange
+                                            .bind(this, "Child Support Amount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -519,7 +711,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifChildSupport}/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
@@ -530,13 +722,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleAlimonyChange
+                                            .bind(this, "alimonyamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -551,7 +746,7 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifAlimony}/>)}
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -564,13 +759,16 @@ class IncomeAndSource extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleOtherIncomeChange
+                                            .bind(this, "otherincomesourcesamount")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -585,14 +783,14 @@ class IncomeAndSource extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifOtherIncome}/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
                                 <Form.Item
                                     label="Other Income Sources Identify"
                                 >{getFieldDecorator("otherincomesourcesidentify")(
-                                    <TextArea rows={2}/>)}
+                                    <TextArea rows={2} disabled={this.state.otherIncomeSources}/>)}
                                 </Form.Item>
                             </Col>
                         </Row>

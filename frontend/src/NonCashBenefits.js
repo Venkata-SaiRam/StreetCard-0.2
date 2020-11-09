@@ -42,9 +42,19 @@ class NonCashBenefits extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: true
+            isEnabled: true,
+            ifSources: true
         }
         // this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    }
+
+    handleSourcesChange(fieldName, values) {
+        if(values[0] === 1){
+            this.setState({ifSources: false})
+        }else {
+            this.setState({ifSources: true})
+            this.props.nonCash.form.resetFields(fieldName);
+        }
     }
 
     render(){
@@ -195,6 +205,9 @@ class NonCashBenefits extends Component {
                                     <Cascader
                                         placeholder="Select"
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleSourcesChange
+                                            .bind(this, "specifysource")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -202,7 +215,7 @@ class NonCashBenefits extends Component {
                                 <Form.Item
                                     label="Specify Source"
                                 >{getFieldDecorator("specifysource")(
-                                    <TextArea rows={2}/>)}
+                                    <TextArea rows={2} disabled={this.state.ifSources}/>)}
                                 </Form.Item>
                             </Col>
                         </Row>
