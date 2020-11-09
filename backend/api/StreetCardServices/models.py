@@ -1431,6 +1431,43 @@ class CoordinatedEntryAssessment(models.Model):
     assessmentlevel = models.IntegerField(choices=AssessmentLevelCategory.choices)
     prioritizationstatus = models.IntegerField(choices=Prioritizationstatuscategory.choices)
 
+class CoordinatedEntryEvent(models.Model):
+
+    class EventCategory(models.IntegerChoices):
+        prevention_assistance_project = 1,_('Referral to Prevention Assistance project')
+        rapid_solution_intervention = 2,_('Problem Solving/Diversion/Rapid Resolution intervention or service')
+        entry_crisis = 3,_('Referral to scheduled Coordinated Entry Crisis Needs Assessment')
+        entry_housing = 4,_('Referral to scheduled Coordinated Entry Housing Needs Assessment')
+        case_management = 5,_('Referral to post-placement/follow-up case management')
+        street_outreach = 6,_('Referral to Street Outreach project or services')
+        housing_navigation = 7,_('Referral to Housing Navigation project or services')
+        ineligible = 8,_('Referral to Non-continuum services: Ineligible for continuum services')
+        no_availability = 9,_('Referral to Non continuum services: No availability in continuum services')
+        emergency_shelter = 10,_('Referral to Emergency Shelter bed opening')
+        housing_bed = 11,_('Referral to Transitional Housing bed/unit opening')
+        th_rrh_opening = 12,_('Referral to Joint TH-RRH project/unit/resource opening')
+        rrh_opening = 13,_('Referral to RRH project resource opening')
+        psh_opening = 14,_('Referral to PSH project resource opening')
+        ph_opening = 15,_('Referral to Other PH project/unit/resource opening')
+
+    class Referralresultcategory(models.IntegerChoices):
+        client_accepted = 1, _('Successful referral: client accepted')
+        client_rejected = 2, _('Unsuccessful referral: client rejected')
+        provider_rejected = 3, _('Unsuccessful referral: provider rejected')
+
+    EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
+                                     related_name='coordinatedEntryEvent_EnrollmentID',
+                                     default=None)
+    dateofEvent=models.DateField()
+    event = models.IntegerField(choices=EventCategory.choices)
+    clienthoused = models.IntegerField(choices=YesNoResponse.choices)
+    aftercareproject = models.IntegerField(choices=YesNoResponse.choices)
+    hmisid = models.TextField()
+    referralresult = models.IntegerField(choices=Referralresultcategory.choices)
+    dateofresult = models.DateField()
+
+
+
 
 
 
