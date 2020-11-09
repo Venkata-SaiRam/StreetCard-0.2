@@ -1395,7 +1395,7 @@ class referralsprovidedpath(models.Model):
 
     Informationdate =models.DateField()
     typeofreferral = models.IntegerField(choices=typeofreferralcategory.choices)
-    outcome = models.IntegerField(choices=outcomeforeachcategory.choices)
+    outcome = models.IntegerField(choices=outcomeforeachcategory.choices,blank=True)
 
 class pathstatus(models.Model):
     class reasonnotenrolledcategory(models.IntegerChoices):
@@ -1409,7 +1409,7 @@ class pathstatus(models.Model):
 
     Informationdate = models.DateField()
     clientenrolled = models.IntegerField(choices=YesNoResponse.choices)
-    reason = models.IntegerField(choices=reasonnotenrolledcategory.choices)
+    reason = models.IntegerField(choices=reasonnotenrolledcategory.choices,blank=True)
 
 class CoordinatedEntryAssessment(models.Model):
     class AssessmentTypeCategory(models.IntegerChoices):
