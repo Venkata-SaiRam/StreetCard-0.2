@@ -7,7 +7,7 @@ import './transaction.css'
 import StreetCardFooter from './StreetCardFooter'
 
 const {Content} = Layout;
-const header = ["Product Id", "Product Name", "Cost Per Item", "Units Available", "Given Units", "Amount", "Service Provider", "Client ID", "Client Name"];
+const header = ["Product Id", "Product Name", "Cost Per Item", "Donated", "Initial Cost", "Units Available", "Given Units", "Amount", "Service Provider", "Client ID", "Client Name"];
 const category = [
     {
         value: "Shoes",
@@ -69,6 +69,8 @@ class Transaction extends React.Component {
                 {
                     productId: '',
                     productName: '',
+                    donation: '',
+                    costwhenbrought:'',
                     costPerItem: '',
                     unitsAvailable: '',
                     serviceProvider: '',
@@ -130,6 +132,8 @@ class Transaction extends React.Component {
                             unitsAvailable: key.unitsAvailable - key.quantity,
                             serviceProvider: key.serviceProvider,
                             category: key.category,
+                            donation: key.donation,
+                            costwhenbrought: key.costwhenbrought
                         };
 
 
@@ -245,12 +249,14 @@ class Transaction extends React.Component {
         })
         return newData.map((product, index) => {
             console.log("product ", product);
-            const {productId, productName, costPerItem, unitsAvailable, amount, index1, serviceProvider} = product//destructuring
+            const {productId, productName, donation, costwhenbrought, costPerItem, unitsAvailable, amount, index1, serviceProvider} = product//destructuring
             return (
                 <tr key={productId}>
                     <td align={"center"}>{productId}</td>
                     <td align={"center"}>{productName}</td>
                     <td align={"center"}>{costPerItem}</td>
+                    <td align={"center"}>{donation}</td>
+                    <td align={"center"}>{costwhenbrought}</td>
                     <td align={"center"}>{unitsAvailable}</td>
                     <td><InputNumber min={0} max={unitsAvailable} defaultValue={0}
                                      onBlur={(e) => this.takeIntput(e, index1)}/></td>
