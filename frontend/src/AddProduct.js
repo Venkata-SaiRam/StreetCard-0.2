@@ -2,6 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
 import {Button, Cascader, Form, Input, InputNumber, Layout} from "antd";
+import './LabelWrap.css';
 
 
 const {Content} = Layout;
@@ -72,6 +73,18 @@ const serviceProvider = [
     }
 ];
 
+const donationResponse = [
+    {
+        value:0,
+        label:"No"
+    },
+    {
+        value:1,
+        label:"Yes"
+    },
+
+]
+
 class AddProduct extends React.Component {
 
     constructor(props) {
@@ -92,6 +105,8 @@ class AddProduct extends React.Component {
                 var newProduct = {};
                 newProduct.productName = values.productName;
                 newProduct.category = values.category[0];
+                newProduct.donation = values.donationValue[0];
+                newProduct.costwhenbrought = values.itemCost;
                 newProduct.unitsAvailable = values.unitsAvailable;
                 newProduct.costPerItem = values.costPerItem;
                 newProduct.serviceProvider = values.serviceProvider[0];
@@ -118,7 +133,7 @@ class AddProduct extends React.Component {
             <Content>
                 <div>
                     <Form onSubmit={this.handleSubmit}>
-                        <Form.Item>
+                        <Form.Item label="Product Name:">
                             {getFieldDecorator("productName", {
                                 rules: [
                                     {
@@ -128,7 +143,7 @@ class AddProduct extends React.Component {
                                 ]
                             })(<Input placeholder="Product Name"/>)}
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item label="Product Category">
                             {getFieldDecorator("category", {
                                 rules: [
                                     {
@@ -138,7 +153,30 @@ class AddProduct extends React.Component {
                                 ]
                             })(<Cascader options={category} placeholder="Category"/>)}
                         </Form.Item>
-                        <Form.Item style={{width: '30%'}}>
+                       
+                        <Form.Item label="Donation" style={{width: '50%'}}>
+                            {getFieldDecorator("donationValue", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: "Please select a valid field value!"
+                                    }
+                                ]
+                            })(<Cascader options={donationResponse} placeholder="Select the donation value"/>)}
+                        </Form.Item>
+
+                        <Form.Item label="Item cost" style={{width: '50%'}}>
+                            {getFieldDecorator("itemCost", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: "Please enter a cost value!"
+                                    }
+                                ]
+                            })(<InputNumber min={1} placeholder="Enter a cost amount"/>)}
+                        </Form.Item>
+
+                        <Form.Item label="No of units" style={{width: '50%'}}>
                             {getFieldDecorator("unitsAvailable", {
                                 rules: [
                                     {
@@ -148,7 +186,8 @@ class AddProduct extends React.Component {
                                 ]
                             })(<InputNumber min={1} placeholder="Number of units"/>)}
                         </Form.Item>
-                        <Form.Item style={{width: '30%'}}>
+
+                        <Form.Item label = "Price per unit" style={{width: '50%'}}>
                             {getFieldDecorator("costPerItem", {
                                 rules: [
                                     {
@@ -158,7 +197,7 @@ class AddProduct extends React.Component {
                                 ]
                             })(<InputNumber min={0.00} step={0.01} placeholder="Cost Per Item"/>)}
                         </Form.Item>
-                        <Form.Item>
+                        <Form.Item label="Service Provider">
                             {getFieldDecorator("serviceProvider", {
                                 rules: [
                                     {
