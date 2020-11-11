@@ -149,48 +149,143 @@ class CoordinatedEntryEvent extends Component {
   }
 
   render() {
-   const { coordinatedEntryEvent } = this.props;
-   const { getFieldDecorator } = coordinatedEntryEvent.form;
-   const message = "Mandatory field! Please provide a response.";
-   return (
-     <Collapse style={{ backgroundColor: "#f0f9ff" }}>
-       <Panel header="Coordinated Entry Event" key="6">
-         <Row gutter={8}>
-           <Col span={8}>
-             <Form.Item label="Date of Event">
-               {getFieldDecorator("dateOfEvent", {
-                 rules: [
-                   {
-                     message: { message },
-                     required: true
-                   }
-                 ]
-               })(<DatePicker style={{ width: "100%" }} />)}
-             </Form.Item>
-           </Col>
-           <Col span={8}>
-             <Form.Item label="Event">
-               {getFieldDecorator("eventInformation", {
-                 rules: [
-                   {
-                     message: { message },
-                     required: true,
-                     type: "array"
-                   }
-                 ]
-               })(
-                 <Cascader
-                   onChange={this.handleDropDownChange.bind(this)}
-                   placeholder="Select.."
-                   options={TypeOfEventResponse}
-                 ></Cascader>
-               )}
-             </Form.Item>
-             </Col>
-           </Row>
-         </Panel>
-       </Collapse>
-     );
-   }
+    const { coordinatedEntryEvent } = this.props;
+    const { getFieldDecorator } = coordinatedEntryEvent.form;
+    const message = "Mandatory field! Please provide a response.";
+    return (
+      <Collapse style={{ backgroundColor: "#f0f9ff" }}>
+        <Panel header="Coordinated Entry Event" key="6">
+          <Row gutter={8}>
+            <Col span={8}>
+              <Form.Item label="Date of Event">
+                {getFieldDecorator("dateOfEvent", {
+                  rules: [
+                    {
+                      message: { message },
+                      required: true
+                    }
+                  ]
+                })(<DatePicker style={{ width: "100%" }} />)}
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Event">
+                {getFieldDecorator("eventInformation", {
+                  rules: [
+                    {
+                      message: { message },
+                      required: true,
+                      type: "array"
+                    }
+                  ]
+                })(
+                  <Cascader
+                    onChange={this.handleDropDownChange.bind(this)}
+                    placeholder="Select.."
+                    options={TypeOfEventResponse}
+                  ></Cascader>
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Client housed/re-housed in a safe alternative">
+                {getFieldDecorator("rehousedInformation", {
+                  rules: [
+                    {
+                      message: { message },
+                      required: false,
+                      type: "array"
+                    }
+                  ]
+                })(
+                  <Cascader
+                    disabled={this.state.clientHousedDisabled}
+                    placeholder="Rehoused Information"
+                    options={YesNoResponse}
+                  ></Cascader>
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={8}>
+            <Col span={8}>
+              <Form.Item label="Enrolled in Aftercare project">
+                {getFieldDecorator("afterCareInformation", {
+                  rules: [
+                    {
+                      message: { message },
+                      type: "array",
+                      required: false
+                    }
+                  ]
+                })(
+                  <Cascader
+                    disabled={this.state.afterCareEnrolledDisabled}
+                    placeholder="After Care Information"
+                    options={YesNoResponse}
+                  ></Cascader>
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Location of Crisis Housing or Permanent Housing Referral [Project name/HMIS ID]">
+                {getFieldDecorator("housingLocation", {
+                  rules: [
+                    {
+                      message: { message },
+                      required: false
+                    }
+                  ]
+                })(
+                  <Input
+                    disabled={this.state.referralDisabled}
+                    placeholder="[Project name/HMIS ID]"
+                  ></Input>
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Referral Result">
+                {getFieldDecorator("referralResult", {
+                  rules: [
+                    {
+                      message: { message },
+                      type: "array",
+                      required: false
+                    }
+                  ]
+                })(
+                  <Cascader
+                    disabled={this.state.referralDisabled}
+                    placeholder="Referral Result"
+                    options={EventResultType}
+                  ></Cascader>
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={8}>
+            <Col span={8}>
+              <Form.Item label="Date of Result">
+                {getFieldDecorator("dateOfResult", {
+                  rules: [
+                    {
+                      message: { message },
+                      required: false
+                    }
+                  ]
+                })(
+                  <DatePicker
+                    style={{ width: "100%" }}
+                    disabled={this.state.referralDisabled}
+                  ></DatePicker>
+                )}
+              </Form.Item>
+            </Col>
+          </Row>
+        </Panel>
+      </Collapse>
+    );
+  }
 }
 export default CoordinatedEntryEvent;
