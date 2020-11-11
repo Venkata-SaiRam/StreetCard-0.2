@@ -185,10 +185,10 @@ class Product(models.Model):
     productId = models.CharField(primary_key=True, default=None, max_length=32, blank=True)
     costPerItem = models.FloatField()
     unitsAvailable = models.IntegerField()
-    donation = models.IntegerField(choices=YesNoResponse.choices)
-    costwhenbrought = models.IntegerField(blank=True)
     serviceProvider = models.TextField(choices=ServiceProvider.choices)
     category = models.TextField(choices=Category.choices, default=None, null=False)
+    donation = models.IntegerField(choices=YesNoResponse.choices,blank=True)
+    costwhenbrought = models.IntegerField(blank=True)
 
     def __str__(self):
         return self.productName
