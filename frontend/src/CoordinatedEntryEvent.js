@@ -93,3 +93,104 @@ const EventResultType = [
     label: "Unsuccessful referral: provider rejected"
   }
 ];
+
+class CoordinatedEntryEvent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      clientHousedDisabled: true,
+      afterCareEnrolledDisabled: true,
+      referralDisabled: true
+    };
+  }
+
+  handleDropDownChange(values) {
+    console.log(values);
+    if (values[0] === 2) {
+      this.setState({
+        clientHousedDisabled: false,
+        afterCareEnrolledDisabled: true,
+        referralDisabled: true
+      });
+      this.props.coordinatedEntryEvent.form.resetFields("afterCareInformation");
+      this.props.coordinatedEntryEvent.form.resetFields("housingLocation");
+      this.props.coordinatedEntryEvent.form.resetFields("referralResult");
+      this.props.coordinatedEntryEvent.form.resetFields("dateOfResult");
+    } else if (values[0] === 5) {
+      this.setState({
+        afterCareEnrolledDisabled: false,
+        clientHousedDisabled: true,
+        referralDisabled: true
+      });
+      this.props.coordinatedEntryEvent.form.resetFields("rehousedInformation");
+      this.props.coordinatedEntryEvent.form.resetFields("housingLocation");
+      this.props.coordinatedEntryEvent.form.resetFields("referralResult");
+      this.props.coordinatedEntryEvent.form.resetFields("dateOfResult");
+    } else if (values[0] > 9) {
+      this.setState({
+        clientHousedDisabled: true,
+        afterCareEnrolledDisabled: true,
+        referralDisabled: false
+      });
+      this.props.coordinatedEntryEvent.form.resetFields("rehousedInformation");
+      this.props.coordinatedEntryEvent.form.resetFields("afterCareInformation");
+    } else {
+      this.setState({
+        clientHousedDisabled: true,
+        afterCareEnrolledDisabled: true,
+        referralDisabled: true
+      });
+      this.props.coordinatedEntryEvent.form.resetFields("rehousedInformation");
+      this.props.coordinatedEntryEvent.form.resetFields("afterCareInformation");
+      this.props.coordinatedEntryEvent.form.resetFields("housingLocation");
+      this.props.coordinatedEntryEvent.form.resetFields("referralResult");
+      this.props.coordinatedEntryEvent.form.resetFields("dateOfResult");
+    }
+  }
+
+  render() {
+   const { coordinatedEntryEvent } = this.props;
+   const { getFieldDecorator } = coordinatedEntryEvent.form;
+   const message = "Mandatory field! Please provide a response.";
+   return (
+     <Collapse style={{ backgroundColor: "#f0f9ff" }}>
+       <Panel header="Coordinated Entry Event" key="6">
+         <Row gutter={8}>
+           <Col span={8}>
+             <Form.Item label="Date of Event">
+               {getFieldDecorator("dateOfEvent", {
+                 rules: [
+                   {
+                     message: { message },
+                     required: true
+                   }
+                 ]
+               })(<DatePicker style={{ width: "100%" }} />)}
+             </Form.Item>
+           </Col>
+           <Col span={8}>
+             <Form.Item label="Event">
+               {getFieldDecorator("eventInformation", {
+                 rules: [
+                   {
+                     message: { message },
+                     required: true,
+                     type: "array"
+                   }
+                 ]
+               })(
+                 <Cascader
+                   onChange={this.handleDropDownChange.bind(this)}
+                   placeholder="Select.."
+                   options={TypeOfEventResponse}
+                 ></Cascader>
+               )}
+             </Form.Item>
+             </Col>
+           </Row>
+         </Panel>
+       </Collapse>
+     );
+   }
+}
+export default CoordinatedEntryEvent;
