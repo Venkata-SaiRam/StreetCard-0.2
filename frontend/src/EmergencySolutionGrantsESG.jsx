@@ -9,6 +9,7 @@ import HealthInsurance from "./HealthInsurance";
 import DisablingCondition from "./DisablingCondition";
 import DomesticViolence from "./DomesticViolence";
 import CoordinatedEntryAssessment from "./CoordinatedEntryAssessment";
+import CoordinatedEntryEvent from "./CoordinatedEntryEvent";
 
 const {Panel} = Collapse;
 
@@ -149,7 +150,15 @@ class EmergencySolutionGrantsESG extends Component {
                 coordinatedEntryAssessment.InformationDate = values['assessment_date'] != null ? values['assessment_date'].format('YYYY-MM-DD') : null;
                 coordinatedEntryAssessment.assessment_location = values.assessment_location;
                 enrollmentRequestObject.coordinated_entry_assessment = coordinatedEntryAssessment;
-
+                var coordinatedEntryEvent = {};
+                coordinatedEntryEvent.dateofEvent = values["dateOfEvent"] != null ? values["dateOfEvent"].format("YYYY-MM-DD") : null;
+                coordinatedEntryEvent.event = this.handleValue(values.eventInformation);
+                coordinatedEntryEvent.clienthoused = this.handleValue(values.rehousedInformation);
+                coordinatedEntryEvent.aftercareproject = this.handleValue(values.afterCareInformation);
+                coordinatedEntryEvent.hmisid = values.housingLocation;
+                coordinatedEntryEvent.referralresult = this.handleValue(values.referralResult);
+                coordinatedEntryEvent.dateofresult = values["dateOfResult"] != null ? values["dateOfResult"].format("YYYY-MM-DD") : null;
+                enrollmentRequestObject.coordinatedentryeventESG = coordinatedEntryEvent;
 
                 this.handleEmptyObject(enrollmentRequestObject);
 
@@ -229,6 +238,7 @@ class EmergencySolutionGrantsESG extends Component {
                     <DisablingCondition disablingCondition={this.props}/>
                     <DomesticViolence domesticViolence={this.props}/>
                     <CoordinatedEntryAssessment coordinatedEntryAssessment={this.props}/>
+                    <CoordinatedEntryEvent coordinatedEntryEvent={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
                            key="17">
