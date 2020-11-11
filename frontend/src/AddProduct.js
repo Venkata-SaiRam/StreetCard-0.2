@@ -92,10 +92,20 @@ class AddProduct extends React.Component {
 
         this.state = {
             isLoaded: false,
-
-
+            ifNoDonation: true
         }
 
+    }
+
+    handledonationResponse(fieldName, values) {
+        console.log(fieldName, this)
+        if (values[0] === 0) {
+          this.setState({ ifNoDonation: false });
+        } else {
+          this.setState({ ifNoDonation: true });
+          this.props.form.resetFields(fieldName);
+
+        }
     }
 
     handleSubmit = e => {
@@ -130,9 +140,10 @@ class AddProduct extends React.Component {
     render() {
         const {getFieldDecorator} = this.props.form;
         return (
+        <div>
             <Content>
                 <div>
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form onSubmit={this.handleSubmit} >
                         <Form.Item label="Product Name:">
                             {getFieldDecorator("productName", {
                                 rules: [
@@ -162,7 +173,11 @@ class AddProduct extends React.Component {
                                         message: "Please select a valid field value!"
                                     }
                                 ]
-                            })(<Cascader options={donationResponse} placeholder="Select the donation value"/>)}
+                            })(<Cascader 
+                                    options={donationResponse} 
+                                    placeholder="Select the donation value"
+                                    onChange={this.handledonationResponse.bind(this, "primaryWay")}
+                               />)}
                         </Form.Item>
 
                         <Form.Item label="Item cost" style={{width: '50%'}}>
@@ -173,7 +188,8 @@ class AddProduct extends React.Component {
                                         message: "Please enter a cost value!"
                                     }
                                 ]
-                            })(<InputNumber min={1} placeholder="Enter a cost amount"/>)}
+                            })(<InputNumber min={1} placeholder="Enter a cost amount" 
+                            disabled={this.state.ifNoDonation}/> )}
                         </Form.Item>
 
                         <Form.Item label="No of units" style={{width: '50%'}}>
@@ -215,6 +231,7 @@ class AddProduct extends React.Component {
                     </Form>
                 </div>
             </Content>
+        </div>
         );
 
 
