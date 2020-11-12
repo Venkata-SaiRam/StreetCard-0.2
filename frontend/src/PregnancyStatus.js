@@ -43,14 +43,14 @@ class PregnancyStatus extends Component {
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
             <Panel header="Pregnancy Status" key="13">
                         <Row gutter={8}>
-                            <Col span={8}>
+                        <Col span={8}>
                                 <Form.Item
                                     label="Information Date">
                                     {getFieldDecorator("informationdate_PS", {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -65,7 +65,7 @@ class PregnancyStatus extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
