@@ -655,7 +655,7 @@ class RegistrationForm extends React.Component {
                                         {...formItemLayout}
                                         name="enrollment"
                                         onSubmit={this.handleHomelessPersonRegistrationSubmit}>
-                                        <Collapse
+                                        <Collapse accordion
                                             style={{
                                             backgroundColor: "#f0f9ff"
                                         }}>
