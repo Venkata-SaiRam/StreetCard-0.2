@@ -27,7 +27,7 @@ class CoordinatedEntryAssessment extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -41,7 +41,7 @@ class CoordinatedEntryAssessment extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(<Input/>
