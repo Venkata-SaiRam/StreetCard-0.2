@@ -38,7 +38,7 @@ class FamilyCriticalIssues extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -56,7 +56,7 @@ class FamilyCriticalIssues extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -74,7 +74,7 @@ class FamilyCriticalIssues extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -94,7 +94,7 @@ class FamilyCriticalIssues extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -112,7 +112,7 @@ class FamilyCriticalIssues extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -130,7 +130,7 @@ class FamilyCriticalIssues extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
