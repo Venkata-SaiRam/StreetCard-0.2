@@ -83,7 +83,30 @@ class RhyBcpStatus extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: true
+            isEnabled: true,
+            service_funding_response_disabled: true,
+            run_away_youth_disabled: true
+        }
+    }
+
+    handleYouthEligible(values) {
+        if(values[0] === 1) {
+            this.setState({
+                run_away_youth_disabled: false,
+                service_funding_response_disabled: true,});
+            this.props.rhy_bcp_status.form.resetFields("service_funding_response_disabled");
+
+        }else if(values[0] === 0) {
+            this.setState({
+                run_away_youth_disabled: true,
+                service_funding_response_disabled: false,});
+            this.props.rhy_bcp_status.form.resetFields("run_away_youth_disabled");
+        }else {
+            this.setState({
+                run_away_youth_disabled: true,
+                service_funding_response_disabled: true,});
+            this.props.rhy_bcp_status.form.resetFields("service_funding_response_disabled");
+            this.props.rhy_bcp_status.form.resetFields("run_away_youth_disabled");
         }
     }
 
@@ -102,7 +125,7 @@ class RhyBcpStatus extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -117,13 +140,16 @@ class RhyBcpStatus extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleYouthEligible
+                                            .bind(this)}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -142,6 +168,7 @@ class RhyBcpStatus extends Component {
                                     <Cascader
                                         placeholder="Select.."
                                         options={ServiceFundingResponse}
+                                        disabled={this.state.service_funding_response_disabled}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -162,6 +189,8 @@ class RhyBcpStatus extends Component {
                                         <Cascader
                                         placeholder="Select.."
                                         options={ResponseCategory}
+                                        disabled={this.state.run_away_youth_disabled}
+
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>

@@ -62,7 +62,7 @@ class SafeandApproximateExit extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -80,7 +80,7 @@ class SafeandApproximateExit extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -98,7 +98,7 @@ class SafeandApproximateExit extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -118,7 +118,7 @@ class SafeandApproximateExit extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -136,7 +136,7 @@ class SafeandApproximateExit extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(

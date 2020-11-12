@@ -1465,9 +1465,9 @@ class CoordinatedEntryEvent(models.Model):
     event = models.IntegerField(choices=EventCategory.choices)
     clienthoused = models.IntegerField(choices=YesNoResponse.choices, blank=True)
     aftercareproject = models.IntegerField(choices=YesNoResponse.choices, blank=True)
-    hmisid = models.TextField()
-    referralresult = models.IntegerField(choices=Referralresultcategory.choices)
-    dateofresult = models.DateField()
+    hmisid = models.TextField(blank=True)
+    referralresult = models.IntegerField(choices=Referralresultcategory.choices, blank=True)
+    dateofresult = models.DateField(blank=True)
 
 
 

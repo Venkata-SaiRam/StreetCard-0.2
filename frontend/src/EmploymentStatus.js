@@ -54,7 +54,30 @@ class EmploymentStatus extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: true
+            isEnabled: true,
+            typeofemploymentDisabled: true,
+            whynotemployedDisabled: true,
+        }
+    }
+
+    handleEmployed(values) {
+        if(values[0] === 1) {
+            this.setState({
+                typeofemploymentDisabled: false,
+            whynotemployedDisabled: true,});
+            this.props.employmentStatus.form.resetFields("whynotemployed");
+
+        }else if(values[0] === 0) {
+            this.setState({
+                typeofemploymentDisabled: true,
+            whynotemployedDisabled: false,});
+            this.props.employmentStatus.form.resetFields("typeofemployment");
+        }else {
+            this.setState({
+                typeofemploymentDisabled: true,
+            whynotemployedDisabled: true,});
+            this.props.employmentStatus.form.resetFields("whynotemployed");
+            this.props.employmentStatus.form.resetFields("typeofemployment");
         }
     }
 
@@ -73,7 +96,7 @@ class EmploymentStatus extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -88,13 +111,16 @@ class EmploymentStatus extends Component {
                                             {
                                                 message: {message},
                                                 type: "array",
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
                                         <Cascader
                                             placeholder="Employed"
                                             options={ResponseCategory}
+                                            onChange={this
+                                                .handleEmployed
+                                                .bind(this)}
                                         ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -112,6 +138,7 @@ class EmploymentStatus extends Component {
                                     })(
                                         <Cascader
                                             placeholder="Type Of Employment"
+                                            disabled={this.state.typeofemploymentDisabled}
                                             options={TypeOfEmploymentCategory}
                                         ></Cascader>)}
                                 </Form.Item>
@@ -132,6 +159,7 @@ class EmploymentStatus extends Component {
                                     })(
                                         <Cascader
                                             placeholder="Why Not Employed"
+                                            disabled={this.state.whynotemployedDisabled}
                                             options={WhyNotEmployedCategory}
                                         ></Cascader>)}
                                 </Form.Item>

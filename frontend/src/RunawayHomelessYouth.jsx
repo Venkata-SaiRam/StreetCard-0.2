@@ -65,7 +65,7 @@ class RunawayHomelessYouth extends Component {
         if (e != null) {
             return e[0];
         } else
-            return null;
+            return 1;
     };
 
 
@@ -187,7 +187,7 @@ class RunawayHomelessYouth extends Component {
                 var formerChildWelfare = {}
                 formerChildWelfare.formerChildWelfare = this.handleValue(values.formerWardOfChildWelfare);
                 formerChildWelfare.noofyears = this.handleValue(values.noOfYears);
-                formerChildWelfare.noofmonths = values.noOfMonths;
+                formerChildWelfare.noofmonths = values.noOfMonths ?? 0;
                 enrollmentRequestObject.ChildWelfareFosterRHY = formerChildWelfare;
                 var employmentStatus = {}
                 employmentStatus.InformationDate = values['informationdate_ES'] != null ? values['informationdate_ES'].format('YYYY-MM-DD') : null;

@@ -49,7 +49,18 @@ class ProjectCompletionStatus extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: true
+            isEnabled: true,
+            majorReasonDisabled: true
+        }
+    }
+
+    handleProjectCompletionStatus(values) {
+        if(values[0] === 3 ){
+            this.setState({majorReasonDisabled: false});
+        } else {
+            this.setState({majorReasonDisabled: true});
+            this.props.project_completion.form.resetFields("majorReason");
+
         }
     }
 
@@ -69,13 +80,16 @@ class ProjectCompletionStatus extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={project_status}
+                                        onChange={this
+                                            .handleProjectCompletionStatus
+                                            .bind(this)}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -94,6 +108,7 @@ class ProjectCompletionStatus extends Component {
                                     <Cascader
                                         placeholder="Select.."
                                         options={MajorResponseCategory}
+                                        disabled={this.state.majorReasonDisabled} 
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
