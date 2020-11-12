@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import {Button, Cascader, Form, Input, InputNumber, Layout} from "antd";
+import {Button, Cascader, Form, Input, InputNumber, Layout, Col, Row} from "antd";
 import './LabelWrap.css';
 
 
@@ -73,6 +73,11 @@ const serviceProvider = [
     }
 ];
 
+const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  };
+
 const donationResponse = [
     {
         value:0,
@@ -141,10 +146,11 @@ class AddProduct extends React.Component {
         const {getFieldDecorator} = this.props.form;
         return (
         <div>
-            <Content>
-                <div>
-                    <Form onSubmit={this.handleSubmit} >
-                        <Form.Item label="Product Name:">
+            <Content >
+                <div className="site-layout-content-homeless">
+                    <Form {...layout} onSubmit={this.handleSubmit} >
+                  
+                        <Form.Item labelAlign={"left"} label="Product Name:">
                             {getFieldDecorator("productName", {
                                 rules: [
                                     {
@@ -154,7 +160,8 @@ class AddProduct extends React.Component {
                                 ]
                             })(<Input placeholder="Product Name"/>)}
                         </Form.Item>
-                        <Form.Item label="Product Category">
+                        
+                        <Form.Item labelAlign={"left"}	label="Product Category">
                             {getFieldDecorator("category", {
                                 rules: [
                                     {
@@ -165,7 +172,7 @@ class AddProduct extends React.Component {
                             })(<Cascader options={category} placeholder="Category"/>)}
                         </Form.Item>
                        
-                        <Form.Item label="Donation" style={{width: '50%'}}>
+                        <Form.Item labelAlign={"left"} label="Donation" >
                             {getFieldDecorator("donationValue", {
                                 rules: [
                                     {
@@ -180,7 +187,7 @@ class AddProduct extends React.Component {
                                />)}
                         </Form.Item>
 
-                        <Form.Item label="Item cost" style={{width: '50%'}}>
+                        <Form.Item labelAlign={"left"} label="Item cost" >
                             {getFieldDecorator("itemCost", {
                                 rules: [
                                     {
@@ -188,11 +195,11 @@ class AddProduct extends React.Component {
                                         message: "Please enter a cost value!"
                                     }
                                 ]
-                            })(<InputNumber min={1} placeholder="Enter a cost amount" 
+                            })(<InputNumber style={{width: '100%'}} min={1} placeholder="Enter a cost amount" 
                             disabled={this.state.ifNoDonation}/> )}
                         </Form.Item>
 
-                        <Form.Item label="No of units" style={{width: '50%'}}>
+                        <Form.Item labelAlign={"left"} label="No of units" >
                             {getFieldDecorator("unitsAvailable", {
                                 rules: [
                                     {
@@ -200,10 +207,10 @@ class AddProduct extends React.Component {
                                         message: "Please input number of units!"
                                     }
                                 ]
-                            })(<InputNumber min={1} placeholder="Number of units"/>)}
+                            })(<InputNumber style={{width: '100%'}}   min={1} placeholder="Number of units"/>)}
                         </Form.Item>
 
-                        <Form.Item label = "Price per unit" style={{width: '50%'}}>
+                        <Form.Item labelAlign={"left"} label = "Price per unit" >
                             {getFieldDecorator("costPerItem", {
                                 rules: [
                                     {
@@ -211,9 +218,9 @@ class AddProduct extends React.Component {
                                         message: "Please input the price per unit!"
                                     }
                                 ]
-                            })(<InputNumber min={0.00} step={0.01} placeholder="Cost Per Item"/>)}
+                            })(<InputNumber style={{width: '100%'}}  min={0.00} step={0.01} placeholder="Cost Per Item"/>)}
                         </Form.Item>
-                        <Form.Item label="Service Provider">
+                        <Form.Item labelAlign={"left"} label="Service Provider">
                             {getFieldDecorator("serviceProvider", {
                                 rules: [
                                     {
@@ -224,7 +231,7 @@ class AddProduct extends React.Component {
                             })(<Cascader options={serviceProvider} placeholder="Service Provider"/>)}
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className="login-form-button">
+                            <Button type="primary" Text-align="center" htmlType="submit" className="login-form-button">
                                 Submit
                             </Button>
                         </Form.Item>
