@@ -60,7 +60,7 @@ class PATHStatus extends Component {
                   rules: [
                     {
                       message: { message },
-                      required: false
+                      required: true
                     }
                   ]
                 })(<DatePicker style={{ width: "100%" }} />)}
@@ -72,7 +72,7 @@ class PATHStatus extends Component {
                   rules: [
                     {
                       message: { message },
-                      required: false,
+                      required: true,
                       type: "array"
                     }
                   ]
