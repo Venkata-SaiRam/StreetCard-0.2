@@ -55,6 +55,17 @@ const category = [
     }
 ];
 
+const donationResponse = [
+    {
+        value:0,
+        label:"No"
+    },
+    {
+        value:1,
+        label:"Yes"
+    },
+
+]
 
 class Transaction extends React.Component {
     constructor(props) {
@@ -249,7 +260,14 @@ class Transaction extends React.Component {
         })
         return newData.map((product, index) => {
             console.log("product ", product);
-            const {productId, productName, donation, costwhenbrought, costPerItem, unitsAvailable, amount, index1, serviceProvider} = product//destructuring
+            console.log(donationResponse);
+            var {productId, productName, donation, costwhenbrought, costPerItem, unitsAvailable, amount, index1, serviceProvider} = product//destructuring
+            donationResponse.map((donationValue,index) => {
+                if(donationValue.value === donation){
+                    donation = donationValue.label;
+                }
+            });
+           
             return (
                 <tr key={productId}>
                     <td align={"center"}>{productId}</td>
@@ -281,6 +299,8 @@ class Transaction extends React.Component {
                 sm: {span: 16},
             },
         };
+
+        
         return (
             <Layout className="layout">
                 <Header

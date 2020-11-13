@@ -121,7 +121,7 @@ class AddProduct extends React.Component {
                 newProduct.productName = values.productName;
                 newProduct.category = values.category[0];
                 newProduct.donation = values.donationValue[0];
-                newProduct.costwhenbrought = values.itemCost;
+                newProduct.costwhenbrought = values.itemCost ?? 0;
                 newProduct.unitsAvailable = values.unitsAvailable;
                 newProduct.costPerItem = values.costPerItem;
                 newProduct.serviceProvider = values.serviceProvider[0];
