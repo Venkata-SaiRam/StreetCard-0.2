@@ -191,7 +191,7 @@ class AddProduct extends React.Component {
                             {getFieldDecorator("itemCost", {
                                 rules: [
                                     {
-                                        required: true,
+                                        required: false,
                                         message: "Please enter a cost value!"
                                     }
                                 ]

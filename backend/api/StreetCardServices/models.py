@@ -184,11 +184,11 @@ class Product(models.Model):
     productName = models.CharField(max_length=100)
     productId = models.CharField(primary_key=True, default=None, max_length=32, blank=True)
     costPerItem = models.FloatField()
-    unitsAvailable = models.IntegerField()
+    unitsAvailable = models.IntegerField(null=True)
     serviceProvider = models.TextField(choices=ServiceProvider.choices)
     category = models.TextField(choices=Category.choices, default=None, null=False)
-    donation = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    costwhenbrought = models.IntegerField(blank=True)
+    donation = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    costwhenbrought = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.productName
@@ -209,7 +209,7 @@ class TransactionDetails(models.Model):
     transactionDetailId = models.CharField(primary_key=True, default=None, max_length=32)
     transactionId = models.ForeignKey(Transactions, on_delete=models.CASCADE, default=None)
     productId = models.ForeignKey(Product, on_delete=models.CASCADE)
-    unitPurchased = models.IntegerField()
+    unitPurchased = models.IntegerField(null=True)
 
 # Log table, used to display information on Case Worker page
 # Log should be recorded whenever greeter swipes card
@@ -225,8 +225,8 @@ class Log(models.Model):
     personalId = models.ForeignKey(Homeless, on_delete=models.CASCADE, default=None, related_name='Log_PersonalId')
     serviceProvider = models.TextField(choices=ServiceProvider.choices)
     clientName = models.CharField(max_length=500, blank=True, default="")
-    totalAmount = models.IntegerField()
-    unitPurchased = models.IntegerField()
+    totalAmount = models.IntegerField(null=True)
+    unitPurchased = models.IntegerField(null=True)
 
 
 class UserNameAndIdMapping(models.Model):
@@ -234,7 +234,7 @@ class UserNameAndIdMapping(models.Model):
     This class is for mapping user name to database identification number
     """
     user_name = models.CharField(max_length=32, primary_key=True, unique=True)
-    user_id = models.IntegerField()
+    user_id = models.IntegerField(null=True)
 
 
 class Appointments(models.Model):
@@ -383,19 +383,19 @@ class HealthInsurance(models.Model):
 
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE, related_name='HealthInsurance_EnrollmentID', default=None)
     InformationDate = models.DateField()
-    CoveredByHealthInsurance = models.IntegerField(choices=ResponseCategory.choices,blank=True)
-    Medicaid = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    Medicare = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    SCHIP = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    VAMedicalServices = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    EmployerProvided = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    COBRA = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    PrivatePay = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    StateHealthInsuranceForAdults = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    IndianHealthServices = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    OtherInsurance = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    SpecifySource = models.CharField(max_length=50,blank=True)
-    Reason = models.TextField(choices=InsuranceReasonCategory.choices,blank=True)
+    CoveredByHealthInsurance = models.IntegerField(choices=ResponseCategory.choices,blank=True, null=True)
+    Medicaid = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    Medicare = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    SCHIP = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    VAMedicalServices = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    EmployerProvided = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    COBRA = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    PrivatePay = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    StateHealthInsuranceForAdults = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    IndianHealthServices = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    OtherInsurance = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    SpecifySource = models.CharField(max_length=50,blank=True, null=True)
+    Reason = models.TextField(choices=InsuranceReasonCategory.choices,blank=True, null=True)
 
 
 class NonCashBenefits(models.Model):
@@ -405,14 +405,14 @@ class NonCashBenefits(models.Model):
     InformationDate = models.DateField()
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE, related_name='NonCashBenefits_EnrollmentID',
                                      default=None)
-    BenefitsFromAnySource = models.IntegerField(choices=ResponseCategory.choices,blank=True)
-    SNAP = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    WIC = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    TANFChildCare = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    TANFTransportation = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    OtherTANF = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    OtherSource = models.IntegerField(choices=YesNoResponse.choices,blank=True)
-    SpecifySource = models.CharField(max_length=50,blank=True)
+    BenefitsFromAnySource = models.IntegerField(choices=ResponseCategory.choices,blank=True, null=True)
+    SNAP = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    WIC = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    TANFChildCare = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    TANFTransportation = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    OtherTANF = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    OtherSource = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
+    SpecifySource = models.CharField(max_length=50,blank=True, null=True)
     #RentalAssistanceOngoing = models.IntegerField(null=True)
     #RentalAssistanceTemp = models.IntegerField(null=True)
     #DataCollectionStage = models.IntegerField(null=True)
@@ -426,8 +426,8 @@ class DomesticViolence(models.Model):
                                      related_name='DomesticViolence_EnrollmentID',default=None)
     InformationDate = models.DateField()
     DomesticViolenceVictim = models.IntegerField(choices=YesNoResponse.choices)
-    WhenOccurred = models.IntegerField(choices=DomesticViolenceOccurrence.choices,blank=True)
-    CurrentlyFleeing = models.IntegerField(choices=ResponseCategory.choices,blank=True)
+    WhenOccurred = models.IntegerField(choices=DomesticViolenceOccurrence.choices,blank=True, null=True)
+    CurrentlyFleeing = models.IntegerField(choices=ResponseCategory.choices,blank=True, null=True)
 
 
 class DisablingCondition(models.Model):
@@ -877,11 +877,11 @@ class TCellCD4AndViralLoadHOPWA(models.Model):
         CLIENT_REPORT = 2, _('Client Report')
         OTHER = 3, _('Other')
     InformationDate = models.DateField()
-    IfYesTCellCount = models.IntegerField(validators=[MaxValueValidator(1500), MinValueValidator(0)],blank=True)
-    HowWasTheInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices,blank=True)
+    IfYesTCellCount = models.IntegerField(validators=[MaxValueValidator(1500), MinValueValidator(0)],blank=True,null=True)
+    HowWasTheInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices,blank=True,null=True)
     ViralLoadInformationAvailable = models.IntegerField(choices=ResponseCategory.choices)
-    ViralLoadCount = models.IntegerField(validators=[MaxValueValidator(999999), MinValueValidator(0)],blank=True)
-    HowWasTheViralInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices,blank=True)
+    ViralLoadCount = models.IntegerField(validators=[MaxValueValidator(999999), MinValueValidator(0)],blank=True,null=True)
+    HowWasTheViralInformationObtained = models.IntegerField(choices=InformationObtainedResponseCategory.choices,blank=True,null=True)
     TCellCD4CountAvailable = models.IntegerField(choices=ResponseCategory.choices)
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='TCellCD4AndViralLoadHOPWA_EnrollmentID',
@@ -907,9 +907,9 @@ class MedicalAssistanceHOPWA(models.Model):
 
     InformationDate = models.DateField()
     ReceivingPublicHIVAIDSMedicalAssistance = models.IntegerField(choices=ResponseCategory.choices)
-    IfNoReason = models.IntegerField(choices=IfNoReasonTypeCategory.choices,blank=True)
+    IfNoReason = models.IntegerField(choices=IfNoReasonTypeCategory.choices,blank=True,null=True)
     ReceivingAIDSDrugAssistanceProgram = models.IntegerField(choices=ResponseCategory.choices)
-    IfNoReasonADAP = models.IntegerField(choices=IfNoReasonTypeCategory.choices,blank=True)
+    IfNoReasonADAP = models.IntegerField(choices=IfNoReasonTypeCategory.choices,blank=True,null=True)
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='MedicalAssistanceHOPWA_EnrollmentID',
                                      default=None)
@@ -959,8 +959,8 @@ class HousingAssessmentAtExitHOPWA(models.Model):
                                      related_name='HousingAssessmentAtExitHOPWA_EnrollmentID',
                                      default=None)
     HousingAssessmentAtExit = models.IntegerField(choices=HousingAssessmentAtExitResponseCategory.choices)
-    SubsidyInformation = models.IntegerField(choices=SubsidyInformationResponseCategory.choices,blank=True)
-    AnotherSubsidyInformation = models.IntegerField(choices=AnotherSubsidyInformationResponseCategory.choices,blank=True)
+    SubsidyInformation = models.IntegerField(choices=SubsidyInformationResponseCategory.choices,blank=True,null=True)
+    AnotherSubsidyInformation = models.IntegerField(choices=AnotherSubsidyInformationResponseCategory.choices,blank=True,null=True)
 
 class LabourExploitationTrafficking(models.Model):
 
@@ -969,8 +969,8 @@ class LabourExploitationTrafficking(models.Model):
                                      default=None)
     leavejob = models.IntegerField(choices=ResponseCategory.choices)
     paymentdifference = models.IntegerField(choices=ResponseCategory.choices)
-    forcedintojob = models.IntegerField(choices=ResponseCategory.choices,blank=True)
-    last3months = models.IntegerField(choices=ResponseCategory.choices, blank=True)
+    forcedintojob = models.IntegerField(choices=ResponseCategory.choices,blank=True,null=True)
+    last3months = models.IntegerField(choices=ResponseCategory.choices, blank=True,null=True)
 
 class ChildWelfareFoster(models.Model):
 
@@ -985,8 +985,8 @@ class ChildWelfareFoster(models.Model):
                                      related_name='ChildWelfareFoster_EnrollmentID',
                                      default=None)
     formerChildWelfare = models.IntegerField(choices=ResponseCategory.choices)
-    noofyears = models.IntegerField(choices=NoofYearsCategory.choices,blank=True)
-    noofmonths = models.IntegerField(blank=True)
+    noofyears = models.IntegerField(choices=NoofYearsCategory.choices,blank=True,null=True)
+    noofmonths = models.IntegerField(blank=True,null=True)
 
 class GeneralHealthStatus(models.Model):
 
@@ -1041,10 +1041,10 @@ class SexualExploitation(models.Model):
                                      related_name='SexualExploitation_EnrollmentID',
                                      default=None)
     receivedanything=models.IntegerField(choices=ResponseCategory.choices)
-    receivedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices,blank=True)
-    howmanytimes=models.IntegerField(choices=NoofTimesResponse.choices,blank=True)
-    forcedanything=models.IntegerField(choices=ResponseCategory.choices,blank=True)
-    forcedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices,blank=True)
+    receivedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices,blank=True,null=True)
+    howmanytimes=models.IntegerField(choices=NoofTimesResponse.choices,blank=True,null=True)
+    forcedanything=models.IntegerField(choices=ResponseCategory.choices,blank=True,null=True)
+    forcedlastthreemonths=models.IntegerField(choices=ResponseCategory.choices,blank=True,null=True)
 
 class SafeandAppropriateExit(models.Model):
 
@@ -1073,8 +1073,8 @@ class Counseling(models.Model):
                                      related_name='Counseling_EnrollmentID',
                                      default=None)
     receivedbyclient = models.IntegerField(choices=YesNoResponse.choices)
-    typeofCounseling = models.IntegerField(choices=TypeofCounselingCategory.choices,blank=True)
-    noofsessions = models.IntegerField(blank=True)
+    typeofCounseling = models.IntegerField(choices=TypeofCounselingCategory.choices,blank=True,null=True)
+    noofsessions = models.IntegerField(blank=True,null=True)
     noofsessionsplanned = models.IntegerField()
     continuecounseling = models.IntegerField(choices=YesNoResponse.choices)
 
@@ -1130,7 +1130,7 @@ class ProjectCompletionStatus(models.Model):
                                      related_name='ProjectCompletion_EnrollmentID',
                                      default=None)
     projectcompletion = models.IntegerField(choices=ProjectCompletionCategory.choices)
-    majorreason = models.IntegerField(choices=majorreasoncategory.choices,blank=True)
+    majorreason = models.IntegerField(choices=majorreasoncategory.choices,blank=True,null=True)
 
 class SexualOrientation(models.Model):
     class SexualOrientationCategory(models.IntegerChoices):
@@ -1170,7 +1170,7 @@ class ReferralSource(models.Model):
                                      related_name='Referral_EnrollmentID',
                                      default=None)
     referralsource = models.IntegerField(choices=ReferralCategory.choices)
-    nooftimes = models.IntegerField(blank=True)
+    nooftimes = models.IntegerField(blank=True, null=True)
 
 class AftercarePlans(models.Model):
     class AftercareplansCategory(models.IntegerChoices):
@@ -1187,7 +1187,7 @@ class AftercarePlans(models.Model):
                                      related_name='Aftercareplans_EnrollmentID',
                                      default=None)
     aftercareprovided = models.IntegerField(choices=Yesnocategory.choices)
-    primaryway = models.IntegerField(choices=AftercareplansCategory.choices,blank=True)
+    primaryway = models.IntegerField(choices=AftercareplansCategory.choices,blank=True,null=True)
     InformationDate = models.DateField()
 
 
@@ -1210,8 +1210,8 @@ class RHYBCPStatus(models.Model):
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='RHYBCPStatus_EnrollmentID',
                                      default=None)
-    runawayyouth = models.IntegerField(choices=ResponseCategory.choices,blank=True)
-    notfundedreason = models.IntegerField(choices=notfundedcategory.choices,blank=True)
+    runawayyouth = models.IntegerField(choices=ResponseCategory.choices,blank=True,null=True)
+    notfundedreason = models.IntegerField(choices=notfundedcategory.choices,blank=True,null=True)
     dateofstatus = models.DateField()
     youtheligible = models.IntegerField(choices=YesNoResponse.choices)
 
@@ -1229,8 +1229,8 @@ class EmploymentStatus(models.Model):
                                      related_name='EmploymentStatus_EnrollmentID',
                                      default=None)
     employed = models.IntegerField(choices=ResponseCategory.choices)
-    employmentstatus = models.IntegerField(choices=employmentstatuscategory.choices,blank=True)
-    notemployed = models.IntegerField(choices=notemployedcategory.choices,blank=True)
+    employmentstatus = models.IntegerField(choices=employmentstatuscategory.choices,blank=True,null=True)
+    notemployed = models.IntegerField(choices=notemployedcategory.choices,blank=True,null=True)
     InformationDate = models.DateField()
 
 class RHYConnections(models.Model):
@@ -1271,8 +1271,8 @@ class JuvenileJusticeSystem(models.Model):
                                      related_name='JuvenileJustice_EnrollmentID',
                                      default=None)
     formerjuvenilejustice = models.IntegerField(choices=ResponseCategory.choices)
-    noofyears = models.IntegerField(choices=NoofYearsCategory.choices,blank=True)
-    noofmonths = models.IntegerField(blank=True)
+    noofyears = models.IntegerField(choices=NoofYearsCategory.choices,blank=True,null=True)
+    noofmonths = models.IntegerField(blank=True,null=True)
 
 class DateofEngagement(models.Model):
 
@@ -1398,7 +1398,7 @@ class referralsprovidedpath(models.Model):
 
     Informationdate =models.DateField()
     typeofreferral = models.IntegerField(choices=typeofreferralcategory.choices)
-    outcome = models.IntegerField(choices=outcomeforeachcategory.choices,blank=True)
+    outcome = models.IntegerField(choices=outcomeforeachcategory.choices,blank=True,null=True)
 
 class pathstatus(models.Model):
     class reasonnotenrolledcategory(models.IntegerChoices):
@@ -1412,7 +1412,7 @@ class pathstatus(models.Model):
 
     Informationdate = models.DateField()
     clientenrolled = models.IntegerField(choices=YesNoResponse.choices)
-    reason = models.IntegerField(choices=reasonnotenrolledcategory.choices,blank=True)
+    reason = models.IntegerField(choices=reasonnotenrolledcategory.choices,blank=True,null=True)
 
 class CoordinatedEntryAssessment(models.Model):
     class AssessmentTypeCategory(models.IntegerChoices):
@@ -1463,11 +1463,11 @@ class CoordinatedEntryEvent(models.Model):
                                      default=None)
     dateofEvent=models.DateField()
     event = models.IntegerField(choices=EventCategory.choices)
-    clienthoused = models.IntegerField(choices=YesNoResponse.choices, blank=True)
-    aftercareproject = models.IntegerField(choices=YesNoResponse.choices, blank=True)
-    hmisid = models.TextField(blank=True)
-    referralresult = models.IntegerField(choices=Referralresultcategory.choices, blank=True)
-    dateofresult = models.DateField(blank=True)
+    clienthoused = models.IntegerField(choices=YesNoResponse.choices, blank=True,null=True)
+    aftercareproject = models.IntegerField(choices=YesNoResponse.choices, blank=True,null=True)
+    hmisid = models.TextField(blank=True,null=True)
+    referralresult = models.IntegerField(choices=Referralresultcategory.choices, blank=True,null=True)
+    dateofresult = models.DateField(blank=True,null=True)
 
 
 

@@ -186,66 +186,70 @@ class LogView extends React.Component {
 
         if (this.state.isLoaded) {
             return (
-                <Layout className="layout">
-                    <Header
-                        handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
-                        loggedInStatus={this.props.loggedInStatus}
-                    />
+                <div>
+                    <Layout className="layout">
+                        <Header
+                            handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                            loggedInStatus={this.props.loggedInStatus}
+                        />
 
-                    <Layout>
+                        <Layout>
 
-                        {this.props.location.state.serviceProviderId === "2" ? (
-                            <SiderComponent
-                                setPagecomponent={this.setPagecomponent}
-                            />
-                        ) : (
-                                <SiderComponentServiceProvider
+                            {this.props.location.state.serviceProviderId === "2" ? (
+                                <SiderComponent
                                     setPagecomponent={this.setPagecomponent}
                                 />
-                            )}
-                        <Content className="content-enroll">
-                            <div>
-                                <Table className="site-layout-content-viewappointment"
-                                    dataSource={this.state.dataSource}
-                                    columns={this.state.columns} scroll={{ x: 1500, y: 500 }} />
-                            </div>
-                            <div style={{float: 'right', marginTop: '20px'}}>
-                                <Button onClick={this.downloadExcel} size='large'> 
-                                    Download as Excel Sheet
-                                </Button>
-                            </div>
-                        </Content>
+                            ) : (
+                                    <SiderComponentServiceProvider
+                                        setPagecomponent={this.setPagecomponent}
+                                    />
+                                )}
+                            <Content className="content-enroll">
+                                <div>
+                                    <Table className="site-layout-content-viewappointment"
+                                        dataSource={this.state.dataSource}
+                                        columns={this.state.columns} scroll={{ x: 1500, y: 500 }} />
+                                </div>
+                                <div style={{float: 'right', marginTop: '20px'}}>
+                                    <Button onClick={this.downloadExcel} size='large'>
+                                        Download as Excel Sheet
+                                    </Button>
+                                </div>
+                            </Content>
+                        </Layout>
+                        <StreetCardFooter />
                     </Layout>
-                    <StreetCardFooter />
-                </Layout>
+                </div>
             );
         } else {
             return (
-                <Layout className="layout">
-                    <Header
-                        handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
-                        loggedInStatus={this.props.loggedInStatus}
-                    />
+                <div>
+                    <Layout className="layout">
+                        <Header
+                            handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                            loggedInStatus={this.props.loggedInStatus}
+                        />
 
-                    <Layout>
-                        {this.props.location.state.serviceProviderId === "2" ? (
-                            <SiderComponent
-                                setPagecomponent={this.setPagecomponent}
-                            />
-                        ) : (
-                                <SiderComponentServiceProvider
+                        <Layout>
+                            {this.props.location.state.serviceProviderId === "2" ? (
+                                <SiderComponent
                                     setPagecomponent={this.setPagecomponent}
                                 />
-                            )}
+                            ) : (
+                                    <SiderComponentServiceProvider
+                                        setPagecomponent={this.setPagecomponent}
+                                    />
+                                )}
 
-                        <Content className="content-login">
-                            <div className="site-layout-content-login">
-                                <span>Loading . . .<Spin size="small" /></span>
-                            </div>
-                        </Content>
+                            <Content className="content-login">
+                                <div className="site-layout-content-login">
+                                    <span>Loading . . .<Spin size="small" /></span>
+                                </div>
+                            </Content>
+                        </Layout>
+                        <StreetCardFooter />
                     </Layout>
-                    <StreetCardFooter />
-                </Layout>
+                </div>
             );
         }
 

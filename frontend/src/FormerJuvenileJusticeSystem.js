@@ -81,7 +81,7 @@ class FormerJuvenileJusticeSystem extends Component {
                   rules: [
                     {
                       message: { message },
-                      required: false,
+                      required: true,
                       type: "array"
                     }
                   ]
