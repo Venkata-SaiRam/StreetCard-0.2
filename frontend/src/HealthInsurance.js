@@ -113,7 +113,7 @@ class HealthInsurance extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false,
+                                            required: true,
                                             type: "array"
                                         }
                                     ]
@@ -132,7 +132,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -151,7 +151,7 @@ class HealthInsurance extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(<Cascader
@@ -169,7 +169,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -186,7 +186,7 @@ class HealthInsurance extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -206,7 +206,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -223,7 +223,7 @@ class HealthInsurance extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -241,7 +241,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -261,7 +261,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -279,7 +279,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -297,7 +297,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -334,7 +334,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
