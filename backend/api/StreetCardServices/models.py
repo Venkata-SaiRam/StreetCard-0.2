@@ -533,17 +533,17 @@ class VeteranInformation(models.Model):
                                      related_name='VeteranInformation_EnrollmentID', default=None)
     YearEnteredMilitaryService = models.PositiveIntegerField()
     YearSeparatedFromMilitaryService = models.PositiveIntegerField()
-    TheatreOfOperations_WorldWar2 = models.IntegerField(choices=ResponseCategory.choices)
-    TheatreOfOperations_KoreanWar = models.IntegerField(choices=ResponseCategory.choices)
-    TheatreOfOperations_VietnamWar = models.IntegerField(choices=ResponseCategory.choices)
-    TheatreOfOperations_PersianGulfWar = models.IntegerField(choices=ResponseCategory.choices)
-    TheatreOfOperations_Afghanistan = models.IntegerField(choices=ResponseCategory.choices)
-    TheatreOfOperations_Iraq_IraqiFreedom = models.IntegerField(choices=ResponseCategory.choices)
-    TheatreOfOperations_Iraq_NewDawn = models.IntegerField(choices=ResponseCategory.choices)
+    TheatreOfOperations_WorldWar2 = models.IntegerField(choices=ResponseCategory.choices,blank=True, null=True)
+    TheatreOfOperations_KoreanWar = models.IntegerField(choices=ResponseCategory.choices,blank=True, null=True)
+    TheatreOfOperations_VietnamWar = models.IntegerField(choices=ResponseCategory.choices,blank=True, null=True)
+    TheatreOfOperations_PersianGulfWar = models.IntegerField(choices=ResponseCategory.choices,blank=True, null=True)
+    TheatreOfOperations_Afghanistan = models.IntegerField(choices=ResponseCategory.choices,blank=True, null=True)
+    TheatreOfOperations_Iraq_IraqiFreedom = models.IntegerField(choices=ResponseCategory.choices,blank=True, null=True)
+    TheatreOfOperations_Iraq_NewDawn = models.IntegerField(choices=ResponseCategory.choices,blank=True, null=True)
     TheatreOfOperations_OtherPeacekeepingOperations = models.IntegerField(
-        choices=ResponseCategory.choices)
-    BranchOfMilitary = models.IntegerField(choices=MilitaryBranchCategory.choices)
-    DischargeStatus = models.IntegerField(choices=DischargeStatusCategory.choices)
+        choices=ResponseCategory.choices,blank=True, null=True)
+    BranchOfMilitary = models.IntegerField(choices=MilitaryBranchCategory.choices,blank=True, null=True)
+    DischargeStatus = models.IntegerField(choices=DischargeStatusCategory.choices,blank=True, null=True)
 
 
 class ServicesProvidedSSVF(models.Model):
@@ -610,14 +610,14 @@ class ServicesProvidedSSVF(models.Model):
 
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='ServicesProvidedSSVF_EnrollmentID', default=None)
-    DateOfService = models.DateField()
-    TypeOfService = models.IntegerField(choices=TypeOfServiceCategory.choices)
-    IfAssistanceObtainingVABenefits = models.IntegerField(choices=IfAssistanceObtainingVABenefitsCategory.choices)
+    DateOfService = models.DateField(blank=True, null=True)
+    TypeOfService = models.IntegerField(choices=TypeOfServiceCategory.choices,blank=True, null=True)
+    IfAssistanceObtainingVABenefits = models.IntegerField(choices=IfAssistanceObtainingVABenefitsCategory.choices,blank=True, null=True)
     IfAssistanceObtainingOrCoordinatingOtherPublicBenefits = models.IntegerField(
-        choices=IfAssistanceObtainingOrCoordinatingOtherPublicBenefitsCategory.choices)
+        choices=IfAssistanceObtainingOrCoordinatingOtherPublicBenefitsCategory.choices,blank=True, null=True)
     IfDirectProvisionOfOtherPublicBenefits = models.IntegerField(
-        choices=IfDirectProvisionOfOtherPublicBenefitsCategory.choices)
-    IfOtherSupportiveServiceApprovedByVA = models.TextField()
+        choices=IfDirectProvisionOfOtherPublicBenefitsCategory.choices,blank=True, null=True)
+    IfOtherSupportiveServiceApprovedByVA = models.TextField(blank=True, null=True)
 
 
 class FinancialAssistanceSSVF(models.Model):
