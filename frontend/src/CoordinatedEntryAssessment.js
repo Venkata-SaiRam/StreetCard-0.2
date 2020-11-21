@@ -4,6 +4,44 @@ import './LabelWrap.css';
 
 const {Panel} = Collapse;
 
+const AssessmentTypeResponse = [
+    {
+        value: 1,
+        label: "Phone"
+    },
+    {
+        value: 2,
+        label: "Virtual"
+    },
+    {
+        value: 3,
+        label: "In person"
+    }
+]
+
+const AssessmentLevelResponse = [
+    {
+        value: 1,
+        label: "Critical Needs Assessment"
+    },
+    {
+        value: 2,
+        label: "Housing Needs Assessment"
+    }
+]
+
+const PrioritizationStatusResponse = [
+    {
+        value: 1,
+        label: "Placed on Prioritization List"
+    },
+    {
+        value: 2,
+        label: "Not placed on Prioritization List"
+    }
+]
+
+
 class CoordinatedEntryAssessment extends Component {
     constructor(props) {
         super(props);
@@ -46,6 +84,57 @@ class CoordinatedEntryAssessment extends Component {
                                     ]
                                 })(<Input/>
                                     )}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Assessment Type"
+                                >   {getFieldDecorator("assessment_type", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={AssessmentTypeResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Assessment Level"
+                                >   {getFieldDecorator("assessment_level", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={AssessmentLevelResponse}
+                                    ></Cascader>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Prioritization Status"
+                                >   {getFieldDecorator("prioritization_status", {
+                                    rules: [
+                                        {
+                                            message: {message},
+                                            required: false
+                                        }
+                                    ]
+                                })(
+                                    <Cascader
+                                        placeholder="Select.."
+                                        options={PrioritizationStatusResponse}
+                                    ></Cascader>)}
                                 </Form.Item>
                             </Col>
                         </Row>
