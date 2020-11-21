@@ -41,13 +41,14 @@ class LogView extends React.Component {
                     title: 'Service Provider',
                     dataIndex: 'serviceProvider',
                 },
-                {
-                    title: 'Total Amount',
-                    dataIndex: 'totalAmount',
-                },
+                
                 {
                     title: 'Units Purchased',
                     dataIndex: 'unitPurchased',
+                },
+                {
+                    title: 'Total Amount',
+                    dataIndex: 'totalAmount',
                 },
 
             ],
@@ -67,7 +68,6 @@ class LogView extends React.Component {
         }
 
         this.handleSuccessfulLogoutAction = this.handleSuccessfulLogoutAction.bind(this);
-        this.setPagecomponent = this.setPagecomponent.bind(this);
     }
 
     componentDidMount() {
@@ -107,12 +107,6 @@ class LogView extends React.Component {
         this.props.handleLogout();
         this.props.history.push('/login');
     }
-
-
-    setPagecomponent(pageComponentValue) {
-        this.props.updatePageComponent(pageComponentValue)
-        this.props.history.push('/socialWorkerRegister');
-    };
 
     downloadExcel = () => {
         const data = this.state.dataSource ?? '';//tabular data
@@ -195,20 +189,16 @@ class LogView extends React.Component {
 
                         <Layout>
 
-                            {this.props.location.state.serviceProviderId === "2" ? (
-                                <SiderComponent
-                                    setPagecomponent={this.setPagecomponent}
-                                />
-                            ) : (
-                                    <SiderComponentServiceProvider
-                                        setPagecomponent={this.setPagecomponent}
-                                    />
-                                )}
                             <Content className="content-enroll">
                                 <div>
                                     <Table className="site-layout-content-viewappointment"
                                         dataSource={this.state.dataSource}
                                         columns={this.state.columns} scroll={{ x: 1500, y: 500 }} />
+                                </div>
+                                <div style={{float: 'left', marginTop: '20px'}}>
+                                    <Button onClick={this.props.history.goBack} size='large'>
+                                       Go Back
+                                    </Button>
                                 </div>
                                 <div style={{float: 'right', marginTop: '20px'}}>
                                     <Button onClick={this.downloadExcel} size='large'>
@@ -231,15 +221,7 @@ class LogView extends React.Component {
                         />
 
                         <Layout>
-                            {this.props.location.state.serviceProviderId === "2" ? (
-                                <SiderComponent
-                                    setPagecomponent={this.setPagecomponent}
-                                />
-                            ) : (
-                                    <SiderComponentServiceProvider
-                                        setPagecomponent={this.setPagecomponent}
-                                    />
-                                )}
+                            
 
                             <Content className="content-login">
                                 <div className="site-layout-content-login">
