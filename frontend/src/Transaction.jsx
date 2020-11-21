@@ -336,6 +336,11 @@ class Transaction extends React.Component {
                                         </td>
                                     </tr>
                                 </table>
+                                <div style={{float: 'left', marginTop: '20px'}}>
+                                    <Button onClick={this.props.history.goBack} size='large'>
+                                       Go Back
+                                    </Button>
+                                </div>
                             </Form>
                         </div>
                     </Content>
