@@ -149,6 +149,9 @@ class EmergencySolutionGrantsESG extends Component {
                 var coordinatedEntryAssessment = {};
                 coordinatedEntryAssessment.InformationDate = values['assessment_date'] != null ? values['assessment_date'].format('YYYY-MM-DD') : null;
                 coordinatedEntryAssessment.assessment_location = values.assessment_location;
+                coordinatedEntryAssessment.assessment_type = this.handleValue(values.assessment_type);
+                coordinatedEntryAssessment.assessment_level = this.handleValue(values.assessment_level);
+                coordinatedEntryAssessment.prioritization_status = this.handleValue(values.prioritization_status);
                 enrollmentRequestObject.coordinated_entry_assessment = coordinatedEntryAssessment;
                 var coordinatedEntryEvent = {};
                 coordinatedEntryEvent.dateofEvent = values["dateOfEvent"] != null ? values["dateOfEvent"].format("YYYY-MM-DD") : null;
