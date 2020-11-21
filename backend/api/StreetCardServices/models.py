@@ -610,14 +610,14 @@ class ServicesProvidedSSVF(models.Model):
 
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='ServicesProvidedSSVF_EnrollmentID', default=None)
-    DateOfService = models.DateField()
-    TypeOfService = models.IntegerField(choices=TypeOfServiceCategory.choices)
-    IfAssistanceObtainingVABenefits = models.IntegerField(choices=IfAssistanceObtainingVABenefitsCategory.choices)
+    DateOfService = models.DateField(blank=True, null=True)
+    TypeOfService = models.IntegerField(choices=TypeOfServiceCategory.choices,blank=True, null=True)
+    IfAssistanceObtainingVABenefits = models.IntegerField(choices=IfAssistanceObtainingVABenefitsCategory.choices,blank=True, null=True)
     IfAssistanceObtainingOrCoordinatingOtherPublicBenefits = models.IntegerField(
-        choices=IfAssistanceObtainingOrCoordinatingOtherPublicBenefitsCategory.choices)
+        choices=IfAssistanceObtainingOrCoordinatingOtherPublicBenefitsCategory.choices,blank=True, null=True)
     IfDirectProvisionOfOtherPublicBenefits = models.IntegerField(
-        choices=IfDirectProvisionOfOtherPublicBenefitsCategory.choices)
-    IfOtherSupportiveServiceApprovedByVA = models.TextField()
+        choices=IfDirectProvisionOfOtherPublicBenefitsCategory.choices,blank=True, null=True)
+    IfOtherSupportiveServiceApprovedByVA = models.TextField(blank=True, null=True)
 
 
 class FinancialAssistanceSSVF(models.Model):
