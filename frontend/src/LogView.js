@@ -80,6 +80,10 @@ class LogView extends React.Component {
         }).then(res => {
             if (res.status == 200) {
                 res.json().then(json => {
+                    json.map((jsonElement) => {
+                        jsonElement.totalAmount = "$" +  jsonElement.totalAmount;
+                    })
+                console.log(json);
                     this.setState({
                         isLoaded: true,
                         dataSource: json,
@@ -132,8 +136,8 @@ class LogView extends React.Component {
             {
                 sheetData: dataTable,
                 sheetName: 'Log Table',
-                sheetFilter: ['Date Time', 'Personal ID', 'Client Name', 'Service Provider', 'Total Amount', 'Units Purchased'],
-                sheetHeader: ['Date Time', 'Personal ID', 'Client Name', 'Service Provider', 'Total Amount', 'Units Purchased'],
+                sheetFilter: ['Date Time', 'Personal ID', 'Client Name', 'Service Provider', 'Units Purchased', 'Total Amount'],
+                sheetHeader: ['Date Time', 'Personal ID', 'Client Name', 'Service Provider', 'Units Purchased', 'Total Amount'],
                 columnWidths: [12, 15, 10, 8, 8, 8],
             }
         ];

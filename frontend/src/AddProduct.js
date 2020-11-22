@@ -204,7 +204,8 @@ class AddProduct extends React.Component {
                                 rules: [
                                     {
                                         required: true,
-                                        message: "Please input number of units!"
+                                        pattern: new RegExp(/^[0-9]*[1-9][0-9]*$/),
+                                        message: "Please input number of units in positive integers!",
                                     }
                                 ]
                             })(<InputNumber style={{width: '100%'}}   min={1} placeholder="Number of units"/>)}
