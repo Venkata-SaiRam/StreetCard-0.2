@@ -184,7 +184,7 @@ class ServicesProvidedSSVF extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -199,7 +199,7 @@ class ServicesProvidedSSVF extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -217,7 +217,7 @@ class ServicesProvidedSSVF extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -237,7 +237,7 @@ class ServicesProvidedSSVF extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(<Cascader
@@ -255,7 +255,7 @@ class ServicesProvidedSSVF extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -272,7 +272,7 @@ class ServicesProvidedSSVF extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
