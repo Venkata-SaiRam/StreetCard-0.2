@@ -189,7 +189,6 @@ class Product(models.Model):
     category = models.TextField(choices=Category.choices, default=None, null=False)
     donation = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
     costwhenbrought = models.IntegerField(blank=True, null=True)
-    costitem = models.FloatField(blank=True, null=True)
     Donationreceivedfrom =models.TextField(blank=True, null=True)
 
     def __str__(self):
