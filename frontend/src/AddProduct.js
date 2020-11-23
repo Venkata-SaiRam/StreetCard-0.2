@@ -97,21 +97,27 @@ class AddProduct extends React.Component {
 
         this.state = {
             isLoaded: false,
-            ifNoDonation: true
+            ifNoDonation: true,
+            ifRecipientexits: true
         }
 
     }
 
-    handledonationResponse(fieldName, values) {
-        console.log(fieldName, this)
+    handledonationResponse(values) {
         if (values[0] === 0) {
-          this.setState({ ifNoDonation: false });
+          this.setState({ 
+              ifNoDonation: false,
+            ifRecipientexits: true });
+            this.props.form.resetFields("donationRecipient");
         } else {
-          this.setState({ ifNoDonation: true });
-          this.props.form.resetFields(fieldName);
+          this.setState({ 
+              ifNoDonation: true,
+            ifRecipientexits: false });
+
+          this.props.form.resetFields("itemCost");
 
         }
-    }
+    }  
 
     handleSubmit = e => {
         e.preventDefault();
@@ -121,6 +127,7 @@ class AddProduct extends React.Component {
                 newProduct.productName = values.productName;
                 newProduct.category = values.category[0];
                 newProduct.donation = values.donationValue[0];
+                newProduct.Donationreceivedfrom = values.donationRecipient;
                 newProduct.costwhenbrought = values.itemCost ?? 0;
                 newProduct.unitsAvailable = values.unitsAvailable;
                 newProduct.costPerItem = values.costPerItem;
@@ -183,8 +190,20 @@ class AddProduct extends React.Component {
                             })(<Cascader 
                                     options={donationResponse} 
                                     placeholder="Select the donation value"
-                                    onChange={this.handledonationResponse.bind(this, "primaryWay")}
+                                    onChange={this.handledonationResponse.bind(this)}
                                />)}
+                        </Form.Item>
+
+                        <Form.Item labelAlign={"left"} label="Donation Received From" >
+                            {getFieldDecorator("donationRecipient", {
+                                rules: [
+                                     {
+                                         required: false,
+                                        message: "Please select a valid field value!"
+                                     }
+                                    ]
+                            })(<Input placeholder="Donation Recipient Name" 
+                             disabled={this.state.ifRecipientexits}/>)}
                         </Form.Item>
 
                         <Form.Item labelAlign={"left"} label="Item cost" >
