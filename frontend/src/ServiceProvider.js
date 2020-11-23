@@ -60,10 +60,6 @@ class ServiceProviderView extends React.Component {
             ],
             columns_2: [
                 {
-                    title: 'Product ID',
-                    dataIndex: 'productId',
-                },
-                {
                     title: 'Product',
                     dataIndex: 'productName',
                 },
