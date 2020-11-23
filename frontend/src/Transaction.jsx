@@ -7,7 +7,7 @@ import './transaction.css'
 import StreetCardFooter from './StreetCardFooter'
 
 const {Content} = Layout;
-const header = ["Product Id", "Product Name", "Cost Per Item", "Donated", "Initial Cost", "Units Available", "Given Units", "Amount", "Service Provider", "Client ID", "Client Name"];
+const header = ["Product Name", "Cost Per Item", "Donated", "Initial Cost", "Units Available", "Given Units", "Amount", "Service Provider", "Client Name"];
 const category = [
     {
         value: "Shoes",
@@ -70,7 +70,6 @@ const donationResponse = [
 class Transaction extends React.Component {
     constructor(props) {
         super(props);
-        console.log("props client", props);
         this.state = {
             isLoaded: false,
             totalAmount: 0,
@@ -270,7 +269,6 @@ class Transaction extends React.Component {
            
             return (
                 <tr key={productId}>
-                    <td align={"center"}>{productId}</td>
                     <td align={"center"}>{productName}</td>
                     <td align={"center"}>{costPerItem}</td>
                     <td align={"center"}>{donation}</td>
@@ -280,7 +278,6 @@ class Transaction extends React.Component {
                                      onBlur={(e) => this.takeIntput(e, index1)}/></td>
                     <td>{amount}</td>
                     <td>{serviceProvider}</td>
-                    <td>{this.state.personalID}</td>
                     <td>{this.props.location.state.clientName}</td>
                 </tr>
             )
