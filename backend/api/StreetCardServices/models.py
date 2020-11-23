@@ -647,8 +647,8 @@ class FinancialAssistanceSSVF(models.Model):
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='FinancialAssistanceSSVF_EnrollmentID', default=None)
     DateOfFinancialAssistance = models.DateField()
-    FinancialAssistanceAmount = models.DecimalField(max_digits=8, decimal_places=2)
-    FinancialAssistanceType = models.IntegerField(choices=FinancialAssistanceTypeCategory.choices)
+    FinancialAssistanceAmount = models.DecimalField(max_digits=8, decimal_places=2,blank=True, null=True)
+    FinancialAssistanceType = models.IntegerField(choices=FinancialAssistanceTypeCategory.choices,blank=True, null=True)
 
 
 class PercentOfAMI(models.Model):
@@ -684,11 +684,11 @@ class LastPermanentAddress(models.Model):
 
     EnrollmentID = models.ForeignKey(Enrollment, on_delete=models.CASCADE,
                                      related_name='LastPermanentAddress_EnrollmentID', default=None)
-    StreetAddress = models.TextField()
-    City = models.TextField()
-    State = models.TextField()
-    ZipCode = models.TextField()
-    AddressDataQuality = models.IntegerField(choices=AddressDataQualityCategory.choices)
+    StreetAddress = models.TextField(blank=True, null=True)
+    City = models.TextField(blank=True, null=True)
+    State = models.TextField(blank=True, null=True)
+    ZipCode = models.TextField(blank=True, null=True)
+    AddressDataQuality = models.IntegerField(choices=AddressDataQualityCategory.choices,blank=True, null=True)
 
 
 # class VAMCStationNumber(models.Model):
