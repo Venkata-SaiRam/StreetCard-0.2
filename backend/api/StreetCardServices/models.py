@@ -183,12 +183,14 @@ class Product(models.Model):
 
     productName = models.CharField(max_length=100)
     productId = models.CharField(primary_key=True, default=None, max_length=32, blank=True)
-    costPerItem = models.FloatField()
+    costPerItem = models.FloatField(blank=True, null=True)
     unitsAvailable = models.IntegerField(null=True)
     serviceProvider = models.TextField(choices=ServiceProvider.choices)
     category = models.TextField(choices=Category.choices, default=None, null=False)
     donation = models.IntegerField(choices=YesNoResponse.choices,blank=True, null=True)
     costwhenbrought = models.IntegerField(blank=True, null=True)
+    costitem = models.FloatField(blank=True, null=True)
+    Donationreceivedfrom =models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.productName
