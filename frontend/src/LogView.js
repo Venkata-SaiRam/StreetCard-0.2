@@ -43,7 +43,7 @@ class LogView extends React.Component {
                 },
                 
                 {
-                    title: 'Units Purchased',
+                    title: 'Units Distributed',
                     dataIndex: 'unitPurchased',
                 },
                 {
