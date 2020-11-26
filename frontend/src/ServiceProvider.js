@@ -60,10 +60,6 @@ class ServiceProviderView extends React.Component {
             ],
             columns_2: [
                 {
-                    title: 'Product ID',
-                    dataIndex: 'productId',
-                },
-                {
                     title: 'Product',
                     dataIndex: 'productName',
                 },
@@ -419,45 +415,46 @@ class ServiceProviderView extends React.Component {
             );
         }else if (this.state.pageComponent === 'loginfo') {
                 return (
-                    <Layout className="layout">
-                        <Header
-                            handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
-                            loggedInStatus={this.state.loggedInStatus}/>
-                        <Layout>
-                            <SiderComponentServiceProvider setPagecomponent={this.setPagecomponent}/>
-                            <Content className="content-login">
-                                <div className="site-layout-content-login">
-                                    <Form
-                                        onSubmit={this
-                                        .viewLongs
-                                        .bind(this)}>
-                                        <Form.Item>
-                                            {getFieldDecorator('personId', {
-                                                rules: [
-                                                    {
-                                                        required: true,
-                                                        message: " Please input Client's Personal Identification !"
-                                                    }
-                                                ]
-                                            })(
-                                                <Input
-                                                prefix={< Icon type = "user" style = {{ color: 'rgba(0,0,0,.25)', fontSize: "12px" }}/>}
-                                                placeholder="Client's Personal Identification"/>,)}
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <Button type="primary" htmlType="submit" className="login-form-button">
-                                                Continue
-                                            </Button>
-                                        </Form.Item>
-                                    </Form>
-                                </div>
-                            </Content>
+                    <div>
+                        <Layout className="layout">
+                            <Header
+                                handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                                loggedInStatus={this.state.loggedInStatus}/>
+                            <Layout>
+                                <SiderComponentServiceProvider setPagecomponent={this.setPagecomponent}/>
+                                <Content className="content-login">
+                                    <div className="site-layout-content-login">
+                                        <Form
+                                            onSubmit={this
+                                            .viewLongs
+                                            .bind(this)}>
+                                            <Form.Item>
+                                                {getFieldDecorator('personId', {
+                                                    rules: [
+                                                        {
+                                                            required: true,
+                                                            message: " Please input Client's Personal Identification !"
+                                                        }
+                                                    ]
+                                                })(
+                                                    <Input
+                                                    prefix={< Icon type = "user" style = {{ color: 'rgba(0,0,0,.25)', fontSize: "12px" }}/>}
+                                                    placeholder="Client's Personal Identification"/>,)}
+                                            </Form.Item>
+                                            <Form.Item>
+                                                <Button type="primary" htmlType="submit" className="login-form-button">
+                                                    Continue
+                                                </Button>
+                                            </Form.Item>
+                                        </Form>
+                                    </div>
+                                </Content>
+                            </Layout>
+                            <StreetCardFooter/>
                         </Layout>
-                        <StreetCardFooter/>
-                    </Layout>
+                    </div>
                 );
             }else if (this.state.pageComponent == 'greeter') {
-            console.log("history", this.props);
             return (
                 <div>
                     <Layout className="layout">
@@ -501,26 +498,27 @@ class ServiceProviderView extends React.Component {
             );
         } else {
             return (
-                <Layout className="layout">
-                    <Header
-                        handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
-                        loggedInStatus={this.state.loggedInStatus}
-                    />
-                    <Layout>
-
-                        <SiderComponentServiceProvider
-                            setPagecomponent={this.setPagecomponent}
+                <div>
+                    <Layout className="layout">
+                        <Header
+                            handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                            loggedInStatus={this.state.loggedInStatus}
                         />
-                        <Content className="content-enroll">
-                            <div>
-                                <Table className="site-layout-content-viewappointment"
-                                       dataSource={this.state.dataSource_2}
-                                       columns={this.state.columns_2} scroll={{x: 1500, y: 500}}/>
-                            </div>
-                        </Content>
+                        <Layout>
+                            <SiderComponentServiceProvider
+                                setPagecomponent={this.setPagecomponent}
+                            />
+                            <Content className="content-enroll">
+                                <div>
+                                    <Table className="site-layout-content-viewappointment"
+                                           dataSource={this.state.dataSource_2}
+                                           columns={this.state.columns_2} scroll={{x: 1500, y: 500}}/>
+                                </div>
+                            </Content>
+                        </Layout>
+                        <StreetCardFooter/>
                     </Layout>
-                    <StreetCardFooter/>
-                </Layout>
+                </div>
             );
         }
 

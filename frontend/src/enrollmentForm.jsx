@@ -8,7 +8,8 @@ import HomelessPreventionHUD from "./HomelessPreventionHUD";
 import RapidReHousingVA from "./RapidReHousingVA";
 import HOPWA from "./HOPWA";
 import RunawayHomelessYouth from "./RunawayHomelessYouth";
-import ProjectsForAssistancePATH from "./ProjectsForAssistancePATH"
+import ProjectsForAssistancePATH from "./ProjectsForAssistancePATH";
+import EmergencySolutionGrantsESG from "./EmergencySolutionGrantsESG";
 
 
 const {Content} = Layout;
@@ -33,6 +34,10 @@ const ProjectCategory = [
     {
         value: "PATH:Projects for Assistance in Transition from Homelessness",
         label: "PATH:Projects for Assistance in Transition from Homelessness"
+    },
+    {
+        value: "ESG:Emergency Solutions Grants",
+        label: "ESG:Emergency Solutions Grants"
     }
 ];
 const message = "Mandatory field! Please provide a response."
@@ -122,6 +127,11 @@ class EnrollmentForm extends Component {
             case "PATH:Projects for Assistance in Transition from Homelessness":
                 changingPanel.pop();
                 changingPanel.push(<ProjectsForAssistancePATH data={e[0]} personalId={this.state.items.PersonalId}
+                                                     history={this.props.history}/>)
+                break;
+            case "ESG:Emergency Solutions Grants":
+                changingPanel.pop();
+                changingPanel.push(<EmergencySolutionGrantsESG data={e[0]} personalId={this.state.items.PersonalId}
                                                      history={this.props.history}/>)
                 break;
         }

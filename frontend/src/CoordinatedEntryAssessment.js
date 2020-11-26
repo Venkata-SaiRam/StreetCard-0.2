@@ -4,40 +4,45 @@ import './LabelWrap.css';
 
 const {Panel} = Collapse;
 
-const exitStatus = [
-        {
-            value: 0,
-            label: "No"
-        },
-        {
-            value: 1,
-            label: "Yes"
-        },
-        {
-            value: 2,
-            label: "Worker Doesn't Know"
-        },
-]
-const ResponseCategory = [
+const AssessmentTypeResponse = [
     {
-        value: 0,
-        label: "No"
-    }, {
         value: 1,
-        label: "Yes"
-    }, {
-        value: 8,
-        label: "Client Doesn't Know"
-    }, {
-        value: 9,
-        label: "Client Refused"
-    }, {
-        value: 99,
-        label: "Data Not Collected"
+        label: "Phone"
+    },
+    {
+        value: 2,
+        label: "Virtual"
+    },
+    {
+        value: 3,
+        label: "In person"
     }
-];
+]
 
-class SafeandApproximateExit extends Component {
+const AssessmentLevelResponse = [
+    {
+        value: 1,
+        label: "Critical Needs Assessment"
+    },
+    {
+        value: 2,
+        label: "Housing Needs Assessment"
+    }
+]
+
+const PrioritizationStatusResponse = [
+    {
+        value: 1,
+        label: "Placed on Prioritization List"
+    },
+    {
+        value: 2,
+        label: "Not placed on Prioritization List"
+    }
+]
+
+
+class CoordinatedEntryAssessment extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -46,103 +51,89 @@ class SafeandApproximateExit extends Component {
     }
 
     render(){
-        const { safeexit } = this.props;
-        const {getFieldDecorator} = safeexit.form;
+        const { coordinatedEntryAssessment } = this.props;
+        const {getFieldDecorator} = coordinatedEntryAssessment.form;
         const message = "Mandatory field! Please provide a response.";
         return(
             <Collapse  style={{backgroundColor: "#f0f9ff"}}>
-
-            <Panel header="Safe and Approximate Exit" key="15">
+            <Panel header="Coordinated Entry Assessment" key="7">
                         <Row gutter={8}>
                             <Col span={8}>
                                 <Form.Item
-                                    label="Exit Status by Client"
-                                >{getFieldDecorator("exit_status_client", {
+                                    label="Date of Assessment">
+                                    {getFieldDecorator("assessment_date", {
+                                        rules: [
+                                            {
+                                                message: {message},
+                                                required: true
+                                            }
+                                        ]
+                                    })(
+                                        <DatePicker style={{width: "100%"}}/>)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Assessment Location"
+                                >   {getFieldDecorator("assessment_location", {
                                     rules: [
                                         {
                                             message: {message},
-                                            type: "array",
+                                            required: true
+                                        }
+                                    ]
+                                })(<Input/>
+                                    )}
+                                </Form.Item>
+                            </Col>
+                            <Col span={8}>
+                                <Form.Item
+                                    label="Assessment Type"
+                                >   {getFieldDecorator("assessment_type", {
+                                    rules: [
+                                        {
+                                            message: {message},
                                             required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
-                                        options={ResponseCategory}
+                                        options={AssessmentTypeResponse}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="Exit Status by caseworker"
-                                >{getFieldDecorator("exit_status_caseworker", {
+                                    label="Assessment Level"
+                                >   {getFieldDecorator("assessment_level", {
                                     rules: [
                                         {
                                             message: {message},
-                                            type: "array",
                                             required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
-                                        options={exitStatus}
+                                        options={AssessmentLevelResponse}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
                                 <Form.Item
-                                    label="Positive Peer Connections"
-                                >{getFieldDecorator("positivePeer", {
+                                    label="Prioritization Status"
+                                >   {getFieldDecorator("prioritization_status", {
                                     rules: [
                                         {
                                             message: {message},
-                                            type: "array",
                                             required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
-                                        options={exitStatus}
-                                    ></Cascader>)}
-                                </Form.Item>
-                            </Col>
-                        </Row>
-                        <Row gutter={8}>
-                            <Col span={8}>
-                                <Form.Item
-                                    label="Positive Community Connections"
-                                >{getFieldDecorator("positiveCommunityConnections", {
-                                    rules: [
-                                        {
-                                            message: {message},
-                                            type: "array",
-                                            required: true
-                                        }
-                                    ]
-                                })(
-                                    <Cascader
-                                        placeholder="Select.."
-                                        options={exitStatus}
-                                    ></Cascader>)}
-                                </Form.Item>
-                            </Col>
-                            <Col span={8}>
-                                <Form.Item
-                                    label="Positive Adult Connections"
-                                >{getFieldDecorator("positiveAdultConnections", {
-                                    rules: [
-                                        {
-                                            message: {message},
-                                            type: "array",
-                                            required: true
-                                        }
-                                    ]
-                                })(
-                                    <Cascader
-                                        placeholder="Select.."
-                                        options={exitStatus}
+                                        options={PrioritizationStatusResponse}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -152,4 +143,4 @@ class SafeandApproximateExit extends Component {
         );
     }
 }
-export default SafeandApproximateExit;
+export default CoordinatedEntryAssessment;

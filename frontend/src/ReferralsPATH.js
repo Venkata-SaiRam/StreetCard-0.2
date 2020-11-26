@@ -63,7 +63,7 @@ class ReferralsPATH extends Component {
                   rules: [
                     {
                       message: { message },
-                      required: false
+                      required: true
                     }
                   ]
                 })(<DatePicker style={{ width: "100%" }} />)}
@@ -75,7 +75,7 @@ class ReferralsPATH extends Component {
                   rules: [
                     {
                       message: { message },
-                      required: false,
+                      required: true,
                       type: "array"
                     }
                   ]

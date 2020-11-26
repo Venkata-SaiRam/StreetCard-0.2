@@ -89,7 +89,7 @@ class Counselling extends Component {
                   rules: [
                     {
                       message: { message },
-                      required: false,
+                      required: true,
                       type: "array"
                     }
                   ]
@@ -148,7 +148,7 @@ class Counselling extends Component {
                   rules: [
                     {
                       message: { message },
-                      required: false
+                      required: true
                     }
                   ]
                 })(<Input />)}
@@ -161,7 +161,7 @@ class Counselling extends Component {
                     {
                       message: { message },
                       type: "array",
-                      required: false
+                      required: true
                     }
                   ]
                 })(

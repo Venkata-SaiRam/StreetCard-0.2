@@ -29,7 +29,7 @@ class DateOfEngagement extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(

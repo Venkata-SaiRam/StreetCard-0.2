@@ -7,26 +7,9 @@ import IncomeAndSource from "./IncomeAndSource";
 import NonCashBenefits from "./NonCashBenefits";
 import HealthInsurance from "./HealthInsurance";
 import DisablingCondition from "./DisablingCondition";
-import FamilyCriticalIssues from "./FamilyCriticalIssues";
-import SexualExploitation from "./SexualExploitation";
-import LabourExploitation from "./LabourExploitation";
-import GeneralHealthStatus from "./GeneralHealthStatus";
-import DentalHealthStatus from "./DentalHealthStatus";
-import EmploymentStatus from "./EmploymentStatus";
-import SchoolStatus from "./SchoolStatus";
-import RhyBcpStatus from "./RhyBcpStatus";
-import PregnancyStatus from "./PregnancyStatus";
-import ProjectCompletionStatus from "./ProjectCompletionStatus";
-import SafeandApproximateExit from "./SafeandApproximateExit";
-import LastGradeCompleted from "./LastGradeCompleted";
-import ReferralSource from "./ReferralSource";
-import AfterCarePlans from "./AfterCarePlans";
-import FormerChildWelfare from "./FormerChildWelfare";
-import SexualOrientation from "./SexualOrientation";
-import Counselling from "./Counselling";
-import RHYServiceConnections from "./RHYServiceConnections";
-import FormerJuvenileJusticeSystem from "./FormerJuvenileJusticeSystem";
-
+import DomesticViolence from "./DomesticViolence";
+import CoordinatedEntryAssessment from "./CoordinatedEntryAssessment";
+import CoordinatedEntryEvent from "./CoordinatedEntryEvent";
 
 const {Panel} = Collapse;
 
@@ -51,7 +34,7 @@ const formItemLayout = {
         }
     }
 };
-class RunawayHomelessYouth extends Component {
+class EmergencySolutionGrantsESG extends Component {
     constructor(props) {
         super(props);
         this.state={
@@ -143,6 +126,12 @@ class RunawayHomelessYouth extends Component {
                 healthInsuranceObject.Reason = this.handleValue(values.reason);
                 healthInsuranceObject.WorkersCompAmount = values.workerscompamountHI;
                 enrollmentRequestObject.health_insurance = healthInsuranceObject;
+                var domesticViolenceObject = {};
+                domesticViolenceObject.InformationDate = values['informationdateDV'] != null ? values['informationdateDV'].format('YYYY-MM-DD') : null;
+                domesticViolenceObject.DomesticViolenceVictim = this.handleValue(values.domesticviolencevictim);
+                domesticViolenceObject.WhenOccurred = this.handleValue(values.whenoccurred);
+                domesticViolenceObject.CurrentlyFleeing = this.handleValue(values.currentlyfleeing);
+                enrollmentRequestObject.domestic_violence = domesticViolenceObject;
                 var disablingCondition = {};
                 disablingCondition.InformationDate = values['informationdateDC'] != null ? values['informationdateDC'].format('YYYY-MM-DD') : null;
                 disablingCondition.physical_disability = this.handleValue(values.physical_disability);
@@ -157,102 +146,24 @@ class RunawayHomelessYouth extends Component {
                 disablingCondition.substance_abuse = this.handleValue(values.substance_abuse);
                 disablingCondition.substance_abuse_impairing = this.handleValue(values.substance_abuse_impairing);
                 enrollmentRequestObject.disabling_condition = disablingCondition;
-                var familyCriticalIssues = {};
-                familyCriticalIssues.unemploymentfamilymember = this.handleValue(values.unemployedFamilyMember);
-                familyCriticalIssues.mentalhealthissues = this.handleValue(values.mentalHealthIssues);
-                familyCriticalIssues.physicaldisability = this.handleValue(values.physicalDisabilityFamily);
-                familyCriticalIssues.alcoholorsubstanceabuse = this.handleValue(values.alcoholOrSubstanceAbuse);
-                familyCriticalIssues.insufficientincome = this.handleValue(values.insufficientIncome);
-                familyCriticalIssues.parentofyouth = this.handleValue(values.incarceratedParent);
-                enrollmentRequestObject.FamilyCriticalIssuesRHY = familyCriticalIssues;
-                var sexualExploitation = {};
-                sexualExploitation.receivedlastthreemonths = this.handleValue(values.in_last_3_months)
-                sexualExploitation.forcedlastthreemonths = this.handleValue(values.in_last_3_months_confirm)
-                sexualExploitation.howmanytimes = this.handleValue(values.how_many_times)
-                sexualExploitation.forcedanything = this.handleValue(values.persuaded_for_exchange)
-                sexualExploitation.receivedanything = this.handleValue(values.received_in_exchange)
-                enrollmentRequestObject.SexualExploitationRHY = sexualExploitation;
-                var labourExploitation = {};
-                labourExploitation.leavejob = this.handleValue(values.afraidToLeaveWork)
-                labourExploitation.paymentdifference = this.handleValue(values.paymentNotAsExpected)
-                labourExploitation.forcedintojob = this.handleValue(values.feltForceInTheJob)
-                labourExploitation.last3months = this.handleValue(values.inLast3Months)
-                enrollmentRequestObject.LabourExploitationTraffickingRHY = labourExploitation;
-                var generalHealthStatus = {}
-                generalHealthStatus.statusmentalhealth = this.handleValue(values.generalHealthStatus);
-                enrollmentRequestObject.GeneralHealthStatusRHY = generalHealthStatus;
-                var dentalHealthStatus = {}
-                dentalHealthStatus.statusdentalhealth = this.handleValue(values.dentalHealthStatus)
-                enrollmentRequestObject.DentalHealthStatusRHY = dentalHealthStatus;
-                var formerChildWelfare = {}
-                formerChildWelfare.formerChildWelfare = this.handleValue(values.formerWardOfChildWelfare);
-                formerChildWelfare.noofyears = this.handleValue(values.noOfYears);
-                formerChildWelfare.noofmonths = values.noOfMonths ?? 0;
-                enrollmentRequestObject.ChildWelfareFosterRHY = formerChildWelfare;
-                var employmentStatus = {}
-                employmentStatus.InformationDate = values['informationdate_ES'] != null ? values['informationdate_ES'].format('YYYY-MM-DD') : null;
-                employmentStatus.employed = this.handleValue(values.employed);
-                employmentStatus.employmentstatus = this.handleValue(values.typeofemployment);
-                employmentStatus.notemployed = this.handleValue(values.whynotemployed);
-                enrollmentRequestObject.employment_Status = employmentStatus;
-                var schoolStatusRecords = {}
-                schoolStatusRecords.schoolstatusfield = this.handleValue(values.schoolStatus);
-                enrollmentRequestObject.SchoolStatusRHY = schoolStatusRecords;
-                var rhy_bcp_status = {}
-                rhy_bcp_status.dateofstatus = values['information_date_bcp'] != null ? values['information_date_bcp'].format('YYYY-MM-DD') : null;
-                rhy_bcp_status.youtheligible = this.handleValue(values.is_youth_eligible);
-                rhy_bcp_status.notfundedreason = this.handleValue(values.service_funding_response);
-                rhy_bcp_status.runawayyouth = this.handleValue(values.run_away_youth);
-                enrollmentRequestObject.RHYBCPStatusRHY = rhy_bcp_status;
-                var referralSource = {}
-                referralSource.referralsource = this.handleValue(values.referralSource);
-                referralSource.nooftimes = values.noOfTimes;
-                enrollmentRequestObject.ReferralSourceRHY= referralSource;
-                var afterCarePlans = {}
-                afterCarePlans.InformationDate = values['informationdateACPlans'] != null ? values['informationdateACPlans'].format('YYYY-MM-DD') : null;
-                afterCarePlans.aftercareprovided = this.handleValue(values.afterCareProvided);
-                afterCarePlans.primaryway = this.handleValue(values.primaryWay);
-                enrollmentRequestObject.AftercarePlansRHY = afterCarePlans;
-                var safe_exit_status = {}
-                safe_exit_status.destinationsafeclient = this.handleValue(values.exit_status_client);
-                safe_exit_status.destinationsafecaseworker = this.handleValue(values.exit_status_caseworker);
-                safe_exit_status.positivepeerconnections = this.handleValue(values.positivePeer);
-                safe_exit_status.positivecommunityconnections = this.handleValue(values.positiveCommunityConnections);
-                safe_exit_status.positiveadultconnections = this.handleValue(values.positiveAdultConnections);
-                enrollmentRequestObject.SafeandAppropriateExitRHY = safe_exit_status;
-                var sexual_orientation_values = {};
-                sexual_orientation_values.sexualorientation = this.handleValue(values.sexual_orientation);
-                enrollmentRequestObject.SexualOrientationRHY = sexual_orientation_values;
-                var pregnancy_status_values = {}
-                pregnancy_status_values.duedate = values["informationdate_PS"] != null ? values["informationdate_PS"].format("YYYY-MM-DD") : null;
-                pregnancy_status_values.pregancy_status = this.handleValue(values.pregnancy_status);
-                enrollmentRequestObject.PregancyStatusRHY = pregnancy_status_values;
-                var project_completion = {}
-                project_completion.projectcompletion = this.handleValue(values.project_completion_status);
-                project_completion.majorreason = this.handleValue(values.majorReason);
-                enrollmentRequestObject.ProjectCompletionStatusRHY = project_completion;
-                var last_grade = {}
-                last_grade.LastGradeCompleted = this.handleValue(values.last_grade_completed);
-                enrollmentRequestObject.last_Grade_Completed = last_grade;
-                var counselling_values = {};
-                counselling_values.receivedbyclient = this.handleValue(values.counsellingReceivedResponse);
-                counselling_values.typeofCounseling = this.handleValue(values.typeOfCounselling);
-                counselling_values.noofsessions = values.noOfSessionsByExit;
-                counselling_values.noofsessionsplanned = values.noOfSessions;
-                counselling_values.continuecounseling = this.handleValue(values.planAfterExit);
-                enrollmentRequestObject.CounselingRHY = values.counselling_values;
-                var rhyServiceConnections = {};
-                rhyServiceConnections.InformationDate = values["dateOfRHYService"] != null ? values["dateOfRHYService"].format("YYYY-MM-DD") : null;
-                rhyServiceConnections.connectionsrhy = this.handleValue(values.typeOfRHYService);
-                enrollmentRequestObject.RHYConnectionsRHY = values.rhyServiceConnections;
-                var formerJJS = {};
-                formerJJS.formerjuvenilejustice = this.handleValue(values.formerJJS);
-                formerJJS.noofyears = this.handleValue(values.noOfYearsJJS);
-                formerJJS.noofmonths = values.noOfMonthsJJS;
-                enrollmentRequestObject.JuvenileJusticeSystemRHY = formerJJS;
+                var coordinatedEntryAssessment = {};
+                coordinatedEntryAssessment.InformationDate = values['assessment_date'] != null ? values['assessment_date'].format('YYYY-MM-DD') : null;
+                coordinatedEntryAssessment.assessment_location = values.assessment_location;
+                coordinatedEntryAssessment.assessment_type = this.handleValue(values.assessment_type);
+                coordinatedEntryAssessment.assessment_level = this.handleValue(values.assessment_level);
+                coordinatedEntryAssessment.prioritization_status = this.handleValue(values.prioritization_status);
+                enrollmentRequestObject.coordinated_entry_assessment = coordinatedEntryAssessment;
+                var coordinatedEntryEvent = {};
+                coordinatedEntryEvent.dateofEvent = values["dateOfEvent"] != null ? values["dateOfEvent"].format("YYYY-MM-DD") : null;
+                coordinatedEntryEvent.event = this.handleValue(values.eventInformation);
+                coordinatedEntryEvent.clienthoused = this.handleValue(values.rehousedInformation);
+                coordinatedEntryEvent.aftercareproject = this.handleValue(values.afterCareInformation);
+                coordinatedEntryEvent.hmisid = values.housingLocation;
+                coordinatedEntryEvent.referralresult = this.handleValue(values.referralResult);
+                coordinatedEntryEvent.dateofresult = values["dateOfResult"] != null ? values["dateOfResult"].format("YYYY-MM-DD") : null;
+                enrollmentRequestObject.coordinatedentryeventESG = coordinatedEntryEvent;
 
                 this.handleEmptyObject(enrollmentRequestObject);
-
 
                 fetch(process.env.REACT_APP_IP + 'homeless/' + this.props.personalId + '/enrollment/', {
                     method: 'POST',
@@ -318,39 +229,22 @@ class RunawayHomelessYouth extends Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        const message = "Mandatory field! Please provide a response.";
+        const message = "Mandatory field! Please provide a response."
         return (
             <Form {...formItemLayout} name="enrollment"
                   onSubmit={this.handleOnSubmit}>
-                    <Collapse style={{backgroundColor: "#f0f9ff"}}>
+                <Collapse style={{backgroundColor: "#f0f9ff"}}>
                     <EnrollmentDetails personalProps={this.props}/>
                     <IncomeAndSource incomeSource={this.props}/>
                     <NonCashBenefits nonCash={this.props}/>
                     <HealthInsurance healthInsurance={this.props}/>
                     <DisablingCondition disablingCondition={this.props}/>
-                    <FamilyCriticalIssues familyCriticalIssues={this.props}/>
-                    <RHYServiceConnections rhyServiceConnections={this.props} />
-                    <SexualExploitation sexualExploitation={this.props}/>
-                    <LabourExploitation labourExploitation={this.props}/>
-                    <GeneralHealthStatus generalHealthStatus={this.props}/>
-                    <DentalHealthStatus dentalHealthStatus={this.props}/>
-                    <FormerChildWelfare formerChildWelfare={this.props}/>
-                    <FormerJuvenileJusticeSystem formerJuvenileJusticeSystem={this.props}/>
-                    <EmploymentStatus employmentStatus={this.props}/>
-                    <SchoolStatus schoolStatus={this.props}/>
-                    <RhyBcpStatus rhy_bcp_status ={this.props}/>
-                    <SexualOrientation sexualOrientation={this.props}/>
-                    <ReferralSource referralSource={this.props}/>
-                    <AfterCarePlans afterCarePlans={this.props}/>
-                    <ProjectCompletionStatus project_completion ={this.props}/>
-                    <Counselling counselling={this.props}/>
-                    <SafeandApproximateExit safeexit ={this.props}/>
-                    <LastGradeCompleted lastgradecompleted ={this.props}/>
-                    <PregnancyStatus pregnancy ={this.props}/>
-
+                    <DomesticViolence domesticViolence={this.props}/>
+                    <CoordinatedEntryAssessment coordinatedEntryAssessment={this.props}/>
+                    <CoordinatedEntryEvent coordinatedEntryEvent={this.props}/>
 
                     <Panel style={{backgroundColor: "lightseagreen"}} header="Submit Form Here"
-                           key="20">
+                           key="17">
                         <Row>
                             <Col span={12}>
                                 <p style={{padding: "2%"}}>
@@ -377,7 +271,7 @@ class RunawayHomelessYouth extends Component {
     }
 }
 
-const WrappedRHYEnrollment = Form.create({name: "enrollment"})(
-    RunawayHomelessYouth
+const WrappedESGEnrollment = Form.create({name: "enrollment"})(
+    EmergencySolutionGrantsESG
 );
-export default WrappedRHYEnrollment;
+export default WrappedESGEnrollment;

@@ -7,7 +7,7 @@ import './transaction.css'
 import StreetCardFooter from './StreetCardFooter'
 
 const {Content} = Layout;
-const header = ["Product Id", "Product Name", "Cost Per Item", "Units Available", "Given Units", "Amount", "Service Provider", "Client ID", "Client Name"];
+const header = ["Product Name", "Cost Per Item", "Donated", "Initial Cost", "Units Available", "Given Units", "Amount", "Service Provider", "Client Name"];
 const category = [
     {
         value: "Shoes",
@@ -55,11 +55,21 @@ const category = [
     }
 ];
 
+const donationResponse = [
+    {
+        value:0,
+        label:"No"
+    },
+    {
+        value:1,
+        label:"Yes"
+    },
+
+]
 
 class Transaction extends React.Component {
     constructor(props) {
         super(props);
-        console.log("props client", props);
         this.state = {
             isLoaded: false,
             totalAmount: 0,
@@ -69,6 +79,8 @@ class Transaction extends React.Component {
                 {
                     productId: '',
                     productName: '',
+                    donation: '',
+                    costwhenbrought:'',
                     costPerItem: '',
                     unitsAvailable: '',
                     serviceProvider: '',
@@ -130,6 +142,8 @@ class Transaction extends React.Component {
                             unitsAvailable: key.unitsAvailable - key.quantity,
                             serviceProvider: key.serviceProvider,
                             category: key.category,
+                            donation: key.donation,
+                            costwhenbrought: key.costwhenbrought
                         };
 
 
@@ -245,18 +259,25 @@ class Transaction extends React.Component {
         })
         return newData.map((product, index) => {
             console.log("product ", product);
-            const {productId, productName, costPerItem, unitsAvailable, amount, index1, serviceProvider} = product//destructuring
+            console.log(donationResponse);
+            var {productId, productName, donation, costwhenbrought, costPerItem, unitsAvailable, amount, index1, serviceProvider} = product//destructuring
+            donationResponse.map((donationValue,index) => {
+                if(donationValue.value === donation){
+                    donation = donationValue.label;
+                }
+            });
+           
             return (
                 <tr key={productId}>
-                    <td align={"center"}>{productId}</td>
                     <td align={"center"}>{productName}</td>
                     <td align={"center"}>{costPerItem}</td>
+                    <td align={"center"}>{donation}</td>
+                    <td align={"center"}>{costwhenbrought}</td>
                     <td align={"center"}>{unitsAvailable}</td>
                     <td><InputNumber min={0} max={unitsAvailable} defaultValue={0}
                                      onBlur={(e) => this.takeIntput(e, index1)}/></td>
                     <td>{amount}</td>
                     <td>{serviceProvider}</td>
-                    <td>{this.state.personalID}</td>
                     <td>{this.props.location.state.clientName}</td>
                 </tr>
             )
@@ -275,6 +296,8 @@ class Transaction extends React.Component {
                 sm: {span: 16},
             },
         };
+
+        
         return (
             <Layout className="layout">
                 <Header
@@ -310,6 +333,11 @@ class Transaction extends React.Component {
                                         </td>
                                     </tr>
                                 </table>
+                                <div style={{float: 'left', marginTop: '20px'}}>
+                                    <Button onClick={this.props.history.goBack} size='large'>
+                                       Go Back
+                                    </Button>
+                                </div>
                             </Form>
                         </div>
                     </Content>

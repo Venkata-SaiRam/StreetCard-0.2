@@ -91,7 +91,7 @@ class LastGradeCompleted extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(

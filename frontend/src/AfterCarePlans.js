@@ -70,7 +70,7 @@ class AfterCarePlans extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -84,7 +84,7 @@ class AfterCarePlans extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false,
+                                            required: true,
                                             type: "array"
                                         }
                                     ]

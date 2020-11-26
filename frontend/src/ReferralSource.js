@@ -72,7 +72,18 @@ class ReferralSource extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: true
+            isEnabled: true,
+            noOfTimesDisabled: true
+        }
+    }
+
+    handleReferralSource(values) {
+        if(values[0] === 7 ){
+            this.setState({noOfTimesDisabled: false});
+        } else {
+            this.setState({noOfTimesDisabled: true});
+            this.props.referralSource.form.resetFields("noOfTimes");
+
         }
     }
 
@@ -91,7 +102,7 @@ class ReferralSource extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false,
+                                            required: true,
                                             type: "array"
                                         }
                                     ]
@@ -99,6 +110,9 @@ class ReferralSource extends Component {
                                     <Cascader
                                         placeholder="Select.."
                                         options={ReferralSourceCategory}
+                                        onChange={this
+                                            .handleReferralSource
+                                            .bind(this)}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -112,7 +126,7 @@ class ReferralSource extends Component {
                                             required: false
                                         }
                                     ]
-                                })(<Input/>
+                                })(<Input disabled={this.state.noOfTimesDisabled} />
                                 )}
                                 </Form.Item>
                             </Col>

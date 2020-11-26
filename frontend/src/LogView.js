@@ -1,11 +1,13 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import {Form, Layout, Spin, Table} from 'antd';
+import { Form, Layout, Spin, Table, Button } from 'antd';
+import { VerticalAlignBottomOutlined } from '@ant-design/icons';
 import Header from './Header.js'
 import StreetCardFooter from './StreetCardFooter'
 import SiderComponent from './SiderComponent';
 import SiderComponentServiceProvider from './SiderComponentServiceProvider';
+import ExportJsonExcel from 'js-export-excel';
 
 
 /**
@@ -13,7 +15,7 @@ import SiderComponentServiceProvider from './SiderComponentServiceProvider';
  * Table should display info based on what is known about the user
  */
 
-const {Content} = Layout;
+const { Content } = Layout;
 
 class LogView extends React.Component {
     constructor(props) {
@@ -39,13 +41,14 @@ class LogView extends React.Component {
                     title: 'Service Provider',
                     dataIndex: 'serviceProvider',
                 },
+                
+                {
+                    title: 'Units Distributed',
+                    dataIndex: 'unitPurchased',
+                },
                 {
                     title: 'Total Amount',
                     dataIndex: 'totalAmount',
-                },
-                {
-                    title: 'Units Purchased',
-                    dataIndex: 'unitPurchased',
                 },
 
             ],
@@ -65,7 +68,6 @@ class LogView extends React.Component {
         }
 
         this.handleSuccessfulLogoutAction = this.handleSuccessfulLogoutAction.bind(this);
-        this.setPagecomponent = this.setPagecomponent.bind(this);
     }
 
     componentDidMount() {
@@ -78,14 +80,18 @@ class LogView extends React.Component {
         }).then(res => {
             if (res.status == 200) {
                 res.json().then(json => {
+                    json.map((jsonElement) => {
+                        jsonElement.totalAmount = "$" +  jsonElement.totalAmount;
+                    })
+                console.log(json);
                     this.setState({
-                            isLoaded: true,
-                            dataSource: json,
-                        }
+                        isLoaded: true,
+                        dataSource: json,
+                    }
                     )
                 })
             } else if (Math.round(res.status / 100) == 4) {
-                if (window.confirm("Error, No record found for this personal ID" )) {
+                if (window.confirm("Error, No record found for this personal ID")) {
                     this.props.history.push('/socialWorkerRegister');
                 } else {
                     this.props.history.push('/socialWorkerRegister');
@@ -106,11 +112,39 @@ class LogView extends React.Component {
         this.props.history.push('/login');
     }
 
+    downloadExcel = () => {
+        const data = this.state.dataSource ?? '';//tabular data
+        var option = {};
+        let dataTable = [];
+        if (data) {
+            for (let i in data) {
+                if (data) {
+                    let obj = {
+                        'Date Time': data[i].datetime,
+                        'Personal ID': data[i].personalId,
+                        'Client Name': data[i].clientName,
+                        'Service Provider': data[i].serviceProvider,
+                        'Total Amount': data[i].totalAmount,
+                        'Units Purchased': data[i].unitPurchased,
+                    }
+                    dataTable.push(obj);
+                }
+            }
+        }
+        option.fileName = 'Log Information'
+        option.datas = [
+            {
+                sheetData: dataTable,
+                sheetName: 'Log Table',
+                sheetFilter: ['Date Time', 'Personal ID', 'Client Name', 'Service Provider', 'Units Purchased', 'Total Amount'],
+                sheetHeader: ['Date Time', 'Personal ID', 'Client Name', 'Service Provider', 'Units Purchased', 'Total Amount'],
+                columnWidths: [12, 15, 10, 8, 8, 8],
+            }
+        ];
 
-    setPagecomponent(pageComponentValue) {
-        this.props.updatePageComponent(pageComponentValue)
-        this.props.history.push('/socialWorkerRegister');
-    };
+        var toExcel = new ExportJsonExcel(option);
+        toExcel.saveExcel();
+    }
 
     render() {
         //const {spID=''} = this.props.location.state.serviceProviderId || {};
@@ -121,14 +155,16 @@ class LogView extends React.Component {
         // }else{
         //     spID = "1";
         // }
+
+        console.log(this.state.dataSource);
         const formItemLayout = {
             labelCol: {
-                xs: {span: 24},
-                sm: {span: 8}
+                xs: { span: 24 },
+                sm: { span: 8 }
             },
             wrapperCol: {
-                xs: {span: 24},
-                sm: {span: 16}
+                xs: { span: 24 },
+                sm: { span: 16 }
             }
         };
         const tailFormItemLayout = {
@@ -148,61 +184,58 @@ class LogView extends React.Component {
 
         if (this.state.isLoaded) {
             return (
-                <Layout className="layout">
-                    <Header
-                        handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
-                        loggedInStatus={this.props.loggedInStatus}
-                    />
-
-                    <Layout>
-
-                        {this.props.location.state.serviceProviderId === "2" ? (
-                             <SiderComponent
-                            setPagecomponent={this.setPagecomponent}
+                <div>
+                    <Layout className="layout">
+                        <Header
+                            handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                            loggedInStatus={this.props.loggedInStatus}
                         />
-                            ) : (
-                              <SiderComponentServiceProvider
-                            setPagecomponent={this.setPagecomponent}
-                        />
-                            )}
-                        <Content className="content-enroll">
-                            <div>
-                                <Table className="site-layout-content-viewappointment"
-                                       dataSource={this.state.dataSource}
-                                       columns={this.state.columns} scroll={{x: 1500, y: 500}}/>
-                            </div>
-                        </Content>
+
+                        <Layout>
+
+                            <Content className="content-enroll">
+                                <div>
+                                    <Table className="site-layout-content-viewappointment"
+                                        dataSource={this.state.dataSource}
+                                        columns={this.state.columns} scroll={{ x: 1500, y: 500 }} />
+                                </div>
+                                <div style={{float: 'left', marginTop: '20px'}}>
+                                    <Button onClick={this.props.history.goBack} size='large'>
+                                       Go Back
+                                    </Button>
+                                </div>
+                                <div style={{float: 'right', marginTop: '20px'}}>
+                                    <Button onClick={this.downloadExcel} size='large'>
+                                        Download as Excel Sheet
+                                    </Button>
+                                </div>
+                            </Content>
+                        </Layout>
+                        <StreetCardFooter />
                     </Layout>
-                    <StreetCardFooter/>
-                </Layout>
+                </div>
             );
         } else {
             return (
-                <Layout className="layout">
-                    <Header
-                        handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
-                        loggedInStatus={this.props.loggedInStatus}
-                    />
-
-                    <Layout>
-                        {this.props.location.state.serviceProviderId === "2" ? (
-                             <SiderComponent
-                            setPagecomponent={this.setPagecomponent}
+                <div>
+                    <Layout className="layout">
+                        <Header
+                            handleSuccessfulLogoutAction={this.handleSuccessfulLogoutAction}
+                            loggedInStatus={this.props.loggedInStatus}
                         />
-                            ) : (
-                              <SiderComponentServiceProvider
-                            setPagecomponent={this.setPagecomponent}
-                        />
-                            )}
 
-                        <Content className="content-login">
-                            <div className="site-layout-content-login">
-                                <span>Loading . . .<Spin size="small"/></span>
-                            </div>
-                        </Content>
+                        <Layout>
+                            
+
+                            <Content className="content-login">
+                                <div className="site-layout-content-login">
+                                    <span>Loading . . .<Spin size="small" /></span>
+                                </div>
+                            </Content>
+                        </Layout>
+                        <StreetCardFooter />
                     </Layout>
-                    <StreetCardFooter/>
-                </Layout>
+                </div>
             );
         }
 
@@ -210,7 +243,7 @@ class LogView extends React.Component {
     }
 }
 
-const WrappedLogTable = Form.create({name: "log"})(
+const WrappedLogTable = Form.create({ name: "log" })(
     LogView
 );
 

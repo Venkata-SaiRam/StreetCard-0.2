@@ -87,7 +87,7 @@ export default class SiderComponentServiceProvider extends React.Component {
                    onCollapse={(collapsed, type) => {
 
                    }}>
-                <div className="menu">s
+                <div className="menu">
                     <Menu mode="inline" theme="dark"
                           defaultSelectedKeys={"'" + this.state.selectedKey + "'"}
                           onClick={this.handleClick}>

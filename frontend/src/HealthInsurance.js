@@ -69,9 +69,19 @@ class HealthInsurance extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEnabled: true
+            isEnabled: true,
+            ifInsurance: true
         }
         // this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    }
+
+    handleInsuranceChange(fieldName, values) {
+        if(values[0] === 1){
+            this.setState({ifInsurance: false})
+        }else {
+            this.setState({ifInsurance: true})
+            this.props.healthInsurance.form.resetFields(fieldName);
+        }
     }
 
     render(){
@@ -89,7 +99,7 @@ class HealthInsurance extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -103,7 +113,7 @@ class HealthInsurance extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false,
+                                            required: true,
                                             type: "array"
                                         }
                                     ]
@@ -122,7 +132,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -141,7 +151,7 @@ class HealthInsurance extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(<Cascader
@@ -159,7 +169,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -176,7 +186,7 @@ class HealthInsurance extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -196,7 +206,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -213,7 +223,7 @@ class HealthInsurance extends Component {
                                     rules: [
                                         {
                                             message: {message},
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -231,7 +241,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -251,7 +261,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -269,7 +279,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
@@ -287,13 +297,16 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
                                     <Cascader
                                         placeholder="Select.."
                                         options={YesNoResponse}
+                                        onChange={this
+                                            .handleInsuranceChange
+                                            .bind(this, "specifysourceHealthInsurance")}
                                     ></Cascader>)}
                                 </Form.Item>
                             </Col>
@@ -310,7 +323,7 @@ class HealthInsurance extends Component {
                                         }
                                     ]
                                 })(
-                                    <Input/>)}
+                                    <Input disabled={this.state.ifInsurance}/>)}
                                 </Form.Item>
                             </Col>
                             <Col span={8}>
@@ -321,7 +334,7 @@ class HealthInsurance extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(

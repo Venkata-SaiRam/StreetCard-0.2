@@ -11,7 +11,7 @@ from .models import SocialWorker, IncomeAndSources, NonCashBenefits, Enrollment,
     ChildWelfareFoster, GeneralHealthStatus, DentalHealthStatus, FamilyCriticalIssues, SexualExploitation, SafeandAppropriateExit, \
     Counseling, MentalHealthStatus, SchoolStatus, SexualOrientation, ReferralSource, AftercarePlans,ProjectCompletionStatus, \
     PregancyStatus, RHYBCPStatus, RHYConnections, JuvenileJusticeSystem, DateofEngagement, PathFundedServices, currentlivingsituation, \
-    referralsprovidedpath, pathstatus
+    referralsprovidedpath, pathstatus, CoordinatedEntryAssessment,CoordinatedEntryEvent
 from .utils import check_and_assign
 from .utils import primary_key_generator
 
@@ -397,6 +397,16 @@ class pathstatusSerializer(serializers.ModelSerializer):
         model = pathstatus
         fields = '__all__'
 
+class CoordinatedEntryAssessmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CoordinatedEntryAssessment
+        fields = '__all__'
+
+class CoordinatedEntryEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CoordinatedEntryEvent
+        fields = '__all__'
+
 class EnrollmentSerializer(serializers.ModelSerializer):
     income_and_sources = IncomeSerializer(required=False)
     non_cash_benefits = NonCashBenefitsSerializer(required=False)
@@ -441,6 +451,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
     currentlivingsituationpath = CurrentLivingSituationSerializer(required=False)
     referralpath = referralprovidedpathSerializer(required=False)
     pathstatuspath =  pathstatusSerializer(required=False)
+    coordinatedentryESG = CoordinatedEntryAssessmentSerializer(required=False)
+    coordinatedentryeventESG =CoordinatedEntryEventSerializer(required=False)
 
 
     class Meta:
@@ -456,7 +468,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
                   'SafeandAppropriateExitRHY',  'CounselingRHY', 'MentalHealthStatusRHY', 'SchoolStatusRHY','RHYBCPStatusRHY','SexualOrientationRHY',
                   'PregancyStatusRHY','AftercarePlansRHY','ProjectCompletionStatusRHY','ReferralSourceRHY','LabourExploitationTraffickingRHY',
                   'RHYConnectionsRHY','JuvenileJusticeSystemRHY', 'DateofEngagementPath','PathFundedServicesPath' , 'currentlivingsituationpath' ,
-                  'referralpath','pathstatuspath']
+                  'referralpath','pathstatuspath','coordinatedentryESG','coordinatedentryeventESG']
 
     def create(self, validated_data):
 
@@ -503,6 +515,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         current_living_situation_path = check_and_assign('currentlivingsituationpath',validated_data)
         referral_provided_path = check_and_assign('referralpath',validated_data)
         path_status_path = check_and_assign('pathstatuspath',validated_data)
+        coordinated_entry_assessment = check_and_assign('coordinatedentryESG', validated_data)
+        coordinated_entry_event = check_and_assign('coordinatedentryeventESG',validated_data)
 
         enroll = Enrollment.objects.create(**validated_data)
 
@@ -608,6 +622,10 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             referralsprovidedpath.objects.create(EnrollmentID_id=enroll.EnrollmentID,**referral_provided_path)
         if path_status_path is not None:
             pathstatus.objects.create(EnrollmentID_id=enroll.EnrollmentID,**path_status_path)
+        if coordinated_entry_assessment is not None:
+            CoordinatedEntryAssessment.objects.create(ENrollmentID_id=enroll.EnrollmentID,**coordinated_entry_assessment)
+        if coordinated_entry_event is not None:
+            CoordinatedEntryEvent.objects.create(EnrollmentID_id=enroll.EnrollmentID,**coordinated_entry_event)
 
 
         return enroll
@@ -762,5 +780,11 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         if pathstatus.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
             response['pathstatus_path'] = pathstatusSerializer(
                 pathstatus.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if CoordinatedEntryAssessment.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['coordinated_esg_entry'] = CoordinatedEntryAssessmentSerializer(
+                CoordinatedEntryAssessment.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
+        if CoordinatedEntryEvent.objects.filter(EnrollmentID_id=response['EnrollmentID']).exists():
+            response['coordinated_esg_entryevent'] = CoordinatedEntryEventSerializer(
+                CoordinatedEntryEvent.objects.get(EnrollmentID_id=response['EnrollmentID'])).data
 
         return response

@@ -83,7 +83,7 @@ class ServicesProvidedPATH extends Component {
                                         rules: [
                                             {
                                                 message: {message},
-                                                required: false
+                                                required: true
                                             }
                                         ]
                                     })(
@@ -98,7 +98,7 @@ class ServicesProvidedPATH extends Component {
                                         {
                                             message: {message},
                                             type: "array",
-                                            required: false
+                                            required: true
                                         }
                                     ]
                                 })(
